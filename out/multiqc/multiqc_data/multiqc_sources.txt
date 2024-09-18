@@ -1,0 +1,7 @@
+Module	Section	Sample Name	Source
+FastQC	all_sections	SAMPLE3_SE_2	/wynton/group/clelland/pacvar/nf-core-pacvar/work/b2/3259c2323309487a5925f39279a714/9/SAMPLE3_SE_2_fastqc.zip
+FastQC	all_sections	SAMPLE3_SE_1	/wynton/group/clelland/pacvar/nf-core-pacvar/work/b2/3259c2323309487a5925f39279a714/8/SAMPLE3_SE_1_fastqc.zip
+FastQC	all_sections	SAMPLE2_PE_2	/wynton/group/clelland/pacvar/nf-core-pacvar/work/b2/3259c2323309487a5925f39279a714/5/SAMPLE2_PE_2_fastqc.zip
+FastQC	all_sections	SAMPLE1_PE_1	/wynton/group/clelland/pacvar/nf-core-pacvar/work/b2/3259c2323309487a5925f39279a714/6/SAMPLE1_PE_1_fastqc.zip
+FastQC	all_sections	SAMPLE2_PE_1	/wynton/group/clelland/pacvar/nf-core-pacvar/work/b2/3259c2323309487a5925f39279a714/4/SAMPLE2_PE_1_fastqc.zip
+FastQC	all_sections	SAMPLE1_PE_2	/wynton/group/clelland/pacvar/nf-core-pacvar/work/b2/3259c2323309487a5925f39279a714/7/SAMPLE1_PE_2_fastqc.zip
