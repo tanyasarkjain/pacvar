@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pbds:ConsensusReadSet CreatedAt="2024-09-18T23:51:09.223Z" MetaType="PacBio.DataSet.ConsensusReadSet" Name="sample1" Tags="barcoded" TimeStampedName="sample1-240918_235109242" UniqueId="b4ae24b2-1594-4786-87a5-ad0dc17b1dc1" Version="3.0.1" xmlns:pbbase="http://pacificbiosciences.com/PacBioBaseDataModel.xsd" xmlns:pbdm="http://pacificbiosciences.com/PacBioDataModel.xsd" xmlns:pbmeta="http://pacificbiosciences.com/PacBioCollectionMetadata.xsd" xmlns:pbpn="http://pacificbiosciences.com/PacBioPartNumbers.xsd" xmlns:pbrk="http://pacificbiosciences.com/PacBioReagentKit.xsd" xmlns:pbsample="http://pacificbiosciences.com/PacBioSampleInfo.xsd" xmlns="http://pacificbiosciences.com/PacBioDatasets.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pacificbiosciences.com/PacBioDatasets.xsd" xmlns:pbds="http://pacificbiosciences.com/PacBioDatasets.xsd">
+	<pbds:DataSetMetadata>
+		<pbds:TotalLength>137992811</pbds:TotalLength>
+		<pbds:NumRecords>23152</pbds:NumRecords>
+	</pbds:DataSetMetadata>
+	<pbbase:ExternalResources>
+		<pbbase:ExternalResource CreatedAt="2024-09-18T23:51:09.223Z" MetaType="PacBio.ConsensusReadFile.ConsensusReadBamFile" ResourceId="sample1.bam" TimeStampedName="pacbio_consensusreadfile_consensusreadbamfile-240918_235109223" UniqueId="c41a2681-bd1e-46a0-9828-38961725a7f3" Version="3.0.1">
+			<pbbase:FileIndices>
+				<pbbase:FileIndex CreatedAt="2024-09-18T23:51:09.223Z" MetaType="PacBio.Index.PacBioIndex" ResourceId="sample1.bam.pbi" TimeStampedName="pacbio_index_pacbioindex-240918_235109223" UniqueId="c558b3ec-eb99-412e-b1db-3f00a2cb7ba3" Version="3.0.1" />
+			</pbbase:FileIndices>
+			<pbbase:ExternalResources>
+				<pbbase:ExternalResource CreatedAt="2024-09-18T23:51:09.223Z" Description="Points to the barcodes.fasta file." MetaType="PacBio.BarcodeFile.BarcodeFastaFile" Name="Barcodes FASTA" ResourceId="barcodes_D01.fasta" TimeStampedName="pacbio_barcodefile_barcodefastafile-240918_235109223" UniqueId="7a95f0cf-b567-4ba0-a967-41c57da3b124" Version="3.0.1" />
+				<pbbase:ExternalResource CreatedAt="2024-09-18T23:51:09.232Z" MetaType="PacBio.FileTypes.txt" ResourceId="sample1.lima.counts" TimeStampedName="pacbio_filetypes_txt-240918_235109232" UniqueId="7aa4e1d4-adcb-4439-9eef-d132650d0c5c" Version="3.0.1" />
+				<pbbase:ExternalResource CreatedAt="2024-09-18T23:51:09.232Z" MetaType="PacBio.FileTypes.txt" ResourceId="sample1.lima.report" TimeStampedName="pacbio_filetypes_txt-240918_235109232" UniqueId="ad60deff-4971-4b85-943c-e87d36adcb7a" Version="3.0.1" />
+				<pbbase:ExternalResource CreatedAt="2024-09-18T23:51:09.232Z" MetaType="PacBio.FileTypes.txt" ResourceId="sample1.lima.summary" TimeStampedName="pacbio_filetypes_txt-240918_235109232" UniqueId="12f547dc-6343-4318-a058-1234bf3f7d64" Version="3.0.1" />
+			</pbbase:ExternalResources>
+		</pbbase:ExternalResource>
+	</pbbase:ExternalResources>
+</pbds:ConsensusReadSet>

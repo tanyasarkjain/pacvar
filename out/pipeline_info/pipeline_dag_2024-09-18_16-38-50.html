@@ -1,0 +1,100 @@
+<!--
+  ~ Copyright 2013-2024, Seqera Labs
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<html>
+<head>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+</head>
+<body>
+<pre class="mermaid" style="text-align: center;">
+flowchart TB
+    subgraph " "
+    v2["channel.fromSamplesheet"]
+    v5["data"]
+    v26["Channel.of"]
+    v29["Channel.fromPath"]
+    v32["ch_workflow_summary"]
+    v36["ch_methods_description"]
+    end
+    subgraph NFCORE_PACVAR
+    subgraph PACVAR
+    v6([LIMA])
+    v43([MULTIQC])
+    v3(( ))
+    v23(( ))
+    v40(( ))
+    v41(( ))
+    v42(( ))
+    v47(( ))
+    end
+    end
+    subgraph " "
+    v7[" "]
+    v8[" "]
+    v9[" "]
+    v10[" "]
+    v11[" "]
+    v12[" "]
+    v13[" "]
+    v14[" "]
+    v15[" "]
+    v16["$out0"]
+    v17[" "]
+    v18[" "]
+    v19[" "]
+    v20[" "]
+    v44[" "]
+    v45[" "]
+    v46[" "]
+    v48["multiqc_report"]
+    end
+    v2 --> v3
+    v5 --> v6
+    v3 --> v6
+    v6 --> v20
+    v6 --> v19
+    v6 --> v18
+    v6 --> v17
+    v6 --> v16
+    v6 --> v15
+    v6 --> v14
+    v6 --> v13
+    v6 --> v12
+    v6 --> v11
+    v6 --> v10
+    v6 --> v9
+    v6 --> v8
+    v6 --> v7
+    v26 --> v23
+    v29 --> v40
+    v32 --> v23
+    v36 --> v23
+    v23 --> v43
+    v40 --> v43
+    v41 --> v43
+    v42 --> v43
+    v43 --> v46
+    v43 --> v45
+    v43 --> v44
+    v43 --> v47
+    v47 --> v48
+
+</pre>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true });
+</script>
+</body>
+</html>
