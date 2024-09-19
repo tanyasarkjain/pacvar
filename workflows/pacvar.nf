@@ -20,6 +20,7 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_pacv
 
 include { SET_VALUE_CHANNEL as SET_BARCODES_CHANNEL } from '../subworkflows/local/set_value_channel'
 
+include { PBMM2 } from '../modules/local/pbmm2/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -48,7 +49,14 @@ workflow PACVAR {
     main:
 
     SET_BARCODES_CHANNEL(params.barcodes) // - barcodes fasta
+    
     LIMA(ch_samplesheet, SET_BARCODES_CHANNEL.out.data)  // demultiplex 
+
+
+    println "Fasta parameter: ${params.fasta}"
+    println "genome name: ${params.genome}"
+    
+    PBMM2(LIMA.out.bam, file(params.fasta)) // align using pbmm2
 
 
     //MULTIQC STUFF - NOT QUITE SURE WHAT THIS DOES

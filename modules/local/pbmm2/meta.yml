@@ -1,0 +1,24 @@
+Name:pbmm2
+description: A minimap2 SMRT wrapper for PacBio data
+keywords:
+  - pacbio
+  -align
+tools:
+  - pbmm2:
+      description: A minimap2 SMRT wrapper for PacBio data
+      homepage: https://github.com/PacificBiosciences/pbmm2
+input:
+  - bam:
+      type: file
+      description: | 
+	pacbio reads
+  - fasta
+      type: file
+      description: |
+        reference genome
+output:
+  - bam:
+      type: file
+      description: |
+	aligned reads
+

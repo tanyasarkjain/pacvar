@@ -16,12 +16,13 @@ nextflow.enable.dsl = 2
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+include { getGenomeAttribute	  } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
+params.fasta = getGenomeAttribute('fasta')
 
 include { PACVAR  } from './workflows/pacvar'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
 
-include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -32,7 +33,7 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_pacv
 // TODO nf-core: Remove this line if you don't need a FASTA file
 //   This is an example of how to use getGenomeAttribute() to fetch parameters
 //   from igenomes.config using `--genome`
-params.fasta = getGenomeAttribute('fasta')
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -45,10 +46,18 @@ params.fasta = getGenomeAttribute('fasta')
 //
 workflow NFCORE_PACVAR {
 
+
     take:
     samplesheet // channel: samplesheet read in from --input
 
+
+
+
     main:
+ 
+    println "pacvar Fasta parameter: ${params.fasta}"
+    println "pacvar genome name: ${params.genome}"
+
 
     //
     // WORKFLOW: Run pipeline
@@ -56,6 +65,10 @@ workflow NFCORE_PACVAR {
     PACVAR (
         samplesheet
     )
+
+
+
+
 
     emit:
     multiqc_report = PACVAR.out.multiqc_report // channel: /path/to/multiqc_report.html
@@ -70,6 +83,10 @@ workflow NFCORE_PACVAR {
 workflow {
 
     main:
+
+
+    println "main Fasta parameter: ${params.fasta}"
+    println "main genome name: ${params.genome}"
 
     //
     // SUBWORKFLOW: Run initialisation tasks
