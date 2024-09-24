@@ -1,10 +1,9 @@
 /*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { FASTQC                 } from '../modules/nf-core/fastqc/main'
 include { MULTIQC                } from '../modules/nf-core/multiqc/main'
 include { paramsSummaryMap       } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -13,36 +12,42 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_pacv
 
 
 /*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT LOCAL MODULES/SUBWORKFLOWS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
 include { SET_VALUE_CHANNEL as SET_BARCODES_CHANNEL } from '../subworkflows/local/set_value_channel'
-
+include { SET_VALUE_CHANNEL } from '../subworkflows/local/set_value_channel'
 include { PBMM2 } from '../modules/local/pbmm2/main'
 
 /*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
 //
 // MODULE: Installed directly from nf-core/modules
 //
 
-include { LIMA }                        from '../modules/nf-core/lima/main'
+include { LIMA } from '../modules/nf-core/lima/main'
+include { DEEPVARIANT_RUNDEEPVARIANT } from '../modules/nf-core/deepvariant/rundeepvariant/main'
+include { SAMTOOLS_CONVERT as BAM_TO_CRAM } from '../modules/nf-core/samtools/convert/main'
+include { SAMTOOLS_INDEX } from '../modules/nf-core/samtools/index/main'
+include { SAMTOOLS_SORT } from '../modules/nf-core/samtools/sort/main'
+
 
 /*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
 
 workflow PACVAR {
-
+    
+    //TODO: from the beginning of the workflow, probably want to flatmap
     take:
     ch_samplesheet // channel: samplesheet read in from --input
 
@@ -52,22 +57,85 @@ workflow PACVAR {
     
     LIMA(ch_samplesheet, SET_BARCODES_CHANNEL.out.data)  // demultiplex 
 
+    PBMM2(LIMA.out.bam, file(params.fasta)) // align using pbmm2 - prob want to couple with some meta?
 
-    println "Fasta parameter: ${params.fasta}"
-    println "genome name: ${params.genome}"
+    //
+
+    //TODO: May want to change to use flatmap from the get, go (to avoid the for loop)
+    // PBMM2.out.aligned_bam_ch
+    //     .flatMap { tuple ->
+    //         def metadata = tuple[0]
+    //         def sampleBams = tuple[1]
+    //             // Transform each sample BAM into a tuple with the associated metadata
+    //         sampleBams.collect { bam -> [metadata, bam] }
+    //     }.view()
+
+
+    //should maybe transform the metadata info to contain the sample barcode as well
+
+    // PBMM2.out.aligned_bam_ch
+    //     .flatMap { tuple ->
+    //         def metadata = tuple[0]
+    //         def sampleBams = tuple[1]
+    //             // Transform each sample BAM into a tuple with the associated metadata
+    //         sampleBams.collect { bam -> [metadata, bam] }
+    // }.flatMap{val -> val}.view()
+
+
+    comb = PBMM2.out.aligned_bam_ch
+        .flatMap { tuple ->
+            def metadata = tuple[0]
+            def sampleBams = tuple[1]
+            // Transform each sample BAM into a tuple with the associated metadata
+            sampleBams.collect { bam ->
+                // Create a tuple with metadata and BAM path in the desired format
+                [metadata, bam]
+            }
+        }
+
+    PBMM2.out.aligned_bam_ch.view()
+    comb.view()
+
+
+
     
-    PBMM2(LIMA.out.bam, file(params.fasta)) // align using pbmm2
 
+    SAMTOOLS_SORT(comb,params.fasta)
+    
+    // Assuming 'inputChannel' is your original channel containing the tuples
+
+
+
+
+    //PBMM2.out.aligned_bam_ch.flatMap{ list_of_bams -> list_of_bams }.view()
+
+    //bam_paths_channel =  PBMM2.out.aligned_bam_ch.map { tuple -> tuple[1] }.flatMap{ list_of_bams -> list_of_bams }
+
+    //combined_channel = bam_paths_channel.combine(Channel.fromList([params.fasta]))
+    //ombined_channel.view()  // Debugging output
+
+    //SAMTOOLS_SORT(combined_channel, meta_ch)
+    
+
+    //SAMTOOLS_INDEX(PBMM2.out.aligned_bam_ch)
+
+    //wrap up the bam and the index and the meta - all into one new channel
+    // aligned_indexed_ch = PBMM2.out.aligned_bam_ch
+    //     .combine(SAMTOOLS_INDEX.out.bai)
+    //     .map{(bam_tuple, bai_tuple) ->
+    //         def (meta1, bam) = bam_tuple
+    //         def (meta2, bai) = bai_tuple
+    //         return [meta1, bam, bai]
+    //     }
+
+    //not quite sure if converting to a cram is really better 
+    //BAM_TO_CRAM(aligned_indexed_ch, params.fasta, params.fasta_fai)
 
     //MULTIQC STUFF - NOT QUITE SURE WHAT THIS DOES
      
     // MODULE: MultiQC
-    //
-
-
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
-
 
     //
     // Collate and save software versions
@@ -79,8 +147,6 @@ workflow PACVAR {
             sort: true,
             newLine: true
         ).set { ch_collated_versions }
-
-    //
 
 
     ch_multiqc_config        = Channel.fromPath(
@@ -111,8 +177,6 @@ workflow PACVAR {
             sort: true
         )
     )
-
-
     
     MULTIQC (
         ch_multiqc_files.collect(),
@@ -126,13 +190,10 @@ workflow PACVAR {
     versions = ch_versions
     LIMA.out.bam
     
-    //not sure what to emit - maybe emit nothing to start
-
 }
 
 /*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     THE END
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-

@@ -14,7 +14,7 @@ process PBMM2 {
     path ref_file // not quite sure how to pass in this 
 
     output:
-    path "*_aligned.bam", emit: aligned_bam_ch
+    tuple val(meta), path("*_aligned.bam") , emit: aligned_bam_ch
 
     //controls when the task is executed -
     when:
@@ -22,13 +22,13 @@ process PBMM2 {
 
     script:
     """
-    OUT_EXT="bam"
-
+    
     for bam_file in $bam_files; do
-      prefix="\${bam_file%.bam}_aligned"
-
-      pbmm2 align $ref_file \$bam_file \${prefix}_aligned.bam
+        prefix="\${bam_file%.bam}_aligned"
+        pbmm2 align $ref_file \$bam_file \${prefix}_aligned.bam
     done
+
+
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

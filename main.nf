@@ -18,6 +18,7 @@ nextflow.enable.dsl = 2
 */
 include { getGenomeAttribute	  } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
 params.fasta = getGenomeAttribute('fasta')
+params.fasta_fai = getGenomeAttribute('fasta_fai')
 
 include { PACVAR  } from './workflows/pacvar'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
