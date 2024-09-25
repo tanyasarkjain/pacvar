@@ -9,9 +9,10 @@ process PBMM2 {
 
 
     //Takes in a BAM file
+    meta = null
     input:
-    tuple val(meta), path(bam_files)
-    path ref_file // not quite sure how to pass in this 
+    tuple val(meta), path(bam)
+    path(fasta)
 
     output:
     tuple val(meta), path("*_aligned.bam") , emit: aligned_bam_ch
@@ -23,12 +24,8 @@ process PBMM2 {
     script:
     """
     
-    for bam_file in $bam_files; do
-        prefix="\${bam_file%.bam}_aligned"
-        pbmm2 align $ref_file \$bam_file \${prefix}_aligned.bam
-    done
-
-
+    prefix="${bam}_aligned"
+    pbmm2 align $fasta $bam \${prefix}.bam
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
