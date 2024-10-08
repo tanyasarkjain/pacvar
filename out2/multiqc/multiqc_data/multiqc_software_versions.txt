@@ -1,0 +1,2 @@
+Sample	nf-core/pacvar	Nextflow
+Workflow	1.0.dev0	24.4.4

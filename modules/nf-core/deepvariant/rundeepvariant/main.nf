@@ -9,10 +9,9 @@ process DEEPVARIANT_RUNDEEPVARIANT {
 
     input:
     tuple val(meta), path(input), path(index), path(intervals)
-    tuple val(meta2), path(fasta)
-    tuple val(meta3), path(fai)
-    tuple val(meta4), path(gzi)
-    tuple val(meta5), path(par_bed)
+    path(fasta) //changing for now to get rid of the meta?
+    path(fai)  //changing to get rid of the meta?
+    //tuple val(meta5), path(par_bed) //what is the purpose of this???
 
     output:
     tuple val(meta), path("${prefix}.vcf.gz")      ,  emit: vcf
@@ -32,11 +31,12 @@ process DEEPVARIANT_RUNDEEPVARIANT {
     def args = task.ext.args ?: ''
     prefix = task.ext.prefix ?: "${meta.id}"
     def regions = intervals ? "--regions=${intervals}" : ""
-    def par_regions = par_bed ? "--par_regions_bed=${par_bed}" : ""
+    //def par_regions = par_bed ? "--par_regions_bed=${par_bed}" : ""
     // WARN https://github.com/nf-core/modules/pull/5801#issuecomment-2194293755
     // FIXME Revert this on next version bump
     def VERSION = '1.6.1'
 
+    //TODO: change cwd back to tmp 
     """
     /opt/deepvariant/bin/run_deepvariant \\
         --ref=${fasta} \\
@@ -45,8 +45,8 @@ process DEEPVARIANT_RUNDEEPVARIANT {
         --output_gvcf=${prefix}.g.vcf.gz \\
         ${args} \\
         ${regions} \\
-        ${par_regions} \\
-        --intermediate_results_dir=tmp \\
+        --model_type="PACBIO" \\
+        --intermediate_results_dir=tmp \\ 
         --num_shards=${task.cpus}
 
     cat <<-END_VERSIONS > versions.yml

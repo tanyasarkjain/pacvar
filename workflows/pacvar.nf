@@ -94,21 +94,10 @@ workflow PACVAR {
         [metadata, bam, bai, []]
      }.view()
 
-    //TODO: allow for optional regions
 
-
-    // tuple val(meta), path(input), path(index), path(intervals)
-    // tuple val(meta2), path(fasta)
-    // tuple val(meta3), path(fai)
-    // tuple val(meta4), path(gzi)
-    // tuple val(meta5), path(par_bed)
-
-
-    //DEEPVARIANT_RUNDEEPVARIANT()
-
-
-
-
+    DEEPVARIANT_RUNDEEPVARIANT(deepvar_input_ch,
+                                params.fasta,
+                                params.fasta_fai)
 
 
     //MULTIQC STUFF - NOT QUITE SURE WHAT THIS DOES     
