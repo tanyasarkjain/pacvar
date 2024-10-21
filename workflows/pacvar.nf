@@ -36,7 +36,7 @@ include { DEEPVARIANT_RUNDEEPVARIANT } from '../modules/nf-core/deepvariant/rund
 include { SAMTOOLS_CONVERT as BAM_TO_CRAM } from '../modules/nf-core/samtools/convert/main'
 include { SAMTOOLS_INDEX } from '../modules/nf-core/samtools/index/main'
 include { SAMTOOLS_SORT } from '../modules/nf-core/samtools/sort/main'
-
+include { GATK4_HAPLOTYPECALLER } from '../modules/nf-core/gatk4/haplotypecaller/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -44,12 +44,16 @@ include { SAMTOOLS_SORT } from '../modules/nf-core/samtools/sort/main'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-
 workflow PACVAR {
     
     //TODO: from the beginning of the workflow, probably want to flatmap
     take:
     ch_samplesheet // channel: samplesheet read in from --input
+    fasta // channel: includes the metadata associated with the fasta as well 
+    fasta_fai // channel: includes the metadata associateds the fasta index as well
+    dict
+    dbsnp
+    dbsnp_tbi
 
     main:
 
@@ -95,10 +99,38 @@ workflow PACVAR {
      }.view()
 
 
-    DEEPVARIANT_RUNDEEPVARIANT(deepvar_input_ch,
-                                params.fasta,
-                                params.fasta_fai)
+    gatk4_input_ch = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).view()
+        .map{tuple ->
+        def metadata = tuple[0]
+        def bam = tuple[1]
+        def bai = tuple[2]
+        [metadata, bam, bai, [], []]
+     }.view()
 
+
+
+
+    //SINGLE variant calling (may want to move into a different sub-workflow (also should allow somehow for an optional argument))
+    //meta data is kinda unneeded 
+
+
+    dict.view { item -> 
+        println "Dict item: ${item}"
+    }
+
+    GATK4_HAPLOTYPECALLER(gatk4_input_ch, 
+                        fasta,
+                        fasta_fai,
+                        dict,
+                        dbsnp,
+                        dbsnp_tbi
+                        )
+
+    // Frustrated by the fact that this isn't working :( 
+
+    // DEEPVARIANT_RUNDEEPVARIANT(deepvar_input_ch,
+    //                             params.fasta,
+    //                             params.fasta_fai)
 
     //MULTIQC STUFF - NOT QUITE SURE WHAT THIS DOES     
     // MODULE: MultiQC

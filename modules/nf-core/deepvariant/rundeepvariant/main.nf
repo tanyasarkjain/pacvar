@@ -5,13 +5,12 @@ process DEEPVARIANT_RUNDEEPVARIANT {
     // FIXME Conda is not supported at the moment
     // BUG https://github.com/nf-core/modules/issues/1754
     // BUG https://github.com/bioconda/bioconda-recipes/issues/30310
-    container "nf-core/deepvariant:1.6.1"
+    container "nf-core/deepvariant:1.5.0"
 
     input:
     tuple val(meta), path(input), path(index), path(intervals)
-    path(fasta) //changing for now to get rid of the meta?
-    path(fai)  //changing to get rid of the meta?
-    //tuple val(meta5), path(par_bed) //what is the purpose of this???
+    path(fasta)
+    path(fai)
 
     output:
     tuple val(meta), path("${prefix}.vcf.gz")      ,  emit: vcf
@@ -34,9 +33,10 @@ process DEEPVARIANT_RUNDEEPVARIANT {
     //def par_regions = par_bed ? "--par_regions_bed=${par_bed}" : ""
     // WARN https://github.com/nf-core/modules/pull/5801#issuecomment-2194293755
     // FIXME Revert this on next version bump
+    //        ${par_regions} \\
+
     def VERSION = '1.6.1'
 
-    //TODO: change cwd back to tmp 
     """
     /opt/deepvariant/bin/run_deepvariant \\
         --ref=${fasta} \\
@@ -45,8 +45,7 @@ process DEEPVARIANT_RUNDEEPVARIANT {
         --output_gvcf=${prefix}.g.vcf.gz \\
         ${args} \\
         ${regions} \\
-        --model_type="PACBIO" \\
-        --intermediate_results_dir=tmp \\ 
+        --intermediate_results_dir=tmp \\
         --num_shards=${task.cpus}
 
     cat <<-END_VERSIONS > versions.yml

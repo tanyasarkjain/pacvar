@@ -1,0 +1,4 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+2	16/ff3518	30040	NFCORE_PACVAR:PACVAR:LIMA (sample2)	CACHED	0	2024-10-07 21:51:52.896	19.4s	1s	129.3%	53.4 MB	2.6 GB	7.2 MB	5 MB
+1	8f/bdac1d	30038	NFCORE_PACVAR:PACVAR:LIMA (sample1)	CACHED	0	2024-10-07 21:51:52.884	19.4s	1s	129.8%	14.2 MB	1.1 GB	7.2 MB	5 MB
+3	42/695a5c	30550	NFCORE_PACVAR:PACVAR:MULTIQC	ABORTED	-	2024-10-07 22:04:36.013	-	-	-	-	-	-	-

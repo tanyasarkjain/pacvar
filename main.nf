@@ -17,12 +17,33 @@ nextflow.enable.dsl = 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { getGenomeAttribute	  } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
+
 params.fasta = getGenomeAttribute('fasta')
 params.fasta_fai = getGenomeAttribute('fasta_fai')
+params.dbsnp = getGenomeAttribute('dbsnp')
+params.dbsnp_tbi = getGenomeAttribute('dbsnp_tbi')
+params.dict = getGenomeAttribute('dict')
 
 include { PACVAR  } from './workflows/pacvar'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
+
+// Initialize genomic attibutes with associated meta data maps
+fasta = params.fasta ? Channel.fromPath(params.fasta).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+fasta_fai = params.fasta_fai ? Channel.fromPath(params.fasta_fai).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+dict = params.dict ? Channel.fromPath(params.dict).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty
+dbsnp = params.dbsnp ? Channel.fromPath(params.dbsnp).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+dbsnp_tbi = params.dbsnp_tbi ? Channel.fromPath(params.dbsnp_tbi).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+
+
+fasta.view { item -> 
+    println "fasta item!!: ${item}"
+}
+
+
+dict.view { item -> 
+    println "Dict item!!: ${item}"
+}
 
 
 /*
@@ -50,25 +71,30 @@ workflow NFCORE_PACVAR {
 
     take:
     samplesheet // channel: samplesheet read in from --input
-
-
+    fasta
+    fasta_fai
+    dict
+    dbsnp
+    dbsnp_tbi
 
 
     main:
  
-    println "pacvar Fasta parameter: ${params.fasta}"
-    println "pacvar genome name: ${params.genome}"
+    // println "pacvar Fasta parameter: ${params.fasta}"
+    // println "pacvar genome name: ${params.genome}"
 
 
     //
     // WORKFLOW: Run pipeline
     //
     PACVAR (
-        samplesheet
+        samplesheet,
+        fasta,
+        fasta_fai,
+        dict,
+        dbsnp,
+        dbsnp_tbi
     )
-
-
-
 
 
     emit:
@@ -84,7 +110,6 @@ workflow NFCORE_PACVAR {
 workflow {
 
     main:
-
 
     println "main Fasta parameter: ${params.fasta}"
     println "main genome name: ${params.genome}"
@@ -106,7 +131,12 @@ workflow {
     // WORKFLOW: Run main workflow
     //
     NFCORE_PACVAR (
-        PIPELINE_INITIALISATION.out.samplesheet
+        PIPELINE_INITIALISATION.out.samplesheet,
+        fasta,
+        fasta_fai,
+        dict,
+        dbsnp,
+        dbsnp_tbi
     )
 
     //

@@ -41,8 +41,7 @@ process SAMTOOLS_SORT {
         -T ${prefix} \\
         --threads $task.cpus \\
         ${reference} \\
-        -o ${prefix}.${extension} \\
-        -
+        -o ${prefix}.${extension} 
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
