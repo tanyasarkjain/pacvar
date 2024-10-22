@@ -25,8 +25,24 @@
 
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
-1. Demultiplex Samples (LIMA)
-2. 
+Pre-Processing
+1. Demultiplex Samples 
+2. Alignment against reference genome 
+3. Index and Sort
+Output: Cleaned up BAM files
+
+Variant Calling and Phasing
+1. Single Nucleotide Variant Calling
+2. Structural Nucleotide Variant Calling
+3. Copy Number Variant Calling
+4. Sorting of VCF files
+5. Phasing of VCF files
+
+Repeat Characterization and Visualization
+1. Methylation Quantification
+2. Tandem Repeat Genotyping
+3. Repeat VCF creation
+4. Repeat Motif Plot creation
 
 ## Usage
 
@@ -41,11 +57,11 @@ First, prepare a samplesheet with your input data that looks as follows:
 `samplesheet.csv`:
 
 ```csv
-sample,fastq_1,fastq_2
+sample,bam_1,bai_1
 CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
 ```
 
-Each row represents a fastq file (single-end) or a pair of fastq files (paired end).
+Each row represents a seperate run from PACBIO, with a BAM file and associated index. 
 
 -->
 
@@ -76,9 +92,6 @@ For more details about the output files and reports, please refer to the
 
 nf-core/pacvar was originally written by Tanya Sarkin Jain.
 
-We thank the following people for their extensive assistance in the development of this pipeline:
-
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
 
 ## Contributions and Support
 
