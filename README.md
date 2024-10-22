@@ -21,7 +21,7 @@
 
 **nf-core/pacvar** is a bioinformatics pipeline that analyzes and annotate Pacbio long read sequencing - specifically it is a pipeline that can preform demultiplexing, alignment, phasing, variant calling, and characterization of the repeat expansions for the PureTarget Panel. It takes in a SampleSheet, and BAM files as input.
 
-![nf-core/rnaseq metro map](docs/images/final_metromap.png)
+![nf-core/rnaseq metro map](docs/images/final_metromap.svg)
 
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
