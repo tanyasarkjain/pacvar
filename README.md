@@ -28,7 +28,8 @@
 **Pre-Processing**
 1. Demultiplex Samples LIMA
 2. Alignment against reference genome PBMM2
-3. Index and Sort SANTOOLS BCFTOOLS
+3. Index and Sort
+
 Output: Cleaned up BAM files
 
 **Variant Calling and Phasing**
@@ -37,6 +38,7 @@ Output: Cleaned up BAM files
 3. Copy Number Variant Calling
 4. Sorting of VCF files
 5. Phasing of VCF files
+
 Output: Phased VCF Files
 
 **Repeat Characterization and Visualization**
@@ -44,6 +46,7 @@ Output: Phased VCF Files
 2. Tandem Repeat Genotyping
 3. Repeat VCF creation
 4. Repeat Motif Plot creation
+
 Output: Repeat Plots + Repeat Genotyping
 
 ## Usage
