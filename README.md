@@ -26,7 +26,7 @@
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
 Pre-Processing
-1. Demultiplex Samples 
+1. Demultiplex Samples [LIMA]
 2. Alignment against reference genome 
 3. Index and Sort
 Output: Cleaned up BAM files
