@@ -25,24 +25,26 @@
 
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
-Pre-Processing
-1. Demultiplex Samples [LIMA]
-2. Alignment against reference genome 
-3. Index and Sort
+**Pre-Processing
+**1. Demultiplex Samples LIMA
+2. Alignment against reference genome PBMM2
+3. Index and Sort SANTOOLS BCFTOOLS
 Output: Cleaned up BAM files
 
-Variant Calling and Phasing
-1. Single Nucleotide Variant Calling
+**Variant Calling and Phasing
+**1. Single Nucleotide Variant Calling
 2. Structural Nucleotide Variant Calling
 3. Copy Number Variant Calling
 4. Sorting of VCF files
 5. Phasing of VCF files
+Output: Phased VCF Files
 
-Repeat Characterization and Visualization
-1. Methylation Quantification
+**Repeat Characterization and Visualization
+**1. Methylation Quantification
 2. Tandem Repeat Genotyping
 3. Repeat VCF creation
 4. Repeat Motif Plot creation
+Output: Repeat Plots + Repeat Genotyping
 
 ## Usage
 
