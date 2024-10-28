@@ -36,15 +36,14 @@ dbsnp = params.dbsnp ? Channel.fromPath(params.dbsnp).map{ it -> [ [id:it.baseNa
 dbsnp_tbi = params.dbsnp_tbi ? Channel.fromPath(params.dbsnp_tbi).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
 
 
-fasta.view { item -> 
+fasta.view { item ->
     println "fasta item!!: ${item}"
 }
 
 
-dict.view { item -> 
+dict.view { item ->
     println "Dict item!!: ${item}"
 }
-
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -79,7 +78,7 @@ workflow NFCORE_PACVAR {
 
 
     main:
- 
+
     // println "pacvar Fasta parameter: ${params.fasta}"
     // println "pacvar genome name: ${params.genome}"
 
@@ -106,6 +105,7 @@ workflow NFCORE_PACVAR {
     RUN MAIN WORKFLOW
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+
 
 workflow {
 

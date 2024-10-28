@@ -1,3 +1,2 @@
-Sample	fastqc	nf-core/pacvar	Nextflow
-FastQC	0.12.1		
-Workflow		1.0.dev0	24.4.4
+Sample	nf-core/pacvar	Nextflow
+Workflow	1.0.dev0	24.4.4

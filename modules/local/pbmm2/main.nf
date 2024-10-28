@@ -23,7 +23,7 @@ process PBMM2 {
 
     script:
     """
-    
+
     prefix="${bam}_aligned"
     pbmm2 align $fasta $bam \${prefix}.bam
 

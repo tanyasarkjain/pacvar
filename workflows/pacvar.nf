@@ -18,6 +18,9 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_pacv
 */
 
 include { SET_VALUE_CHANNEL as SET_BARCODES_CHANNEL } from '../subworkflows/local/set_value_channel'
+include { BAM_VARIANT_CALLING as BAM_VARIANT_CALLING } from '../subworkflows/local/bam_variant_calling'
+
+
 include { SET_VALUE_CHANNEL } from '../subworkflows/local/set_value_channel'
 include { PBMM2 } from '../modules/local/pbmm2/main'
 
@@ -45,11 +48,11 @@ include { GATK4_HAPLOTYPECALLER } from '../modules/nf-core/gatk4/haplotypecaller
 */
 
 workflow PACVAR {
-    
+
     //TODO: from the beginning of the workflow, probably want to flatmap
     take:
     ch_samplesheet // channel: samplesheet read in from --input
-    fasta // channel: includes the metadata associated with the fasta as well 
+    fasta // channel: includes the metadata associated with the fasta as well
     fasta_fai // channel: includes the metadata associateds the fasta index as well
     dict
     dbsnp
@@ -57,10 +60,10 @@ workflow PACVAR {
 
     main:
 
-    SET_BARCODES_CHANNEL(params.barcodes) 
-    LIMA(ch_samplesheet, SET_BARCODES_CHANNEL.out.data)  
+    SET_BARCODES_CHANNEL(params.barcodes)
+    LIMA(ch_samplesheet, SET_BARCODES_CHANNEL.out.data)
 
-    trans_ch = LIMA.out.bam 
+    trans_ch = LIMA.out.bam
         .flatMap{ tuple ->
         def metadata = tuple[0]
         def sampleBams = tuple[1]
@@ -74,10 +77,10 @@ workflow PACVAR {
             //change metadata to reflect demultiplexed barcode
             [[id: bam.baseName], bam]
         }.view()
-    
-    trans_ch.map{tuple ->
-    def val1 = tuple[0], 
-    de}
+
+    // trans_ch.map{tuple ->
+    // def val1 = tuple[0],
+    // de}
 
     PBMM2(trans_ch, params.fasta)
 
@@ -87,52 +90,15 @@ workflow PACVAR {
     intervals = Channel.from([ [], 0 ])
     intervals.view()
 
-
-    //For now setting intervals to an empty val
-    //probably want to add all this logic to a seperate sub-workflow
-    deepvar_input_ch = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).view()
-        .map{tuple ->
-        def metadata = tuple[0]
-        def bam = tuple[1]
-        def bai = tuple[2]
-        [metadata, bam, bai, []]
-     }.view()
-
-
-    gatk4_input_ch = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).view()
-        .map{tuple ->
-        def metadata = tuple[0]
-        def bam = tuple[1]
-        def bai = tuple[2]
-        [metadata, bam, bai, [], []]
-     }.view()
-
-
-
-
-    //SINGLE variant calling (may want to move into a different sub-workflow (also should allow somehow for an optional argument))
-    //meta data is kinda unneeded 
-
-
-    dict.view { item -> 
-        println "Dict item: ${item}"
-    }
-
-    GATK4_HAPLOTYPECALLER(gatk4_input_ch, 
+    BAM_VARIANT_CALLING(SAMTOOLS_SORT.out.bam,
+                        SAMTOOLS_INDEX.out.bai,
                         fasta,
                         fasta_fai,
                         dict,
                         dbsnp,
-                        dbsnp_tbi
-                        )
+                        dbsnp_tbi)
 
-    // Frustrated by the fact that this isn't working :( 
-
-    // DEEPVARIANT_RUNDEEPVARIANT(deepvar_input_ch,
-    //                             params.fasta,
-    //                             params.fasta_fai)
-
-    //MULTIQC STUFF - NOT QUITE SURE WHAT THIS DOES     
+    //MULTIQC STUFF - NOT QUITE SURE WHAT THIS DOES
     // MODULE: MultiQC
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
@@ -177,7 +143,7 @@ workflow PACVAR {
             sort: true
         )
     )
-    
+
     MULTIQC (
         ch_multiqc_files.collect(),
         ch_multiqc_config.toList(),
@@ -189,7 +155,7 @@ workflow PACVAR {
     multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
     versions = ch_versions
     LIMA.out.bam
-    
+
 }
 
 /*

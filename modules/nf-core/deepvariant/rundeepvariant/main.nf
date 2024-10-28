@@ -5,12 +5,13 @@ process DEEPVARIANT_RUNDEEPVARIANT {
     // FIXME Conda is not supported at the moment
     // BUG https://github.com/nf-core/modules/issues/1754
     // BUG https://github.com/bioconda/bioconda-recipes/issues/30310
-    container "nf-core/deepvariant:1.5.0"
+    container "nf-core/deepvariant:1.6.1"
 
     input:
     tuple val(meta), path(input), path(index), path(intervals)
-    path(fasta)
-    path(fai)
+    tuple val(meta2), path(fasta)
+    tuple val(meta3), path(fai) //TODO: the gzi isn't used anywhere so deleted it (need to patch)
+    tuple val(meta5), path(par_bed)
 
     output:
     tuple val(meta), path("${prefix}.vcf.gz")      ,  emit: vcf
@@ -30,11 +31,9 @@ process DEEPVARIANT_RUNDEEPVARIANT {
     def args = task.ext.args ?: ''
     prefix = task.ext.prefix ?: "${meta.id}"
     def regions = intervals ? "--regions=${intervals}" : ""
-    //def par_regions = par_bed ? "--par_regions_bed=${par_bed}" : ""
+    def par_regions = par_bed ? "--par_regions_bed=${par_bed}" : ""
     // WARN https://github.com/nf-core/modules/pull/5801#issuecomment-2194293755
     // FIXME Revert this on next version bump
-    //        ${par_regions} \\
-
     def VERSION = '1.6.1'
 
     """
@@ -45,6 +44,7 @@ process DEEPVARIANT_RUNDEEPVARIANT {
         --output_gvcf=${prefix}.g.vcf.gz \\
         ${args} \\
         ${regions} \\
+        ${par_regions} \\
         --intermediate_results_dir=tmp \\
         --num_shards=${task.cpus}
 
