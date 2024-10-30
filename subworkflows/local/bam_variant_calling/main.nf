@@ -11,6 +11,7 @@ workflow BAM_VARIANT_CALLING {
     dict
     dbsnp
     dbsnp_tbi
+    intervals
 
     main:
      //deepvariant
@@ -20,7 +21,7 @@ workflow BAM_VARIANT_CALLING {
             def metadata = tuple[0]
             def bam = tuple[1]
             def bai = tuple[2]
-            [metadata, bam, bai, []]
+            [metadata, bam, bai, intervals]
         }.view()
 
         DEEPVARIANT_RUNDEEPVARIANT(deepvar_input_ch,

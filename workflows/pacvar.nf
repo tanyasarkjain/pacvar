@@ -78,10 +78,6 @@ workflow PACVAR {
             [[id: bam.baseName], bam]
         }.view()
 
-    // trans_ch.map{tuple ->
-    // def val1 = tuple[0],
-    // de}
-
     PBMM2(trans_ch, params.fasta)
 
     SAMTOOLS_SORT(PBMM2.out.aligned_bam_ch, params.fasta)
@@ -96,7 +92,8 @@ workflow PACVAR {
                         fasta_fai,
                         dict,
                         dbsnp,
-                        dbsnp_tbi)
+                        dbsnp_tbi,
+                        params.intervals)
 
     //MULTIQC STUFF - NOT QUITE SURE WHAT THIS DOES
     // MODULE: MultiQC
