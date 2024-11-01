@@ -55,11 +55,7 @@ process LIMA {
         OUT_EXT="fastq.gz"
     fi
 
-
-   
     lima \\
-        --split-named \\
-        --same \\
         $ccs \\
         $primers \\
         $prefix.\$OUT_EXT \\

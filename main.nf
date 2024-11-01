@@ -31,7 +31,7 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_pacv
 // Initialize genomic attibutes with associated meta data maps
 fasta = params.fasta ? Channel.fromPath(params.fasta).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
 fasta_fai = params.fasta_fai ? Channel.fromPath(params.fasta_fai).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
-dict = params.dict ? Channel.fromPath(params.dict).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty
+dict = params.dict ? Channel.fromPath(params.dict).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
 dbsnp = params.dbsnp ? Channel.fromPath(params.dbsnp).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
 dbsnp_tbi = params.dbsnp_tbi ? Channel.fromPath(params.dbsnp_tbi).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
 

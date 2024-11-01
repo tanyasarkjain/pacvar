@@ -10,7 +10,6 @@ include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pi
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_pacvar_pipeline'
 
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT LOCAL MODULES/SUBWORKFLOWS
@@ -19,10 +18,12 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_pacv
 
 include { SET_VALUE_CHANNEL as SET_BARCODES_CHANNEL } from '../subworkflows/local/set_value_channel'
 include { BAM_VARIANT_CALLING as BAM_VARIANT_CALLING } from '../subworkflows/local/bam_variant_calling'
-
+// include { REPEAT_CHARACTERIZATION as REPEAT_CHARACTERIZATION } from '../subworkflows/local/repeat_characterization'
 
 include { SET_VALUE_CHANNEL } from '../subworkflows/local/set_value_channel'
-include { PBMM2 } from '../modules/local/pbmm2/main'
+include { HIFICNV } from '../modules/local/hificnv'
+include { TRGT_GENOTYPE } from '../modules/local/trgt/genotype'
+include { TRGT_PLOT } from '../modules/local/trgt/plot'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -30,16 +31,14 @@ include { PBMM2 } from '../modules/local/pbmm2/main'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-//
-// MODULE: Installed directly from nf-core/modules
-//
-
 include { LIMA } from '../modules/nf-core/lima/main'
 include { DEEPVARIANT_RUNDEEPVARIANT } from '../modules/nf-core/deepvariant/rundeepvariant/main'
 include { SAMTOOLS_CONVERT as BAM_TO_CRAM } from '../modules/nf-core/samtools/convert/main'
 include { SAMTOOLS_INDEX } from '../modules/nf-core/samtools/index/main'
 include { SAMTOOLS_SORT } from '../modules/nf-core/samtools/sort/main'
 include { GATK4_HAPLOTYPECALLER } from '../modules/nf-core/gatk4/haplotypecaller/main'
+include { PBMM2_ALIGN } from '../modules/nf-core/pbmm2/align/main'
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -63,7 +62,7 @@ workflow PACVAR {
     SET_BARCODES_CHANNEL(params.barcodes)
     LIMA(ch_samplesheet, SET_BARCODES_CHANNEL.out.data)
 
-    trans_ch = LIMA.out.bam
+    lima_ch = LIMA.out.bam
         .flatMap{ tuple ->
         def metadata = tuple[0]
         def sampleBams = tuple[1]
@@ -78,9 +77,9 @@ workflow PACVAR {
             [[id: bam.baseName], bam]
         }.view()
 
-    PBMM2(trans_ch, params.fasta)
+    PBMM2_ALIGN(lima_ch, fasta)
 
-    SAMTOOLS_SORT(PBMM2.out.aligned_bam_ch, params.fasta)
+    SAMTOOLS_SORT(PBMM2_ALIGN.out.bam, params.fasta)
     SAMTOOLS_INDEX(SAMTOOLS_SORT.out.bam)
 
     intervals = Channel.from([ [], 0 ])
@@ -94,6 +93,17 @@ workflow PACVAR {
                         dbsnp,
                         dbsnp_tbi,
                         params.intervals)
+
+    //if whole genome sequencing call CNV and SV call the WGS workflow + phase
+    if (params.workflow == 'wgs') {
+
+    }
+
+    //if repeat workflow do trgt analysis
+    if (params.workflow == 'repeat') {
+
+
+    }
 
     //MULTIQC STUFF - NOT QUITE SURE WHAT THIS DOES
     // MODULE: MultiQC
