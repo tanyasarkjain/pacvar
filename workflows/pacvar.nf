@@ -101,13 +101,11 @@ workflow PACVAR {
     ordered_bam_ch.view{ bamfile -> println("BAM: ${bamfile}")}
     ordered_bai_ch.view{ bamfile -> println("BAI: ${bamfile}")}
 
-    //should maybe use SET_INTERVALS_CHANNEL - TODO: not sure how to handle an empty intervas (null)
-    println("intervals ${params.intervals}")
-
-    intervals_ch = params.intervals ? Channel.fromPath(params.intervals, checkIfExists=true) : Channel.empty([])
-
     //if whole genome sequencing call CNV and SV call the WGS workflow + phase
     if (params.workflow == 'wgs') {
+
+        intervals_ch = params.intervals ? Channel.fromPath(params.intervals, checkIfExists=true) : Channel.empty([])
+
         //gatk or deepvariant snp calling
         BAM_SNP_VARIANT_CALLING(ordered_bam_ch,
                                 ordered_bai_ch,
@@ -116,7 +114,7 @@ workflow PACVAR {
                                 dict,
                                 dbsnp,
                                 dbsnp_tbi,
-                                params.intervals)
+                                intervals_ch)
 
         //pbsv structural variant calling
         BAM_SV_VARIANT_CALLING(ordered_bam_ch,
