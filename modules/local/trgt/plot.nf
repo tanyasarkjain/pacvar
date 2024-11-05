@@ -11,8 +11,7 @@ process TRGT_PLOT {
     tuple val(meta), path(bam)
     tuple val(meta), path(vcf)
     tuple val(meta), path(genome)
-    tuple val(meta), path(id)
-
+x
 
     output:
     tuple val(meta), path("*.svg"), emit: svg
@@ -31,8 +30,7 @@ process TRGT_PLOT {
         --genome ${fasta} \\
         --vcf ${vcf} \\
         --spanning-reads ${bam} \\
-        --repeat-id ${id} \\
-        --image ${id}.svg
+        --image ${prefix}.svg
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
