@@ -119,14 +119,14 @@ workflow PACVAR {
                                 params.intervals)
 
         //pbsv structural variant calling
-        BAM_SV_VARIANT_CALLING(SAMTOOLS_SORT.out.bam,
-                                SAMTOOLS_INDEX.out.bai,
+        BAM_SV_VARIANT_CALLING(ordered_bam_ch,
+                                ordered_bai_ch,
                                 fasta,
                                 fasta_fai)
 
         // // //hificnv
-        // BAM_CNV_VARIANT_CALLING(SAMTOOLS_SORT.out.bam,
-        //                         SAMTOOLS_INDEX.out.bai,
+        // BAM_CNV_VARIANT_CALLING(ordered_bam_ch,
+        //                         ordered_bai_ch,
         //                         fasta,
         //                         fasta_fai)
     }
