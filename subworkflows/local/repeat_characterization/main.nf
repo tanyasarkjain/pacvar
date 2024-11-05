@@ -37,6 +37,7 @@ workflow  REPEAT_CHARACTERIZATION{
     TRGT_PLOT(SAMTOOLS_SORT.out.bam,
                 BCFTOOLS_SORT.out.vcf,
                 fasta,
+                fasta_fai,
                 bed,
                 id)
 }

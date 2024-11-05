@@ -53,11 +53,10 @@ include { PBMM2_ALIGN } from '../modules/nf-core/pbmm2/align/main'
 
 workflow PACVAR {
 
-    //TODO: from the beginning of the workflow, probably want to flatmap
     take:
-    ch_samplesheet // channel: samplesheet read in from --input
-    fasta // channel: includes the metadata associated with the fasta as well
-    fasta_fai // channel: includes the metadata associateds the fasta index as well
+    ch_samplesheet
+    fasta
+    fasta_fai
     dict
     dbsnp
     dbsnp_tbi
@@ -85,8 +84,6 @@ workflow PACVAR {
 
     PBMM2_ALIGN(lima_ch, fasta)
 
-        // Print BAM filenames
-
     //ensure the output of this gets paired correctly
 
     SAMTOOLS_SORT(PBMM2_ALIGN.out.bam, fasta)
@@ -97,7 +94,6 @@ workflow PACVAR {
 
     //join the bam and index based off the meta id (ensure correct order)
     bam_bai_ch = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).view()
-    //remap
     ordered_bam_ch = bam_bai_ch.map { meta, bam, bai -> [meta, bam] }
     ordered_bai_ch = bam_bai_ch.map { meta, bam, bai -> [meta, bai] }
 
