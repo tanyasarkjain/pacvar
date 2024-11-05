@@ -10,7 +10,7 @@ process TRGT_PLOT {
     input:
     tuple val(meta), path(bam)
     tuple val(meta), path(vcf)
-    tuple val(meta), path(genome)
+    tuple val(meta), path(fasta)
 
 
     output:
