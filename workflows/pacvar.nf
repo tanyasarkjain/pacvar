@@ -106,8 +106,8 @@ workflow PACVAR {
         //TODO --> rap this all in a WGS variant calling workflow perhaps?
 
         //gatk or deepvariant
-        BAM_SNP_VARIANT_CALLING(SAMTOOLS_SORT.out.bam,
-                        SAMTOOLS_INDEX.out.bai,
+        BAM_SNP_VARIANT_CALLING(ordered_bam_ch,
+                        ordered_bai_ch,
                         fasta,
                         fasta_fai,
                         dict,

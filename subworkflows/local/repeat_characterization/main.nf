@@ -35,6 +35,7 @@ workflow  REPEAT_CHARACTERIZATION{
 
     //plot the vcf file -- for a specified id
     TRGT_PLOT(SAMTOOLS_SORT.out.bam,
+                SAMTOOLS_INDEX.out.bai,
                 BCFTOOLS_SORT.out.vcf,
                 fasta,
                 fasta_fai,
