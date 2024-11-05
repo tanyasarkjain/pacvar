@@ -38,7 +38,7 @@ process DEEPVARIANT_RUNDEEPVARIANT {
 
     """
     echo /opt/deepvariant/bin/run_deepvariant --ref=${fasta} --reads=${input} --output_vcf=${prefix}.vcf.gz --output_gvcf=${prefix}.g.vcf.gz ${args} ${regions} ${par_regions} --intermediate_results_dir=tmp --num_shards=${task.cpus} --model_type=PACBIO > out.txt
- 
+
     /opt/deepvariant/bin/run_deepvariant \\
         --ref=${fasta} \\
         --reads=${input} \\

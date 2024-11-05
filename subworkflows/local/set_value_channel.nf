@@ -6,7 +6,7 @@
 
 workflow SET_VALUE_CHANNEL {
     take:
-    infile // file: path to compressed or not fasta/gtf
+    infile // file: path to compressed
 
     main:
     Channel // Prepare value channel

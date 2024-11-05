@@ -17,6 +17,7 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_pacv
 */
 
 include { SET_VALUE_CHANNEL as SET_BARCODES_CHANNEL } from '../subworkflows/local/set_value_channel'
+include { SET_VALUE_CHANNEL as SET_INTERVALS_CHANNEL } from '../subworkflows/local/set_value_channel'
 include { BAM_SNP_VARIANT_CALLING as BAM_SNP_VARIANT_CALLING } from '../subworkflows/local/bam_snp_variant_calling'
 include { BAM_CNV_VARIANT_CALLING as BAM_CNV_VARIANT_CALLING } from '../subworkflows/local/bam_cnv_variant_calling'
 include { BAM_SV_VARIANT_CALLING as BAM_SV_VARIANT_CALLING } from '../subworkflows/local/bam_sv_variant_calling'
@@ -100,17 +101,22 @@ workflow PACVAR {
     ordered_bam_ch.view{ bamfile -> println("BAM: ${bamfile}")}
     ordered_bai_ch.view{ bamfile -> println("BAI: ${bamfile}")}
 
+    //should maybe use SET_INTERVALS_CHANNEL - TODO: not sure how to handle an empty intervas (null)
+    println("intervals ${params.intervals}")
+
+    intervals_ch = params.intervals ? Channel.fromPath(params.intervals, checkIfExists=true) : Channel.empty([])
+
     //if whole genome sequencing call CNV and SV call the WGS workflow + phase
     if (params.workflow == 'wgs') {
         //gatk or deepvariant snp calling
         BAM_SNP_VARIANT_CALLING(ordered_bam_ch,
-                        ordered_bai_ch,
-                        fasta,
-                        fasta_fai,
-                        dict,
-                        dbsnp,
-                        dbsnp_tbi,
-                        params.intervals)
+                                ordered_bai_ch,
+                                fasta,
+                                fasta_fai,
+                                dict,
+                                dbsnp,
+                                dbsnp_tbi,
+                                params.intervals)
 
         //pbsv structural variant calling
         BAM_SV_VARIANT_CALLING(SAMTOOLS_SORT.out.bam,
@@ -118,11 +124,11 @@ workflow PACVAR {
                                 fasta,
                                 fasta_fai)
 
-        // //hificnv
-        BAM_CNV_VARIANT_CALLING(SAMTOOLS_SORT.out.bam,
-                                SAMTOOLS_INDEX.out.bai,
-                                fasta,
-                                fasta_fai)
+        // // //hificnv
+        // BAM_CNV_VARIANT_CALLING(SAMTOOLS_SORT.out.bam,
+        //                         SAMTOOLS_INDEX.out.bai,
+        //                         fasta,
+        //                         fasta_fai)
     }
 
     if (params.workflow == 'repeat') {
