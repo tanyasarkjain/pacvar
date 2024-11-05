@@ -102,10 +102,7 @@ workflow PACVAR {
 
     //if whole genome sequencing call CNV and SV call the WGS workflow + phase
     if (params.workflow == 'wgs') {
-        //Variant call (as well as structural and pbsv calling)
-        //TODO --> rap this all in a WGS variant calling workflow perhaps?
-
-        //gatk or deepvariant
+        //gatk or deepvariant snp calling
         BAM_SNP_VARIANT_CALLING(ordered_bam_ch,
                         ordered_bai_ch,
                         fasta,
@@ -115,18 +112,17 @@ workflow PACVAR {
                         dbsnp_tbi,
                         params.intervals)
 
-        //pbsv
+        //pbsv structural variant calling
         BAM_SV_VARIANT_CALLING(SAMTOOLS_SORT.out.bam,
                                 SAMTOOLS_INDEX.out.bai,
                                 fasta,
                                 fasta_fai)
 
-        //TODO: upload a WGS dataset to make this work
         // //hificnv
-        // BAM_CNV_VARIANT_CALLING(SAMTOOLS_SORT.out.bam,
-        //                         SAMTOOLS_INDEX.out.bai,
-        //                         fasta,
-        //                         fasta_fai)
+        BAM_CNV_VARIANT_CALLING(SAMTOOLS_SORT.out.bam,
+                                SAMTOOLS_INDEX.out.bai,
+                                fasta,
+                                fasta_fai)
     }
 
     if (params.workflow == 'repeat') {

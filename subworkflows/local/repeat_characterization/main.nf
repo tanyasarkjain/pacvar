@@ -14,7 +14,6 @@ workflow  REPEAT_CHARACTERIZATION{
     bed
     id
 
-
     main:
     //genotype the repeat region
     TRGT_GENOTYPE(sorted_bam,
