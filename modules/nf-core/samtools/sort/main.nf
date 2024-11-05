@@ -7,10 +7,10 @@ process SAMTOOLS_SORT {
         'https://depot.galaxyproject.org/singularity/samtools:1.21--h50ea8bc_0' :
         'biocontainers/samtools:1.21--h50ea8bc_0' }"
 
-    meta = null 
+    meta = null
     input:
     tuple val(meta), path(bam)
-    path(fasta)
+    tuple val(meta2), path(fasta)
 
     output:
     tuple val(meta), path("*.bam"),     emit: bam,  optional: true
@@ -41,7 +41,7 @@ process SAMTOOLS_SORT {
         -T ${prefix} \\
         --threads $task.cpus \\
         ${reference} \\
-        -o ${prefix}.${extension} 
+        -o ${prefix}.${extension}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

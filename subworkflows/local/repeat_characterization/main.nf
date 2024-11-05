@@ -14,22 +14,6 @@ workflow  REPEAT_CHARACTERIZATION{
     bed
 
     main:
-    // println('START')
-
-
-    // // Print BAM filenames
-    // sorted_bam.view { bamFile ->
-    //     println("HERE repeat-bam: ${bamFile}")
-    // }
-
-    // // Print BAI filenames
-    // sorted_bai.view { baiFile ->
-    //     println("HERE repeat-index: ${baiFile}")
-    // }
-
-    //ensure ordering is matched by meta_id
-
-
     //genotype the repeat region
     TRGT_GENOTYPE(sorted_bam,
                     sorted_bai,
