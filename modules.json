@@ -65,6 +65,16 @@
                         "git_sha": "7f3ea5df279fa051bec9bade1798a58ba35b1196",
                         "installed_by": ["modules"]
                     },
+                    "pbsv/call": {
+                        "branch": "master",
+                        "git_sha": "baa54ee3b9bf2c1ba008a9540bb76138353db647",
+                        "installed_by": ["modules"]
+                    },
+                    "pbsv/discover": {
+                        "branch": "master",
+                        "git_sha": "6c32d3749967fb03fc83ae5e7ea72ecf26b90f56",
+                        "installed_by": ["modules"]
+                    },
                     "samtools/convert": {
                         "branch": "master",
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",

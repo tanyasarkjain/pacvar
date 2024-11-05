@@ -1,2 +1,0 @@
-task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
-3	81/22633f	9718	NFCORE_PACVAR:PACVAR:MULTIQC	COMPLETED	0	2024-10-17 14:05:05.696	5.1s	4.1s	151.0%	128.2 MB	3.5 GB	63.7 MB	16.8 MB

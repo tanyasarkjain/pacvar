@@ -10,12 +10,14 @@ process TRGT_GENOTYPE {
 
     input:
     tuple val(meta), path(bam)
-    tuple val(meta2), path(fasta)
+    tuple val(meta2), path(bai)
+    tuple val(meta3), path(fasta)
+    tuple val(meta4), path(fasta_fai)
     tuple val(meta3), path(bed)
 
     output:
-    tuple val(vcf), path("*.vcf.gz"), emit: vcf
-    tuple val("*.spanning.bam"), emit: spanning_bam
+    tuple val(meta), path("*.vcf.gz"), emit: vcf
+    tuple val(meta), path("*.spanning.bam"), emit: spanning_bam
     path "versions.yml"           , emit: versions
 
     when:

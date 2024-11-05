@@ -1,7 +1,8 @@
-// include { TRGT_GENOTYPE } from '../../../modules/local/trgt/genotype'
-// include { TRGT_PLOT } from '../../../modules/local/trgt/plot'
-// include { BCFTOOLS_SORT } from '../../../modules/local/bcftools/sort'
-// include { SAMTOOLS_SORT } from '../../../modules/local/samtools/sort'
+include { TRGT_GENOTYPE } from '../../../modules/local/trgt/genotype'
+include { TRGT_PLOT } from '../../../modules/local/trgt/plot'
+include { BCFTOOLS_SORT } from '../../../modules/nf-core/bcftools/sort/main'
+include { SAMTOOLS_SORT } from '../../../modules/nf-core/samtools/sort/main'
+include { SAMTOOLS_INDEX } from '../../../modules/nf-core/samtools/index/main'
 
 workflow  REPEAT_CHARACTERIZATION{
 
@@ -10,28 +11,45 @@ workflow  REPEAT_CHARACTERIZATION{
     sorted_bai
     fasta
     fasta_fai
-    repeat_region
+    bed
+
+    main:
+    // println('START')
+
+
+    // // Print BAM filenames
+    // sorted_bam.view { bamFile ->
+    //     println("HERE repeat-bam: ${bamFile}")
+    // }
+
+    // // Print BAI filenames
+    // sorted_bai.view { baiFile ->
+    //     println("HERE repeat-index: ${baiFile}")
+    // }
+
+    //ensure ordering is matched by meta_id
+
 
     //genotype the repeat region
     TRGT_GENOTYPE(sorted_bam,
+                    sorted_bai,
                     fasta,
+                    fasta_fai,
                     bed)
 
-    //sort the resulting spanning ba
+    //sort the resulting spanning bam
     SAMTOOLS_SORT(TRGT_GENOTYPE.out.spanning_bam,
                     fasta)
 
-    //sort the resulting spanning ba
-    SAMTOOLS_INDEX(SAMTOOLS_SORT.out.bam,
-                    fasta)
+    //index the resulting bam
+    SAMTOOLS_INDEX(SAMTOOLS_SORT.out.bam)
 
     //sort the resulting vcf
-    SAMTOOLS_INDEX(TRGT_GENOTYPE.out.vcf,
-                    fasta)
+    BCFTOOLS_SORT(TRGT_GENOTYPE.out.vcf)
 
     //plot the vcf file
-    TRGT_GENOTYPE(sorted_bam,
-                    fasta,
-                    bed)
-
+    TRGT_PLOT(SAMTOOLS_SORT.out.bam,
+                BCFTOOLS_SORT.out.vcf,
+                fasta,
+                bed)
 }

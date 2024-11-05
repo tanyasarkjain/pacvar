@@ -1,0 +1,2 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+3	aa/eabe53	4113	NFCORE_PACVAR:PACVAR:MULTIQC	FAILED	125	2024-11-04 21:31:46.843	616ms	526ms	-	-	-	-	-

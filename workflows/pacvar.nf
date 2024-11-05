@@ -17,13 +17,18 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_pacv
 */
 
 include { SET_VALUE_CHANNEL as SET_BARCODES_CHANNEL } from '../subworkflows/local/set_value_channel'
-include { BAM_VARIANT_CALLING as BAM_VARIANT_CALLING } from '../subworkflows/local/bam_variant_calling'
-// include { REPEAT_CHARACTERIZATION as REPEAT_CHARACTERIZATION } from '../subworkflows/local/repeat_characterization'
+include { BAM_SNP_VARIANT_CALLING as BAM_SNP_VARIANT_CALLING } from '../subworkflows/local/bam_snp_variant_calling'
+include { BAM_CNV_VARIANT_CALLING as BAM_CNV_VARIANT_CALLING } from '../subworkflows/local/bam_cnv_variant_calling'
+include { BAM_SV_VARIANT_CALLING as BAM_SV_VARIANT_CALLING } from '../subworkflows/local/bam_sv_variant_calling'
+include { REPEAT_CHARACTERIZATION as REPEAT_CHARACTERIZATION } from '../subworkflows/local/repeat_characterization'
+include { SAMTOOLS_SORT_AND_INDEX as SAMTOOLS_SORT_AND_INDEX } from '../subworkflows/local/samtools_sort_and_index'
+
 
 include { SET_VALUE_CHANNEL } from '../subworkflows/local/set_value_channel'
 include { HIFICNV } from '../modules/local/hificnv'
 include { TRGT_GENOTYPE } from '../modules/local/trgt/genotype'
 include { TRGT_PLOT } from '../modules/local/trgt/plot'
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -60,6 +65,7 @@ workflow PACVAR {
     main:
 
     SET_BARCODES_CHANNEL(params.barcodes)
+
     LIMA(ch_samplesheet, SET_BARCODES_CHANNEL.out.data)
 
     lima_ch = LIMA.out.bam
@@ -79,13 +85,32 @@ workflow PACVAR {
 
     PBMM2_ALIGN(lima_ch, fasta)
 
+        // Print BAM filenames
+
+    //ensure the output of this gets paired correctly
+
     SAMTOOLS_SORT(PBMM2_ALIGN.out.bam, params.fasta)
     SAMTOOLS_INDEX(SAMTOOLS_SORT.out.bam)
 
     intervals = Channel.from([ [], 0 ])
     intervals.view()
 
-    BAM_VARIANT_CALLING(SAMTOOLS_SORT.out.bam,
+    //join the bam and index based off the meta id (ensure correct order)
+    bam_bai_ch = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).view()
+    //remap
+    ordered_bam_ch = bam_bai_ch.map { meta, bam, bai -> [meta, bam] }
+    ordered_bai_ch = bam_bai_ch.map { meta, bam, bai -> [meta, bai] }
+
+    ordered_bam_ch.view{ bamfile -> println("BAM: ${bamfile}")}
+    ordered_bai_ch.view{ bamfile -> println("BAI: ${bamfile}")}
+
+    //if whole genome sequencing call CNV and SV call the WGS workflow + phase
+    if (params.workflow == 'wgs') {
+        //Variant call (as well as structural and pbsv calling)
+        //TODO --> rap this all in a WGS variant calling workflow perhaps?
+
+        //gatk or deepvariant
+        BAM_SNP_VARIANT_CALLING(SAMTOOLS_SORT.out.bam,
                         SAMTOOLS_INDEX.out.bai,
                         fasta,
                         fasta_fai,
@@ -94,15 +119,28 @@ workflow PACVAR {
                         dbsnp_tbi,
                         params.intervals)
 
-    //if whole genome sequencing call CNV and SV call the WGS workflow + phase
-    if (params.workflow == 'wgs') {
+        //pbsv
+        BAM_SV_VARIANT_CALLING(SAMTOOLS_SORT.out.bam,
+                                SAMTOOLS_INDEX.out.bai,
+                                fasta,
+                                fasta_fai)
 
+        //TODO: upload a WGS dataset to make this work
+        // //hificnv
+        // BAM_CNV_VARIANT_CALLING(SAMTOOLS_SORT.out.bam,
+        //                         SAMTOOLS_INDEX.out.bai,
+        //                         fasta,
+        //                         fasta_fai)
     }
 
-    //if repeat workflow do trgt analysis
     if (params.workflow == 'repeat') {
 
-
+        intervals_ch = Channel.fromPath(params.intervals).map { file ->[file.baseName, file] }
+        REPEAT_CHARACTERIZATION(ordered_bam_ch,
+                                    ordered_bai_ch,
+                                    fasta,
+                                    fasta_fai,
+                                    intervals_ch)
     }
 
     //MULTIQC STUFF - NOT QUITE SURE WHAT THIS DOES

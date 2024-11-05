@@ -53,9 +53,9 @@ workflow PACVAR {
     main:
 
     SET_BARCODES_CHANNEL(params.barcodes) // - barcodes fasta
-    
-    LIMA(ch_samplesheet, SET_BARCODES_CHANNEL.out.data)  // demultiplex 
-    
+
+    LIMA(ch_samplesheet, SET_BARCODES_CHANNEL.out.data)  // demultiplex
+
     PBMM2(LIMA.out.bam, file(params.fasta)) // align using pbmm2
 
     //CONVERT FROM THE BAM FORMAT TO THE CRAM FORMAT
@@ -63,7 +63,7 @@ workflow PACVAR {
 
 
     //MULTIQC STUFF - NOT QUITE SURE WHAT THIS DOES
-     
+
     // MODULE: MultiQC
     //
 
@@ -116,7 +116,7 @@ workflow PACVAR {
     )
 
 
-    
+
     MULTIQC (
         ch_multiqc_files.collect(),
         ch_multiqc_config.toList(),
@@ -128,7 +128,7 @@ workflow PACVAR {
     multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
     versions = ch_versions
     LIMA.out.bam
-    
+
     //not sure what to emit - maybe emit nothing to start
 
 }
@@ -138,4 +138,3 @@ workflow PACVAR {
     THE END
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-

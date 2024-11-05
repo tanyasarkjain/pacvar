@@ -12,7 +12,6 @@ process HIFICNV {
     tuple val(meta), path(bam)
     tuple val(meta), path(bai)
     tuple val(meta), path(fasta)
-    tuple val(meta), path(bed)
 
     output:
     tuple val(meta), path("*.vcf.gz"), emit: vcf
@@ -32,7 +31,6 @@ process HIFICNV {
         --bam ${bam} \\
         --ref ${fasta} \\
         ${args} \\
-        --exclude ${bed} \\
         --threads ${task.cpus} \\
         --output-prefix ${prefix}
 
