@@ -89,7 +89,7 @@ workflow PACVAR {
 
     //ensure the output of this gets paired correctly
 
-    SAMTOOLS_SORT(PBMM2_ALIGN.out.bam, params.fasta)
+    SAMTOOLS_SORT(PBMM2_ALIGN.out.bam, fasta)
     SAMTOOLS_INDEX(SAMTOOLS_SORT.out.bam)
 
     intervals = Channel.from([ [], 0 ])
