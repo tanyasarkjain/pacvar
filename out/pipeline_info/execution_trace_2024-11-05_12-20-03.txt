@@ -1,0 +1,4 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+2	56/01742b	3850792	NFCORE_PACVAR:PACVAR:LIMA (sample2)	FAILED	127	2024-11-05 12:20:18.510	54ms	3ms	-	-	-	-	-
+1	b9/53aa90	3850763	NFCORE_PACVAR:PACVAR:LIMA (sample1)	FAILED	127	2024-11-05 12:20:18.301	188ms	116ms	-	-	-	-	-
+3	e2/c8791d	3850817	NFCORE_PACVAR:PACVAR:MULTIQC	FAILED	127	2024-11-05 12:20:18.577	97ms	21ms	-	-	-	-	-
