@@ -11,7 +11,7 @@ process TRGT_PLOT {
     tuple val(meta), path(bam)
     tuple val(meta), path(vcf)
     tuple val(meta), path(genome)
-x
+
 
     output:
     tuple val(meta), path("*.svg"), emit: svg
