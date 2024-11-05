@@ -136,11 +136,14 @@ workflow PACVAR {
     if (params.workflow == 'repeat') {
 
         intervals_ch = Channel.fromPath(params.intervals).map { file ->[file.baseName, file] }
+        id_ch = Channel.fromPath(params.id).map { file ->[file.baseName, file] }
+
         REPEAT_CHARACTERIZATION(ordered_bam_ch,
                                     ordered_bai_ch,
                                     fasta,
                                     fasta_fai,
-                                    intervals_ch)
+                                    intervals_ch,
+                                    id_ch)
     }
 
     //MULTIQC STUFF - NOT QUITE SURE WHAT THIS DOES

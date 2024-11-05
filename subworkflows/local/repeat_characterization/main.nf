@@ -12,6 +12,8 @@ workflow  REPEAT_CHARACTERIZATION{
     fasta
     fasta_fai
     bed
+    id
+
 
     main:
     //genotype the repeat region
@@ -31,8 +33,10 @@ workflow  REPEAT_CHARACTERIZATION{
     //sort the resulting vcf
     BCFTOOLS_SORT(TRGT_GENOTYPE.out.vcf)
 
-    //plot the vcf file
+    //plot the vcf file -- for a specified id
     TRGT_PLOT(SAMTOOLS_SORT.out.bam,
                 BCFTOOLS_SORT.out.vcf,
-                fasta)
+                fasta,
+                bed,
+                id)
 }

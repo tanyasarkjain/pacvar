@@ -9,8 +9,10 @@ process TRGT_PLOT {
 
     input:
     tuple val(meta), path(bam)
-    tuple val(meta), path(vcf)
-    tuple val(meta), path(fasta)
+    tuple val(meta2), path(vcf)
+    tuple val(meta3), path(fasta)
+    tuple val(meta4), path(bed)
+    tuple val(meta4), path(id)
 
 
     output:
@@ -30,7 +32,9 @@ process TRGT_PLOT {
         --genome ${fasta} \\
         --vcf ${vcf} \\
         --spanning-reads ${bam} \\
-        --image ${prefix}.svg
+        --image ${prefix}.svg \\
+        --repeats ${bed} \\
+        --repeat-id ${id}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
