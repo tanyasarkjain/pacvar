@@ -103,9 +103,6 @@ workflow PACVAR {
 
     //if whole genome sequencing call CNV and SV call the WGS workflow + phase
     if (params.workflow == 'wgs') {
-
-        intervals_ch = params.intervals ? Channel.fromPath(params.intervals, checkIfExists=true) : Channel.empty([])
-
         //gatk or deepvariant snp calling
         BAM_SNP_VARIANT_CALLING(ordered_bam_ch,
                                 ordered_bai_ch,
@@ -114,7 +111,7 @@ workflow PACVAR {
                                 dict,
                                 dbsnp,
                                 dbsnp_tbi,
-                                intervals_ch)
+                                params.intervals)
 
         //pbsv structural variant calling
         BAM_SV_VARIANT_CALLING(ordered_bam_ch,
