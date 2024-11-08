@@ -1,0 +1,215 @@
+<!--
+  ~ Copyright 2013-2024, Seqera Labs
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<html>
+<head>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+</head>
+<body>
+<pre class="mermaid" style="text-align: center;">
+flowchart TB
+    subgraph " "
+    v0["Channel.fromPath"]
+    v3["Channel.fromPath"]
+    v6["Channel.fromPath"]
+    v9["Channel.fromPath"]
+    v12["Channel.fromPath"]
+    v21["channel.fromSamplesheet"]
+    v24["data"]
+    v52["Channel.from"]
+    v89["Channel.of"]
+    v92["Channel.fromPath"]
+    v95["ch_workflow_summary"]
+    v99["ch_methods_description"]
+    end
+    subgraph " "
+    v16[" "]
+    v18[" "]
+    v26[" "]
+    v27[" "]
+    v28[" "]
+    v29[" "]
+    v30[" "]
+    v31[" "]
+    v32[" "]
+    v33[" "]
+    v34[" "]
+    v35[" "]
+    v36[" "]
+    v37[" "]
+    v38[" "]
+    v42[" "]
+    v44[" "]
+    v45[" "]
+    v46[" "]
+    v47[" "]
+    v49[" "]
+    v50[" "]
+    v51[" "]
+    v53["intervals"]
+    v60[" "]
+    v61[" "]
+    v64[" "]
+    v65[" "]
+    v66[" "]
+    v67[" "]
+    v69[" "]
+    v71[" "]
+    v73[" "]
+    v74[" "]
+    v76[" "]
+    v77[" "]
+    v80[" "]
+    v81[" "]
+    v82[" "]
+    v83[" "]
+    v107[" "]
+    v108[" "]
+    v109[" "]
+    v111["multiqc_report"]
+    end
+    subgraph NFCORE_PACVAR
+    subgraph PACVAR
+    v25([LIMA])
+    v41([PBMM2_ALIGN])
+    v43([SAMTOOLS_SORT])
+    v48([SAMTOOLS_INDEX])
+    subgraph BAM_SNP_VARIANT_CALLING
+    v59([GATK4_HAPLOTYPECALLER])
+    v4(( ))
+    v7(( ))
+    v10(( ))
+    v13(( ))
+    v62(( ))
+    end
+    v63([HIPHASE_SNP])
+    subgraph BAM_SV_VARIANT_CALLING
+    v68([PBSV_DISCOVER])
+    v70([PBSV_CALL])
+    v72([TABIX_BGZIP])
+    v75([BCFTOOLS_INDEX])
+    end
+    v79([HIPHASE_SV])
+    v106([MULTIQC])
+    v1(( ))
+    v22(( ))
+    v39(( ))
+    v54(( ))
+    v78(( ))
+    v86(( ))
+    v103(( ))
+    v104(( ))
+    v105(( ))
+    v110(( ))
+    end
+    end
+    v0 --> v1
+    v3 --> v4
+    v6 --> v7
+    v9 --> v10
+    v12 --> v13
+    v1 --> v16
+    v7 --> v18
+    v21 --> v22
+    v24 --> v25
+    v22 --> v25
+    v25 --> v38
+    v25 --> v37
+    v25 --> v36
+    v25 --> v35
+    v25 --> v34
+    v25 --> v33
+    v25 --> v32
+    v25 --> v31
+    v25 --> v30
+    v25 --> v29
+    v25 --> v28
+    v25 --> v27
+    v25 --> v26
+    v25 --> v39
+    v1 --> v41
+    v39 --> v41
+    v41 --> v43
+    v41 --> v42
+    v1 --> v43
+    v43 --> v48
+    v43 --> v47
+    v43 --> v46
+    v43 --> v45
+    v43 --> v44
+    v43 --> v54
+    v48 --> v51
+    v48 --> v50
+    v48 --> v49
+    v48 --> v54
+    v52 --> v53
+    v1 --> v59
+    v4 --> v59
+    v7 --> v59
+    v10 --> v59
+    v13 --> v59
+    v54 --> v59
+    v59 --> v61
+    v59 --> v60
+    v59 --> v62
+    v1 --> v63
+    v54 --> v63
+    v62 --> v63
+    v63 --> v67
+    v63 --> v66
+    v63 --> v65
+    v63 --> v64
+    v1 --> v68
+    v54 --> v68
+    v68 --> v70
+    v68 --> v69
+    v1 --> v70
+    v70 --> v72
+    v70 --> v71
+    v72 --> v75
+    v72 --> v74
+    v72 --> v73
+    v72 --> v78
+    v75 --> v77
+    v75 --> v76
+    v75 --> v78
+    v1 --> v79
+    v54 --> v79
+    v78 --> v79
+    v79 --> v83
+    v79 --> v82
+    v79 --> v81
+    v79 --> v80
+    v89 --> v86
+    v92 --> v103
+    v95 --> v86
+    v99 --> v86
+    v86 --> v106
+    v103 --> v106
+    v104 --> v106
+    v105 --> v106
+    v106 --> v109
+    v106 --> v108
+    v106 --> v107
+    v106 --> v110
+    v110 --> v111
+
+</pre>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true });
+</script>
+</body>
+</html>
