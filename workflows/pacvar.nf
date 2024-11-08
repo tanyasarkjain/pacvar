@@ -39,7 +39,7 @@ include { SAMTOOLS_INDEX } from '../modules/nf-core/samtools/index/main'
 include { SAMTOOLS_SORT } from '../modules/nf-core/samtools/sort/main'
 include { GATK4_HAPLOTYPECALLER } from '../modules/nf-core/gatk4/haplotypecaller/main'
 include { PBMM2_ALIGN } from '../modules/nf-core/pbmm2/align/main'
-// include { HIPHASE as HIPHASE_SNP} from '../modules/nf-core/hiphase/main'
+include { HIPHASE as HIPHASE_SNP} from '../modules/nf-core/hiphase/main'
 include { HIPHASE as HIPHASE_SV} from '../modules/nf-core/hiphase/main'
 
 

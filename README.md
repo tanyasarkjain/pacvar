@@ -19,68 +19,54 @@
 
 ## Introduction
 
-**nf-core/pacvar** is a bioinformatics pipeline that analyzes and annotate Pacbio long read sequencing - specifically it is a pipeline that can preform demultiplexing, alignment, phasing, variant calling, and characterization of the repeat expansions for the PureTarget Panel. It takes in a SampleSheet, and BAM files as input.
+**nf-core/pacvar** is a bioinformatics pipeline that processes long read pacbio data. Specifically the pipeline contains two workflows, one to process whole genome sequence data and other to process reads from the PureTarget expansion panel Pacbio offers - this repeat workflow characterizes tandem repeats. The workflow, is designed for pacbio reads and thus uses Pacbio's released tools.
 
-![nf-core/rnaseq metro map](docs/images/final_metromap.svg)
+![nf-core/rnaseq metro map](docs/images/metro_update_final.svg)
 
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
+1. Demultiplex reads  ([`lima`](https://lima.how))
+2. Align reads ([`lima`](https://github.com/PacificBiosciences/pbmm2))
+3. Sort and Index alignments  ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
 
-**Pre-Processing**
-1. Demultiplex Samples LIMA
-2. Alignment against reference genome PBMM2
-3. Index and Sort
+wgs workflow
+1. Choice of SNP calling routes:
+   a. ([`deepvariant`](https://github.com/google/deepvariant))
+   b. ([`HaplotypeCaller`](https://gatk.broadinstitute.org/hc/en-us/articles/360037225632-HaplotypeCaller))
+2. Call SVs ([`pbsv`](https://github.com/PacificBiosciences/pbsv))
+3. Index VCF files ([`bcftools`](https://samtools.github.io/bcftools/bcftools.html))
+4. Phase SNPS, SVs and BAM files ([`hiphase`](https://github.com/PacificBiosciences/HiPhase))
 
-Output: Cleaned up BAM files
-
-**Variant Calling and Phasing**
-1. Single Nucleotide Variant Calling
-2. Structural Nucleotide Variant Calling
-3. Copy Number Variant Calling
-4. Sorting of VCF files
-5. Phasing of VCF files
-
-Output: Phased VCF Files
-
-**Repeat Characterization and Visualization**
-1. Methylation Quantification
-2. Tandem Repeat Genotyping
-3. Repeat VCF creation
-4. Repeat Motif Plot creation
-
-Output: Repeat Plots + Repeat Genotyping
+repeat workflow
+1. Genotype tandem repeats - produce spanning bams and vcf ([`TRGT`](https://github.com/PacificBiosciences/trgt))
+2. Index and Sort tandem tepeat spanning bam ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
+3. Plot repeat motif plots ([`TRGT`](https://github.com/PacificBiosciences/trgt))
+4. Sort spanning VCF ([`bcftools`](https://samtools.github.io/bcftools/bcftools.html))
 
 ## Usage
-
-> [!NOTE]
-> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
-
-<!-- TODO nf-core: Describe the minimum required steps to execute the pipeline, e.g. how to prepare samplesheets.
-     Explain what rows and columns represent. For instance (please edit as appropriate):
 
 First, prepare a samplesheet with your input data that looks as follows:
 
 `samplesheet.csv`:
 
 ```csv
-sample,bam_1,bai_1
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
+sample,bam,bai
+CONTROL,AEG588A1_S1_L002_R1_001.bam,AEG588A1_S1_L002_R1_001.bai
 ```
 
-Each row represents a seperate run from PACBIO, with a BAM file and associated index. 
+Each row represents an unaligned bam file and their associated index.
 
--->
 
 Now, you can run the pipeline using:
-
-<!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->
 
 ```bash
 nextflow run nf-core/pacvar \
    -profile <docker/singularity/.../institute> \
    --input samplesheet.csv \
-   --outdir <OUTDIR>
+   --outdir <OUTDIR> \
+   --workflow <wgs/repeat> \
+   --barcodes barcode.fasta \
+   --intervals intervals.bed
 ```
-
+optional paramaters include: --skip_demultiplexing, --skip_snp --skip_sv  --skip_phase
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_;
 > see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
@@ -97,6 +83,7 @@ For more details about the output files and reports, please refer to the
 
 nf-core/pacvar was originally written by Tanya Sarkin Jain.
 
+We thank the following people for their extensive assistance in the development of this pipeline:
 
 ## Contributions and Support
 
@@ -108,8 +95,6 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 <!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
 <!-- If you use nf-core/pacvar for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
-
-<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
