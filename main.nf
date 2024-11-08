@@ -38,12 +38,6 @@ dbsnp_tbi = params.dbsnp_tbi ? Channel.fromPath(params.dbsnp_tbi).map{ it -> [ [
 intervals = params.intervals ? Channel.fromPath(params.intervals).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
 id = params.id ? Channel.fromPath(params.id).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
 
-
-intervals.view { item ->
-    println "interval item!!: ${item}"
-}
-
-
 //
 // WORKFLOW: Run main analysis pipeline depending on type of input
 //
