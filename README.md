@@ -19,35 +19,20 @@
 
 ## Introduction
 
-**nf-core/pacvar** is a bioinformatics pipeline that analyzes and annotate Pacbio long read sequencing - specifically it is a pipeline that can preform demultiplexing, alignment, phasing, variant calling, and characterization of the repeat expansions for the PureTarget Panel. It takes in a SampleSheet, and BAM files as input.
+**nf-core/pacvar** is a bioinformatics pipeline that ...
 
-![nf-core/rnaseq metro map](docs/images/metro_update.svg)
+<!-- TODO nf-core:
+   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
+   major pipeline sections and the types of output it produces. You're giving an overview to someone new
+   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction
+-->
 
+<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
+     workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
-**Pre-Processing**
-1. Demultiplex Samples LIMA
-2. Alignment against reference genome PBMM2
-3. Index and Sort
-
-Output: Cleaned up BAM files
-
-**Variant Calling and Phasing**
-1. Single Nucleotide Variant Calling
-2. Structural Nucleotide Variant Calling
-3. Copy Number Variant Calling
-4. Sorting of VCF files
-5. Phasing of VCF files
-
-Output: Phased VCF Files
-
-**Repeat Characterization and Visualization**
-1. Methylation Quantification
-2. Tandem Repeat Genotyping
-3. Repeat VCF creation
-4. Repeat Motif Plot creation
-
-Output: Repeat Plots + Repeat Genotyping
+1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
+2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
 
 ## Usage
 
@@ -62,11 +47,11 @@ First, prepare a samplesheet with your input data that looks as follows:
 `samplesheet.csv`:
 
 ```csv
-sample,bam_1,bai_1
+sample,fastq_1,fastq_2
 CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
 ```
 
-Each row represents a seperate run from PACBIO, with a BAM file and associated index. 
+Each row represents a fastq file (single-end) or a pair of fastq files (paired end).
 
 -->
 
@@ -97,6 +82,9 @@ For more details about the output files and reports, please refer to the
 
 nf-core/pacvar was originally written by Tanya Sarkin Jain.
 
+We thank the following people for their extensive assistance in the development of this pipeline:
+
+<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
 
 ## Contributions and Support
 
