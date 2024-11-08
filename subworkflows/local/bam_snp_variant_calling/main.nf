@@ -15,31 +15,33 @@ workflow BAM_SNP_VARIANT_CALLING {
     main:
      //deepvariant
     if (params.tools.split(',').contains('deepvariant')) {
-        deepvar_input_ch = sorted_bam.join(sorted_bai).view()
+        deepvar_input_ch = sorted_bam.join(sorted_bai)
             .map{tuple ->
             def metadata = tuple[0]
             def bam = tuple[1]
             def bai = tuple[2]
             [metadata, bam, bai, intervals]
-        }.view()
+        }
 
         DEEPVARIANT_RUNDEEPVARIANT(deepvar_input_ch,
                                     fasta,
                                     fasta_fai,
                                     [[], []]
                                     )
+        vcf_ch = DEEPVARIANT_RUNDEEPVARIANT.out.vcf.join(DEEPVARIANT_RUNDEEPVARIANT.out.vcf_tbi)
+
+
     }
 
     //gatk4_haplotypecaller
-    //TODO: need to allow to take intervals
     if (params.tools.split(',').contains('gatk4')) {
-        gatk4_input_ch = sorted_bam.join(sorted_bai).view()
+        gatk4_input_ch = sorted_bam.join(sorted_bai)
             .map{tuple ->
             def metadata = tuple[0]
             def bam = tuple[1]
             def bai = tuple[2]
             [metadata, bam, bai, intervals, []]
-        }.view()
+        }
 
         GATK4_HAPLOTYPECALLER(gatk4_input_ch,
                             fasta,
@@ -48,6 +50,10 @@ workflow BAM_SNP_VARIANT_CALLING {
                             dbsnp,
                             dbsnp_tbi
                             )
+
+        vcf_ch = GATK4_HAPLOTYPECALLER.out.vcf.join(GATK4_HAPLOTYPECALLER.out.tbi)
     }
 
+    emit:
+    vcf_ch
 }

@@ -19,14 +19,9 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_pacv
 include { SET_VALUE_CHANNEL as SET_BARCODES_CHANNEL } from '../subworkflows/local/set_value_channel'
 include { SET_VALUE_CHANNEL as SET_INTERVALS_CHANNEL } from '../subworkflows/local/set_value_channel'
 include { BAM_SNP_VARIANT_CALLING as BAM_SNP_VARIANT_CALLING } from '../subworkflows/local/bam_snp_variant_calling'
-include { BAM_CNV_VARIANT_CALLING as BAM_CNV_VARIANT_CALLING } from '../subworkflows/local/bam_cnv_variant_calling'
 include { BAM_SV_VARIANT_CALLING as BAM_SV_VARIANT_CALLING } from '../subworkflows/local/bam_sv_variant_calling'
 include { REPEAT_CHARACTERIZATION as REPEAT_CHARACTERIZATION } from '../subworkflows/local/repeat_characterization'
-include { SAMTOOLS_SORT_AND_INDEX as SAMTOOLS_SORT_AND_INDEX } from '../subworkflows/local/samtools_sort_and_index'
-
-
 include { SET_VALUE_CHANNEL } from '../subworkflows/local/set_value_channel'
-include { HIFICNV } from '../modules/local/hificnv'
 include { TRGT_GENOTYPE } from '../modules/local/trgt/genotype'
 include { TRGT_PLOT } from '../modules/local/trgt/plot'
 
@@ -44,6 +39,8 @@ include { SAMTOOLS_INDEX } from '../modules/nf-core/samtools/index/main'
 include { SAMTOOLS_SORT } from '../modules/nf-core/samtools/sort/main'
 include { GATK4_HAPLOTYPECALLER } from '../modules/nf-core/gatk4/haplotypecaller/main'
 include { PBMM2_ALIGN } from '../modules/nf-core/pbmm2/align/main'
+// include { HIPHASE as HIPHASE_SNP} from '../modules/nf-core/hiphase/main'
+include { HIPHASE as HIPHASE_SV} from '../modules/nf-core/hiphase/main'
 
 
 /*
@@ -64,26 +61,31 @@ workflow PACVAR {
 
     main:
 
-    SET_BARCODES_CHANNEL(params.barcodes)
+    if (!params.skip_demultiplexing) {
+        SET_BARCODES_CHANNEL(params.barcodes)
+        LIMA(ch_samplesheet, SET_BARCODES_CHANNEL.out.data)
 
-    LIMA(ch_samplesheet, SET_BARCODES_CHANNEL.out.data)
+        lima_ch = LIMA.out.bam
+            .flatMap{ tuple ->
+            def metadata = tuple[0]
+            def sampleBams = tuple[1]
+            //seperate samples
+                sampleBams.collect { bam ->
+                    [metadata, bam]
+            }
+            }
+            .map{tuple ->
+                def bam = tuple[1]
+                //change metadata to reflect demultiplexed barcode
+                [[id: bam.baseName], bam]
+            }
 
-    lima_ch = LIMA.out.bam
-        .flatMap{ tuple ->
-        def metadata = tuple[0]
-        def sampleBams = tuple[1]
-        //seperate samples
-            sampleBams.collect { bam ->
-                [metadata, bam]
-        }
-        }
-        .map{tuple ->
-            def bam = tuple[1]
-            //change metadata to reflect demultiplexed barcode
-            [[id: bam.baseName], bam]
-        }.view()
+            PBMM2_ALIGN(lima_ch, fasta)
+    }
 
-    PBMM2_ALIGN(lima_ch, fasta)
+    else {
+        PBMM2_ALIGN(ch_samplesheet, fasta)
+    }
 
     //ensure the output of this gets paired correctly
 
@@ -91,39 +93,50 @@ workflow PACVAR {
     SAMTOOLS_INDEX(SAMTOOLS_SORT.out.bam)
 
     intervals = Channel.from([ [], 0 ])
-    intervals.view()
 
     //join the bam and index based off the meta id (ensure correct order)
-    bam_bai_ch = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).view()
+    bam_bai_ch = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai)
     ordered_bam_ch = bam_bai_ch.map { meta, bam, bai -> [meta, bam] }
     ordered_bai_ch = bam_bai_ch.map { meta, bam, bai -> [meta, bai] }
 
-    ordered_bam_ch.view{ bamfile -> println("BAM: ${bamfile}")}
-    ordered_bai_ch.view{ bamfile -> println("BAI: ${bamfile}")}
 
     //if whole genome sequencing call CNV and SV call the WGS workflow + phase
     if (params.workflow == 'wgs') {
-        //gatk or deepvariant snp calling
-        BAM_SNP_VARIANT_CALLING(ordered_bam_ch,
-                                ordered_bai_ch,
-                                fasta,
-                                fasta_fai,
-                                dict,
-                                dbsnp,
-                                dbsnp_tbi,
-                                params.intervals)
 
-        //pbsv structural variant calling
-        BAM_SV_VARIANT_CALLING(ordered_bam_ch,
-                                ordered_bai_ch,
-                                fasta,
-                                fasta_fai)
+        if (!params.skip_snp) {
+            //gatk or deepvariant snp calling
+            BAM_SNP_VARIANT_CALLING(ordered_bam_ch,
+                                    ordered_bai_ch,
+                                    fasta,
+                                    fasta_fai,
+                                    dict,
+                                    dbsnp,
+                                    dbsnp_tbi,
+                                    params.intervals)
 
-        // // //hificnv
-        // BAM_CNV_VARIANT_CALLING(ordered_bam_ch,
-        //                         ordered_bai_ch,
-        //                         fasta,
-        //                         fasta_fai)
+            if (!params.skip_phase) {
+                //phase snp files
+                HIPHASE_SNP(BAM_SNP_VARIANT_CALLING.out.vcf_ch,
+                        bam_bai_ch,
+                        fasta)
+            }
+        }
+
+         if (!params.skip_sv) {
+            //pbsv structural variant calling
+            BAM_SV_VARIANT_CALLING(ordered_bam_ch,
+                                    ordered_bai_ch,
+                                    fasta,
+                                    fasta_fai)
+
+
+            //phase sv files
+            if (!params.skip_phase) {
+                HIPHASE_SV(BAM_SV_VARIANT_CALLING.out.vcf_ch,
+                        bam_bai_ch,
+                        fasta)
+            }
+         }
     }
 
     if (params.workflow == 'repeat') {

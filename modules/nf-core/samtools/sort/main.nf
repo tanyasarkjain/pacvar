@@ -24,8 +24,7 @@ process SAMTOOLS_SORT {
 
     script:
     def args = task.ext.args ?: ''
-    //def prefix = task.ext.prefix ?: "${meta.id}"
-    def prefix = "${bam}_sorted"
+    def prefix = task.ext.prefix ?: "${meta.id}"
     def extension = args.contains("--output-fmt sam") ? "sam" :
                     args.contains("--output-fmt cram") ? "cram" :
                     "bam"

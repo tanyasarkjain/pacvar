@@ -5,6 +5,11 @@
         "https://github.com/nf-core/modules.git": {
             "modules": {
                 "nf-core": {
+                    "bcftools/index": {
+                        "branch": "master",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "installed_by": ["modules"]
+                    },
                     "bcftools/sort": {
                         "branch": "master",
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
@@ -33,12 +38,19 @@
                     "deepvariant/rundeepvariant": {
                         "branch": "master",
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/deepvariant/rundeepvariant/deepvariant-rundeepvariant.diff"
                     },
                     "gatk4/haplotypecaller": {
                         "branch": "master",
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
                         "installed_by": ["modules"]
+                    },
+                    "hiphase": {
+                        "branch": "master",
+                        "git_sha": "d29fcb4ec1274a2982b86225f23fd895c1d7db2f",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/hiphase/hiphase.diff"
                     },
                     "lima": {
                         "branch": "master",
@@ -63,7 +75,8 @@
                     "pbmm2/align": {
                         "branch": "master",
                         "git_sha": "7f3ea5df279fa051bec9bade1798a58ba35b1196",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/pbmm2/align/pbmm2-align.diff"
                     },
                     "pbsv/call": {
                         "branch": "master",
@@ -83,9 +96,16 @@
                     "samtools/index": {
                         "branch": "master",
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/samtools/index/samtools-index.diff"
                     },
                     "samtools/sort": {
+                        "branch": "master",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/samtools/sort/samtools-sort.diff"
+                    },
+                    "tabix/bgzip": {
                         "branch": "master",
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
                         "installed_by": ["modules"]
