@@ -34,6 +34,8 @@ fasta_fai = params.fasta_fai ? Channel.fromPath(params.fasta_fai).map{ it -> [ [
 dict = params.dict ? Channel.fromPath(params.dict).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
 dbsnp = params.dbsnp ? Channel.fromPath(params.dbsnp).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
 dbsnp_tbi = params.dbsnp_tbi ? Channel.fromPath(params.dbsnp_tbi).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+intervals = params.intervals ? Channel.fromPath(params.intervals).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+id = params.id ? Channel.fromPath(params.id).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
 
 
 fasta.view { item ->
@@ -59,6 +61,8 @@ workflow NFCORE_PACVAR {
     dict
     dbsnp
     dbsnp_tbi
+    intervals
+    id
 
 
     main:
