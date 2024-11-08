@@ -152,7 +152,6 @@ workflow PACVAR {
                                     id_ch)
     }
 
-    //MULTIQC STUFF - NOT QUITE SURE WHAT THIS DOES
     // MODULE: MultiQC
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
