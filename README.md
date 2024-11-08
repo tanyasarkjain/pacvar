@@ -20,6 +20,7 @@
 ## Introduction
 
 **nf-core/pacvar** is a bioinformatics pipeline that processes long read pacbio data. Specifically the pipeline contains two workflows, one to process whole genome sequence data and other to process reads from the PureTarget expansion panel Pacbio offers - this repeat workflow characterizes tandem repeats. The workflow, is designed for pacbio reads and thus uses Pacbio's released tools.
+**nf-core/pacvar** is a bioinformatics pipeline that processes long read pacbio data. Specifically the pipeline contains two workflows, one to process whole genome sequence data and other to process reads from the PureTarget expansion panel Pacbio offers - this repeat workflow characterizes tandem repeats. The workflow, is designed for pacbio reads and thus uses Pacbio's released tools.
 
 ![nf-core/rnaseq metro map](docs/images/metro_update_final.svg)
 
@@ -61,6 +62,10 @@ Now, you can run the pipeline using:
 nextflow run nf-core/pacvar \
    -profile <docker/singularity/.../institute> \
    --input samplesheet.csv \
+   --outdir <OUTDIR> \
+   --workflow <wgs/repeat> \
+   --barcodes barcode.fasta \
+   --intervals intervals.bed
    --outdir <OUTDIR> \
    --workflow <wgs/repeat> \
    --barcodes barcode.fasta \
