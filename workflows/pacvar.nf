@@ -94,8 +94,6 @@ workflow PACVAR {
     SAMTOOLS_SORT(PBMM2_ALIGN.out.bam, fasta)
     SAMTOOLS_INDEX(SAMTOOLS_SORT.out.bam)
 
-    intervals = Channel.from([ [], 0 ])
-
     //join the bam and index based off the meta id (ensure correct order)
     bam_bai_ch = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai)
     ordered_bam_ch = bam_bai_ch.map { meta, bam, bai -> [meta, bam] }
@@ -144,6 +142,8 @@ workflow PACVAR {
     if (params.workflow == 'repeat') {
 
         id_ch = Channel.fromPath(params.id).map { file ->[file.baseName, file] }
+        println('intervals')
+        intervals.view()
 
         REPEAT_CHARACTERIZATION(ordered_bam_ch,
                                     ordered_bai_ch,

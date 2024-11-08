@@ -13,7 +13,7 @@ process TRGT_GENOTYPE {
     tuple val(meta2), path(bai)
     tuple val(meta3), path(fasta)
     tuple val(meta4), path(fasta_fai)
-    tuple val(meta3), path(bed)
+    tuple val(meta5), path(bed)
 
     output:
     tuple val(meta), path("*.vcf.gz"), emit: vcf
