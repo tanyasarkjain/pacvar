@@ -8,9 +8,7 @@ process TRGT_PLOT {
         'biocontainers/trgt:1.2.0--h9ee0642_0' }"
 
     input:
-    tuple val(meta), path(bam)
-    tuple val(meta2), path(bai)
-    tuple val(meta3), path(vcf)
+    tuple val(meta), path(bam), path(bai), path(vcf)
     tuple val(meta4), path(fasta)
     tuple val(meta5), path(fasta_fai)
     tuple val(meta6), path(bed)
