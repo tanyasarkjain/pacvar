@@ -20,7 +20,6 @@
 ## Introduction
 
 **nf-core/pacvar** is a bioinformatics pipeline that processes long read pacbio data. Specifically the pipeline contains two workflows, one to process whole genome sequence data and other to process reads from the PureTarget expansion panel Pacbio offers - this repeat workflow characterizes tandem repeats. The workflow, is designed for pacbio reads and thus uses Pacbio's released tools.
-**nf-core/pacvar** is a bioinformatics pipeline that processes long read pacbio data. Specifically the pipeline contains two workflows, one to process whole genome sequence data and other to process reads from the PureTarget expansion panel Pacbio offers - this repeat workflow characterizes tandem repeats. The workflow, is designed for pacbio reads and thus uses Pacbio's released tools.
 
 ![nf-core/rnaseq metro map](docs/images/metro_update_final.svg)
 
