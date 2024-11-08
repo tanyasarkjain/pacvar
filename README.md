@@ -24,7 +24,7 @@
 ![nf-core/rnaseq metro map](docs/images/metro_update_final.svg)
 
 1. Demultiplex reads  ([`lima`](https://lima.how))
-2. Align reads ([`lima`](https://github.com/PacificBiosciences/pbmm2))
+2. Align reads ([`pbmm2`](https://github.com/PacificBiosciences/pbmm2))
 3. Sort and Index alignments  ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
 
 wgs workflow
