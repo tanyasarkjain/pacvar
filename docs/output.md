@@ -12,32 +12,144 @@ The directories listed below will be created in the results directory after the 
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-- [FastQC](#fastqc) - Raw read QC
-- [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
+- [LIMA](#lima) - Demultiplex samples
+- [PBMM2](#pbmm2) - Align samples to reference genome 
+- [SAMTOOLS SORT](#samtools-sort) - Sort BAM files
+- [SAMTOOLS INDEX](#samtools-sort) - Index BAM files
+- [DEEPVARIANT](#deepvariant-rundeepvariant) - Variant call SNVs
+- [HAPLOTYPECALLER](#gatk4-haplotypecaller) - Variant call SNVs
+- [pbsv](#pbsv) - Variant call SVs
+- [TRGT](#trgt) - Genotype and Plot structural variants
+- [BCFTOOLS](#bcftools-index) - Index VCF files
+- [HIPHASE](#Hiphase) - Phase VCF, and BAM files
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
-## Demultiplexing
+### LIMA
 
 <details markdown="1">
 <summary>Output files</summary>
 
-- `fastqc/`
-  - `*_fastqc.html`: FastQC report containing quality metrics.
-  - `*_fastqc.zip`: Zip archive containing the FastQC report, tab-delimited data file and plot images.
+- `lima/`
+  - `<sample><barcode-pair>.bam`: The demultiplexed bamfiles
+  - `<sample>.<barcode-pair>.bam.pbi`: The Pacbio index of bam files
+  - `<sample>.lima.counts`: Counts of the number of reads found for each demultiplexed sample
+  - `<sample>.lima.report`: Tab-separated file about each ZMW, unfiltered
+  - `<sample>.lima.summary`: File that shows how many ZMWs have been filtered, how ZMWs many are same/different
+  
+</details>
+
+[LIMA](https://lima.how) demultiplex samples
+
+### PBMM2
+
+<details markdown="1">
+<summary>Output files</summary>
+- `pbmm2/`
+  - `<sample>.<barcode-pair>.aligned.bam`: Aligned BAM
+</details>
+
+[PBMM2](https://github.com/PacificBiosciences/pbmm2) Aligned BAM files
+
+### SAMTOOLS
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `samtools/`
+  - `<sample>.<barcode-pair>.sorted.bam`: The sorted BAM file.
+  - `<sample>.<barcode-pair>.sorted.bam.bai`: The indexed BAM file.
 
 </details>
 
-[FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) gives general quality metrics about your sequenced reads. It provides information about the quality score distribution across your reads, per base sequence content (%A/T/G/C), adapter contamination and overrepresented sequences. For further reading and documentation see the [FastQC help pages](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/).
+[SAMTOOLS](https://github.com/samtools/samtools) Sort and Index aligned bams. 
 
-![MultiQC - FastQC sequence counts plot](images/mqc_fastqc_counts.png)
+### GATK4
 
-![MultiQC - FastQC mean quality scores plot](images/mqc_fastqc_quality.png)
+<details markdown="1">
+<summary>Output files</summary>
 
-![MultiQC - FastQC adapter content plot](images/mqc_fastqc_adapter.png)
+- `gatk4/`
+  - `<sample>.<barcode-pair>.vcf.gz`: VCF of the SNV
+  - `<sample>.<barcode-pair>.vcf.gz.tbi`: Associated indexes for the VCF files
 
-:::note
-The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They may contain adapter sequence and potentially regions with low quality.
-:::
+</details>
+
+[GATK4](https://github.com/broadinstitute/gatk/tree/master/src/main/java/org/broadinstitute/hellbender/tools/walkers/haplotypecaller) HaplotypeCaller - SNV detection and Variant Call tool.
+
+### PBSV
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `pbsv/`
+  - `<sample>.<barcode-pair>.pbsv.vcf`: VCF of SV
+  - `<sample>.<barcode-pair>.svsig.gz`: File containing signatures of structural variants
+
+</details>
+
+[PBSV](https://github.com/PacificBiosciences/pbsv). Discover and call structural variants
+
+### HIPHASE
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `hiphase/`
+  - '<sample>.<barcode-pair>.phased.bam': Haplotagged BAM
+  - '<sample>.<barcode-pair>.phased.vcf': The phased Variant File
+  - '<sample>.<barcode-pair>.phased.vcf': This CSV/TSV file contains information about the the phase blocks that were output by HiPhase. 
+
+</details>
+
+[`HIPHASE`](https://github.com/PacificBiosciences/HiPhase/tree/main)
+
+### TABIX
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `tabix/`
+  - `<sample>.<barcode-pair>.vcf.gz`: Zipped PBSV VCF files
+
+</details>
+
+[TABIX](https://github.com/samtools/htslib) VCF file handler - VCF zipping. 
+
+### BCFTOOLS
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `BCFTOOLS/`
+  - `<sample>.<barcode-pair>.vcf.gz.csi`: Index of PBSV VCF files 
+
+</details>
+
+[BCFTOOLS](https://github.com/samtools/bcftools) Manipulates VCF files including Indexes them 
+
+### DEEPVARIANT
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `deepvariant/`
+  - `<sample>.<barcode-pair>.vcf.gz.csi`: Index of PBSV VCF files 
+</details>
+
+[DEEPVARIANT](https://github.com/google/deepvariant) SNV caller
+
+
+### TRGT
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `trgt/`
+  - `<sample>.tsv`: A tsv listing bed files to merge with TAMA merge
+
+</details>
+
+[TRGT](https://github.com/PacificBiosciences/trgt) Plots and Genotypes tandem repeats
 
 ### MultiQC
 
@@ -69,3 +181,4 @@ Results generated by MultiQC collate pipeline QC from supported tools e.g. FastQ
 </details>
 
 [Nextflow](https://www.nextflow.io/docs/latest/tracing.html) provides excellent functionality for generating various reports relevant to the running and execution of the pipeline. This will allow you to troubleshoot errors with the running of the pipeline, and also provide you with other information such as launch commands, run times and resource usage.
+
