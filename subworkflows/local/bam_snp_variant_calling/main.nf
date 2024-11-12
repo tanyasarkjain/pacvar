@@ -29,8 +29,6 @@ workflow BAM_SNP_VARIANT_CALLING {
                                     [[], []]
                                     )
         vcf_ch = DEEPVARIANT_RUNDEEPVARIANT.out.vcf.join(DEEPVARIANT_RUNDEEPVARIANT.out.vcf_tbi)
-
-
     }
 
     //gatk4_haplotypecaller

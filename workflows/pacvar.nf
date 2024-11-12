@@ -62,6 +62,7 @@ workflow PACVAR {
 
     main:
 
+    // demultiplex
     if (!params.skip_demultiplexing) {
         SET_BARCODES_CHANNEL(params.barcodes)
         LIMA(ch_samplesheet, SET_BARCODES_CHANNEL.out.data)
@@ -84,8 +85,10 @@ workflow PACVAR {
             PBMM2_ALIGN(lima_ch, fasta)
     }
 
+    // align input directly (skipping demultiplexing phase)
     else {
-        PBMM2_ALIGN(ch_samplesheet, fasta)
+        pbmm2_ch = ch_samplesheet.map { meta, bam, pbi -> [meta, bam] }
+        PBMM2_ALIGN(pbmm2_ch, fasta)
     }
 
     SAMTOOLS_SORT(PBMM2_ALIGN.out.bam, fasta)
@@ -136,11 +139,9 @@ workflow PACVAR {
     }
 
     if (params.workflow == 'repeat') {
-
         id_ch = Channel.fromPath(params.id).map { file ->[file.baseName, file] }
-        println('intervals')
-        intervals.view()
 
+        // characterize repeats
         REPEAT_CHARACTERIZATION(ordered_bam_ch,
                                     ordered_bai_ch,
                                     fasta,
