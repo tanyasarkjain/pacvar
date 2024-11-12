@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/pacvar/master/nextflow_schema.json",
     "title": "nf-core/pacvar pipeline parameters",
     "description": "A variant caller for PacBio long read sequencing - also can be used for PureTarget panel analysis, and quantification of repeat expansions",
@@ -173,11 +173,11 @@
                     "type": "string",
                     "description": "Fasta file of barcodes"
                 },
-                    "skip_demultiplexing": {
+                "skip_demultiplexing": {
                     "type": "boolean",
                     "description": "Option to skip demultiplexing"
                 },
-                    "intervals": {
+                "intervals": {
                     "type": "string",
                     "description": "Intervals for either varinat calling or for repeat expansion characterization"
                 }
@@ -194,7 +194,7 @@
                     "default": "wgs",
                     "description": "workflow type - can either be PureTarget or wgs"
                 }
-                }
+            }
         },
         "generic_options": {
             "title": "Generic options",

@@ -16,11 +16,11 @@ You will need to create a samplesheet with information about the samples you wou
 --input '[path to samplesheet file]'
 ```
 
-| Column       | Description                                                                                                                                                                                                                                                                               |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`      | Name of the sample.                                                                                                                                                                               |
-| `bam`  | Path to the unaligned bam file`.                                                                                                                                                                                                       |
-| `bai`    | Path to the associated bai - bam index file.                                                                                                                                                                                                
+| Column   | Description                                  |
+| -------- | -------------------------------------------- |
+| `sample` | Name of the sample.                          |
+| `bam`    | Path to the unaligned bam file`.             |
+| `bai`    | Path to the associated bai - bam index file. |
 
 ### Example SampleSheet
 
@@ -31,6 +31,7 @@ sample,bam,bai
 CONTROL_REP1, NA03697B2_01.bam,NA03697B2_01.bai
 CONTROL_REP1, NA03697B2_02.bam,NA03697B2_03.bai
 ```
+
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
 ## Running the pipeline
@@ -71,13 +72,13 @@ nextflow run nf-core/pacvar -profile docker -params-file params.yaml
 with `params.yaml` containing:
 
 ```yaml
-input: './samplesheet.csv'
-outdir: './results/'
-genome: 'GRCh37'
-barcodes: './barcodes.fasta'
-intervals: './barcodes.bed'
-workflow: 'wgs'
-tools: 'deepvariant'
+input: "./samplesheet.csv"
+outdir: "./results/"
+genome: "GRCh37"
+barcodes: "./barcodes.fasta"
+intervals: "./barcodes.bed"
+workflow: "wgs"
+tools: "deepvariant"
 ```
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).

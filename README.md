@@ -19,14 +19,14 @@
 
 ## Introduction
 
-
 ![nf-core/rnaseq metro map](docs/images/metro_update_w_tabix_orange.svg)
 
-1. Demultiplex reads  ([`lima`](https://lima.how))
+1. Demultiplex reads ([`lima`](https://lima.how))
 2. Align reads ([`pbmm2`](https://github.com/PacificBiosciences/pbmm2))
-3. Sort and Index alignments  ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
+3. Sort and Index alignments ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
 
 wgs workflow
+
 1. Choice of SNP calling routes:
    a. ([`deepvariant`](https://github.com/google/deepvariant))
    b. ([`HaplotypeCaller`](https://gatk.broadinstitute.org/hc/en-us/articles/360037225632-HaplotypeCaller))
@@ -35,6 +35,7 @@ wgs workflow
 4. Phase SNPS, SVs and BAM files ([`hiphase`](https://github.com/PacificBiosciences/HiPhase))
 
 repeat workflow
+
 1. Genotype tandem repeats - produce spanning bams and vcf ([`TRGT`](https://github.com/PacificBiosciences/trgt))
 2. Index and Sort tandem tepeat spanning bam ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
 3. Plot repeat motif plots ([`TRGT`](https://github.com/PacificBiosciences/trgt))
@@ -53,7 +54,6 @@ CONTROL,AEG588A1_S1_L002_R1_001.bam,AEG588A1_S1_L002_R1_001.bai
 
 Each row represents an unaligned bam file and their associated index.
 
-
 Now, you can run the pipeline using:
 
 ```bash
@@ -69,7 +69,9 @@ nextflow run nf-core/pacvar \
    --barcodes barcode.fasta \
    --intervals intervals.bed
 ```
-optional paramaters include: --skip_demultiplexing, --skip_snp --skip_sv  --skip_phase
+
+optional paramaters include: --skip_demultiplexing, --skip_snp --skip_sv --skip_phase
+
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_;
 > see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).

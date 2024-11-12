@@ -132,10 +132,9 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 - `deepvariant/`
   - `<sample>.<barcode-pair>.vcf.gz.csi`: Index of PBSV VCF files
-</details>
+  </details>
 
 [DEEPVARIANT](https://github.com/google/deepvariant) SNV caller
-
 
 ### TRGT
 
