@@ -9,11 +9,10 @@ process TRGT_GENOTYPE {
         'biocontainers/trgt:1.2.0--h9ee0642_0' }"
 
     input:
-    tuple val(meta), path(bam)
-    tuple val(meta2), path(bai)
-    tuple val(meta3), path(fasta)
-    tuple val(meta4), path(fasta_fai)
-    tuple val(meta5), path(bed)
+    tuple val(meta), path(bam), path(bai)
+    tuple val(meta2), path(fasta)
+    tuple val(meta3), path(fasta_fai)
+    tuple val(meta4), path(bed)
 
     output:
     tuple val(meta), path("*.vcf.gz"), emit: vcf

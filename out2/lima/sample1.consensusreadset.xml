@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pbds:ConsensusReadSet CreatedAt="2024-11-12T19:29:56.461Z" MetaType="PacBio.DataSet.ConsensusReadSet" Name="sample1 (all samples)" Tags="barcoded" TimeStampedName="sample1 (all samples)-241112_192956462" UniqueId="5078307a-e7dd-4207-8791-b71278320edd" Version="3.0.1" xmlns:pbbase="http://pacificbiosciences.com/PacBioBaseDataModel.xsd" xmlns:pbdm="http://pacificbiosciences.com/PacBioDataModel.xsd" xmlns:pbmeta="http://pacificbiosciences.com/PacBioCollectionMetadata.xsd" xmlns:pbpn="http://pacificbiosciences.com/PacBioPartNumbers.xsd" xmlns:pbrk="http://pacificbiosciences.com/PacBioReagentKit.xsd" xmlns:pbsample="http://pacificbiosciences.com/PacBioSampleInfo.xsd" xmlns="http://pacificbiosciences.com/PacBioDatasets.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pacificbiosciences.com/PacBioDatasets.xsd" xmlns:pbds="http://pacificbiosciences.com/PacBioDatasets.xsd">
+	<pbbase:ExternalResources>
+		<pbbase:ExternalResource CreatedAt="2024-11-12T19:29:56.461Z" MetaType="PacBio.ConsensusReadFile.ConsensusReadBamFile" ResourceId="sample1.bc2026--bc2026.bam" TimeStampedName="pacbio_consensusreadfile_consensusreadbamfile-241112_192956461" UniqueId="cf0055e4-ba38-4e97-978b-3714e8e998bd" Version="3.0.1">
+			<pbbase:FileIndices>
+				<pbbase:FileIndex CreatedAt="2024-11-12T19:29:56.461Z" MetaType="PacBio.Index.PacBioIndex" ResourceId="sample1.bc2026--bc2026.bam.pbi" TimeStampedName="pacbio_index_pacbioindex-241112_192956461" UniqueId="51a1df5d-a0bc-4c74-ad39-3b3d0e410ffd" Version="3.0.1" />
+			</pbbase:FileIndices>
+			<pbbase:ExternalResources>
+				<pbbase:ExternalResource CreatedAt="2024-11-12T19:29:56.461Z" MetaType="PacBio.DataSet.ConsensusReadSet" ResourceId="sample1.bc2026--bc2026.consensusreadset.xml" TimeStampedName="pacbio_dataset_consensusreadset-241112_192956461" UniqueId="676cd8d1-4e0c-4ac8-a9d2-28a559c44363" Version="3.0.1" />
+			</pbbase:ExternalResources>
+		</pbbase:ExternalResource>
+		<pbbase:ExternalResource CreatedAt="2024-11-12T19:29:56.461Z" MetaType="PacBio.ConsensusReadFile.ConsensusReadBamFile" ResourceId="sample1.bc2058--bc2058.bam" TimeStampedName="pacbio_consensusreadfile_consensusreadbamfile-241112_192956461" UniqueId="3db1c3f4-897b-4a7b-af3c-209a5d64dd93" Version="3.0.1">
+			<pbbase:FileIndices>
+				<pbbase:FileIndex CreatedAt="2024-11-12T19:29:56.461Z" MetaType="PacBio.Index.PacBioIndex" ResourceId="sample1.bc2058--bc2058.bam.pbi" TimeStampedName="pacbio_index_pacbioindex-241112_192956461" UniqueId="13f2cb04-ee0c-40aa-89ae-7d6eaf50a558" Version="3.0.1" />
+			</pbbase:FileIndices>
+			<pbbase:ExternalResources>
+				<pbbase:ExternalResource CreatedAt="2024-11-12T19:29:56.461Z" MetaType="PacBio.DataSet.ConsensusReadSet" ResourceId="sample1.bc2058--bc2058.consensusreadset.xml" TimeStampedName="pacbio_dataset_consensusreadset-241112_192956461" UniqueId="505fed1d-36e1-4348-97be-dda68ba3c1e2" Version="3.0.1" />
+			</pbbase:ExternalResources>
+		</pbbase:ExternalResource>
+	</pbbase:ExternalResources>
+	<pbbase:SupplementalResources>
+		<pbbase:ExternalResource CreatedAt="2024-11-12T19:29:56.461Z" Description="Points to the barcodes.fasta file." MetaType="PacBio.BarcodeFile.BarcodeFastaFile" Name="Barcodes FASTA" ResourceId="barcodes_D01.fasta" TimeStampedName="pacbio_barcodefile_barcodefastafile-241112_192956461" UniqueId="bbc24d0f-4dca-4904-a9f2-15d0d1e02dd1" Version="3.0.1" />
+		<pbbase:ExternalResource CreatedAt="2024-11-12T19:29:56.461Z" MetaType="PacBio.FileTypes.txt" ResourceId="sample1.lima.counts" TimeStampedName="pacbio_filetypes_txt-241112_192956461" UniqueId="6fee05fd-16ac-4bc8-aeb4-fdc849f31630" Version="3.0.1" />
+		<pbbase:ExternalResource CreatedAt="2024-11-12T19:29:56.461Z" MetaType="PacBio.FileTypes.txt" ResourceId="sample1.lima.report" TimeStampedName="pacbio_filetypes_txt-241112_192956461" UniqueId="3dd791a4-b11e-42d6-b334-8cb2da55c6eb" Version="3.0.1" />
+		<pbbase:ExternalResource CreatedAt="2024-11-12T19:29:56.461Z" MetaType="PacBio.FileTypes.txt" ResourceId="sample1.lima.summary" TimeStampedName="pacbio_filetypes_txt-241112_192956461" UniqueId="4dcbf9d6-8cba-4ecb-b35f-f74fa6c9c1cd" Version="3.0.1" />
+	</pbbase:SupplementalResources>
+	<pbds:DataSetMetadata>
+		<pbds:TotalLength>73970466</pbds:TotalLength>
+		<pbds:NumRecords>12831</pbds:NumRecords>
+	</pbds:DataSetMetadata>
+</pbds:ConsensusReadSet>

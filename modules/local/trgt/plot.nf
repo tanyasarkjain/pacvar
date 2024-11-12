@@ -9,10 +9,10 @@ process TRGT_PLOT {
 
     input:
     tuple val(meta), path(bam), path(bai), path(vcf)
-    tuple val(meta4), path(fasta)
-    tuple val(meta5), path(fasta_fai)
-    tuple val(meta6), path(bed)
-    tuple val(meta7), path(id)
+    tuple val(meta2), path(fasta)
+    tuple val(meta3), path(fasta_fai)
+    tuple val(meta4), path(bed)
+    tuple val(meta5), path(id)
 
 
     output:

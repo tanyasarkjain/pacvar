@@ -15,9 +15,9 @@ workflow  REPEAT_CHARACTERIZATION{
     id
 
     main:
+    bam_bai_ch = sorted_bam.join(sorted_bai)
     //genotype the repeat region
-    TRGT_GENOTYPE(sorted_bam,
-                    sorted_bai,
+    TRGT_GENOTYPE(bam_bai_ch,
                     fasta,
                     fasta_fai,
                     bed)
