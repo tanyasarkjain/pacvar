@@ -34,7 +34,6 @@ include { TRGT_PLOT } from '../modules/local/trgt/plot'
 
 include { LIMA } from '../modules/nf-core/lima/main'
 include { DEEPVARIANT_RUNDEEPVARIANT } from '../modules/nf-core/deepvariant/rundeepvariant/main'
-include { SAMTOOLS_CONVERT as BAM_TO_CRAM } from '../modules/nf-core/samtools/convert/main'
 include { SAMTOOLS_INDEX } from '../modules/nf-core/samtools/index/main'
 include { SAMTOOLS_SORT } from '../modules/nf-core/samtools/sort/main'
 include { GATK4_HAPLOTYPECALLER } from '../modules/nf-core/gatk4/haplotypecaller/main'
@@ -89,8 +88,6 @@ workflow PACVAR {
         PBMM2_ALIGN(ch_samplesheet, fasta)
     }
 
-    //ensure the output of this gets paired correctly
-
     SAMTOOLS_SORT(PBMM2_ALIGN.out.bam, fasta)
     SAMTOOLS_INDEX(SAMTOOLS_SORT.out.bam)
 
@@ -98,7 +95,6 @@ workflow PACVAR {
     bam_bai_ch = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai)
     ordered_bam_ch = bam_bai_ch.map { meta, bam, bai -> [meta, bam] }
     ordered_bai_ch = bam_bai_ch.map { meta, bam, bai -> [meta, bai] }
-
 
     //if whole genome sequencing call CNV and SV call the WGS workflow + phase
     if (params.workflow == 'wgs') {
