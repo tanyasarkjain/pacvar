@@ -1,7 +1,4 @@
 Changes in module 'nf-core/samtools/index'
-'modules/nf-core/samtools/index/environment.yml' is unchanged
-'modules/nf-core/samtools/index/meta.yml' is unchanged
-Changes in 'samtools/index/main.nf':
 --- modules/nf-core/samtools/index/main.nf
 +++ modules/nf-core/samtools/index/main.nf
 @@ -27,7 +27,7 @@
@@ -14,8 +11,4 @@ Changes in 'samtools/index/main.nf':
      "${task.process}":
          samtools: \$(echo \$(samtools --version 2>&1) | sed 's/^.*samtools //; s/Using.*\$//')
 
-'modules/nf-core/samtools/index/tests/main.nf.test.snap' is unchanged
-'modules/nf-core/samtools/index/tests/csi.nextflow.config' is unchanged
-'modules/nf-core/samtools/index/tests/tags.yml' is unchanged
-'modules/nf-core/samtools/index/tests/main.nf.test' is unchanged
 ************************************************************
