@@ -121,7 +121,7 @@ workflow PACVAR {
             }
         }
 
-         if (!params.skip_sv) {
+        if (!params.skip_sv) {
             //pbsv structural variant calling
             BAM_SV_VARIANT_CALLING(ordered_bam_ch,
                                     ordered_bai_ch,
@@ -135,7 +135,7 @@ workflow PACVAR {
                         bam_bai_ch,
                         fasta)
             }
-         }
+        }
     }
 
     if (params.workflow == 'repeat') {

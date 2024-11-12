@@ -23,5 +23,4 @@ workflow BAM_SV_VARIANT_CALLING {
 
     emit:
     vcf_ch
-
 }
