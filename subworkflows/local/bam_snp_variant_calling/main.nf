@@ -13,7 +13,7 @@ workflow BAM_SNP_VARIANT_CALLING {
     intervals
 
     main:
-     //deepvariant
+    //deepvariant
     if (params.tools.split(',').contains('deepvariant')) {
         deepvar_input_ch = sorted_bam.join(sorted_bai)
             .map{tuple ->
