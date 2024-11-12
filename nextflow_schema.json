@@ -29,10 +29,6 @@
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open"
                 },
-                "barcodes": {
-                    "type": "string",
-                    "description": "Fasta file of barcodes"
-                },
                 "email": {
                     "type": "string",
                     "description": "Email address for completion summary.",
@@ -75,6 +71,22 @@
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
                     "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
+                },
+                "fasta_fai": {
+                    "type": "string",
+                    "description": "Path to FASTA index"
+                },
+                "dbsnp": {
+                    "type": "string",
+                    "description": "Path to dbsnp"
+                },
+                "dbsnp_tbi": {
+                    "type": "string",
+                    "description": "Path to dbsnp_tbi"
+                },
+                "dict": {
+                    "type": "string",
+                    "description": "Path to dict for variant calling"
                 }
             }
         },
@@ -125,6 +137,64 @@
                     "fa_icon": "fas fa-users-cog"
                 }
             }
+        },
+        "variant": {
+            "title": "Variant Calling options",
+            "type": "object",
+            "description": "Options for alignment specification",
+            "help_text": "These options are specific to pacvar and allow customization of alignment and phasing of the variants",
+            "properties": {
+                "tools": {
+                    "type": "string",
+                    "default": "deepvariant",
+                    "description": "variant calling tool - can either be deepvariant or gatk4"
+                },
+                "skip_snp": {
+                    "type": "boolean",
+                    "description": "Option to skip SNP variant calling"
+                },
+                "skip_sv": {
+                    "type": "boolean",
+                    "description": "Option to skip SV variant calling"
+                },
+                "skip_phase": {
+                    "type": "boolean",
+                    "description": "Option to skip phasing"
+                }
+            }
+        },
+        "pre_processing": {
+            "title": "Pre-processing options that are not workflow specific",
+            "type": "object",
+            "description": "Options for pre-processing specification",
+            "help_text": "These options are important for the pre-processign step of the workflow which includes skip_demultiplexing",
+            "properties": {
+                "barcodes": {
+                    "type": "string",
+                    "description": "Fasta file of barcodes"
+                },
+                    "skip_demultiplexing": {
+                    "type": "boolean",
+                    "description": "Option to skip demultiplexing"
+                },
+                    "intervals": {
+                    "type": "string",
+                    "description": "Intervals for either varinat calling or for repeat expansion characterization"
+                }
+            }
+        },
+        "general_workflow_options": {
+            "title": "General workflow options",
+            "type": "object",
+            "description": "Options for specifying workflow type",
+            "help_text": "These options are important for the specifying which workflow runs",
+            "properties": {
+                "workflow": {
+                    "type": "string",
+                    "default": "wgs",
+                    "description": "workflow type - can either be PureTarget or wgs"
+                }
+                }
         },
         "generic_options": {
             "title": "Generic options",
@@ -257,43 +327,15 @@
         },
         {
             "$ref": "#/definitions/generic_options"
+        },
+        {
+            "$ref": "#/definitions/general_workflow_options"
+        },
+        {
+            "$ref": "#/definitions/variant"
+        },
+        {
+            "$ref": "#/definitions/pre_processing"
         }
-    ],
-    "properties": {
-        "workflow": {
-            "type": "string",
-            "default": "wgs"
-        },
-        "tools": {
-            "type": "string",
-            "default": "deepvariant"
-        },
-        "intervals": {
-            "type": "string"
-        },
-        "fasta_fai": {
-            "type": "string"
-        },
-        "dbsnp": {
-            "type": "string"
-        },
-        "dbsnp_tbi": {
-            "type": "string"
-        },
-        "dict": {
-            "type": "string"
-        },
-        "skip_demultiplexing": {
-            "type": "boolean"
-        },
-        "skip_snp": {
-            "type": "boolean"
-        },
-        "skip_sv": {
-            "type": "boolean"
-        },
-        "skip_phase": {
-            "type": "boolean"
-        }
-    }
+    ]
 }
