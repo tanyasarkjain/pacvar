@@ -48,7 +48,7 @@ jobs:
          
       - name: Run pipeline with test data (wgs and gatk4)
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test_wgs_gatk4,docker --outdir ./results
+          nextflow run ${GITHUB_WORKSPACE} -profile test_wgs_gatk,docker --outdir ./results
 
           
 
