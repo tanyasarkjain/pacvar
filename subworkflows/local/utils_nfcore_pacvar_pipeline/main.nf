@@ -75,14 +75,24 @@ workflow PIPELINE_INITIALISATION {
     // Create channel from input file provided through params.input
 
     //return a bed as well
+
+    println "The value of params.input: ${params.input}"
+
     Channel
-        .fromSamplesheet("input")
-        .map { sample, bam, pbi ->
-            return [sample, bam] // Directly rename to meta and ccs
+        .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
+        .map {
+            sample, bam, pbi ->
+                return [sample, bam]
         }
         .groupTuple()
+        .map { samplesheet ->
+            validateInputSamplesheet(samplesheet)
+        }
+        .map {
+            meta, fastqs ->
+                return [ meta, fastqs.flatten() ]
+        }
         .set { ch_samplesheet }
-
 
     emit:
     samplesheet = ch_samplesheet

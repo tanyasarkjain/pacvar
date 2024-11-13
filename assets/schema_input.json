@@ -1,33 +1,56 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/nf-core/pacvar/master/assets/schema_input.json",
-    "title": "nf-core/isoseq pipeline - params.input schema",
+    "$id": "",
+    "title": "nf-locate - params.input schema",
     "description": "Schema for the file provided with params.input",
     "type": "array",
     "items": {
         "type": "object",
         "properties": {
             "sample": {
-                "type": "string",
-                "pattern": "^\\S+$",
-                "errorMessage": "Sample name must be provided and cannot contain spaces",
-                "meta": ["id"]
+                "errorMessage": "Sample ID must be provided and cannot contain spaces",
+                "meta": ["sample"],
+                "anyOf": [
+                    {
+                        "type": "string",
+                        "pattern": "^\\S+$"
+                    },
+                    {
+                        "type": "integer"
+                    }
+                ]
             },
             "bam": {
-                "type": "string",
+                "errorMessage": "Tumor BAM or CRAM file cannot contain spaces and must have extension '.bam' or '.cram'",
+                "anyOf": [
+                    {
+                        "type": "string",
+                        "pattern": "^\\S+\\.(bam|cram)$"
+                    },
+                    {
+                        "type": "string",
+                        "maxLength": 0
+                    }
+                ],
                 "format": "file-path",
-                "exists": false,
-                "pattern": "(^\\S+\\.bam$|^None$)",
-                "errorMessage": "Subreads BAM file must be provided, cannot contain spaces and must have extension '.bam' or being 'None' if the entrypoint is 'map'"
+                "exists": true
             },
             "pbi": {
-                "type": "string",
+                "errorMessage": "Tumor BAI or CRAI index file cannot contain spaces and must have extension '.bai' or '.crai'",
+                "anyOf": [
+                    {
+                        "type": "string",
+                        "pattern": "^\\S+\\.(bai|crai|pbi)$"
+                    },
+                    {
+                        "type": "string",
+                        "maxLength": 0
+                    }
+                ],
                 "format": "file-path",
-                "exists": false,
-                "pattern": "(^\\S+\\.bam\\.pbi$|^None$)",
-                "errorMessage": "PacBio Index file for BAM subreads cannot contain spaces and must have extension '.bam.pbi' or being 'None' if the entrypoint is 'map'"
+                "exists": true
             }
         },
-        "required": ["sample", "bam"]
+        "required": ["sample", "bam", "pbi"]
     }
 }

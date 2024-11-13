@@ -200,9 +200,6 @@ workflow PACVAR {
         ch_multiqc_custom_config.toList(),
         ch_multiqc_logo.toList(),
         [],
-        [],
-        ch_multiqc_logo.toList(),
-        [],
         []
     )
 
