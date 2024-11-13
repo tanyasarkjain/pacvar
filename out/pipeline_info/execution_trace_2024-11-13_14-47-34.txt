@@ -1,0 +1,4 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+2	0e/9870ea	89918	NFCORE_PACVAR:PACVAR:LIMA (null)	FAILED	1	2024-11-13 14:47:54.613	2.9s	2.9s	-	-	-	-	-
+1	62/f1c6ea	89965	NFCORE_PACVAR:PACVAR:LIMA (null)	FAILED	1	2024-11-13 14:47:57.601	744ms	675ms	-	-	-	-	-
+3	5f/f73e75	89889	NFCORE_PACVAR:PACVAR:MULTIQC	COMPLETED	0	2024-11-13 14:47:54.136	9.5s	6s	125.3%	163.4 MB	5.7 GB	69.7 MB	16.8 MB
