@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pbds:ConsensusReadSet CreatedAt="2024-11-13T23:10:17.275Z" MetaType="PacBio.DataSet.ConsensusReadSet" Name="null (all samples)" Tags="barcoded" TimeStampedName="null (all samples)-241113_231017276" UniqueId="1a48e7af-63a8-4e1b-8478-4240adbf019b" Version="3.0.1" xmlns:pbbase="http://pacificbiosciences.com/PacBioBaseDataModel.xsd" xmlns:pbdm="http://pacificbiosciences.com/PacBioDataModel.xsd" xmlns:pbmeta="http://pacificbiosciences.com/PacBioCollectionMetadata.xsd" xmlns:pbpn="http://pacificbiosciences.com/PacBioPartNumbers.xsd" xmlns:pbrk="http://pacificbiosciences.com/PacBioReagentKit.xsd" xmlns:pbsample="http://pacificbiosciences.com/PacBioSampleInfo.xsd" xmlns="http://pacificbiosciences.com/PacBioDatasets.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pacificbiosciences.com/PacBioDatasets.xsd" xmlns:pbds="http://pacificbiosciences.com/PacBioDatasets.xsd">
+	<pbbase:ExternalResources>
+		<pbbase:ExternalResource CreatedAt="2024-11-13T23:10:17.275Z" MetaType="PacBio.ConsensusReadFile.ConsensusReadBamFile" ResourceId="null.bc2026--bc2026.bam" TimeStampedName="pacbio_consensusreadfile_consensusreadbamfile-241113_231017275" UniqueId="0122e1ab-a110-4d2c-83bd-ebf6daf6fe6f" Version="3.0.1">
+			<pbbase:FileIndices>
+				<pbbase:FileIndex CreatedAt="2024-11-13T23:10:17.275Z" MetaType="PacBio.Index.PacBioIndex" ResourceId="null.bc2026--bc2026.bam.pbi" TimeStampedName="pacbio_index_pacbioindex-241113_231017275" UniqueId="e5288b43-776c-4589-a7b8-73529f85383b" Version="3.0.1" />
+			</pbbase:FileIndices>
+			<pbbase:ExternalResources>
+				<pbbase:ExternalResource CreatedAt="2024-11-13T23:10:17.275Z" MetaType="PacBio.DataSet.ConsensusReadSet" ResourceId="null.bc2026--bc2026.consensusreadset.xml" TimeStampedName="pacbio_dataset_consensusreadset-241113_231017275" UniqueId="d2c19723-de26-428d-884c-a9aedcb825fe" Version="3.0.1" />
+			</pbbase:ExternalResources>
+		</pbbase:ExternalResource>
+		<pbbase:ExternalResource CreatedAt="2024-11-13T23:10:17.275Z" MetaType="PacBio.ConsensusReadFile.ConsensusReadBamFile" ResourceId="null.bc2058--bc2058.bam" TimeStampedName="pacbio_consensusreadfile_consensusreadbamfile-241113_231017275" UniqueId="0836e930-0cb6-4e5e-bffc-ba6feff50024" Version="3.0.1">
+			<pbbase:FileIndices>
+				<pbbase:FileIndex CreatedAt="2024-11-13T23:10:17.275Z" MetaType="PacBio.Index.PacBioIndex" ResourceId="null.bc2058--bc2058.bam.pbi" TimeStampedName="pacbio_index_pacbioindex-241113_231017275" UniqueId="89a01d3e-b6ea-4989-b460-8e07384707ad" Version="3.0.1" />
+			</pbbase:FileIndices>
+			<pbbase:ExternalResources>
+				<pbbase:ExternalResource CreatedAt="2024-11-13T23:10:17.275Z" MetaType="PacBio.DataSet.ConsensusReadSet" ResourceId="null.bc2058--bc2058.consensusreadset.xml" TimeStampedName="pacbio_dataset_consensusreadset-241113_231017275" UniqueId="f9096a47-1a84-4166-8c4c-57a131386eb2" Version="3.0.1" />
+			</pbbase:ExternalResources>
+		</pbbase:ExternalResource>
+	</pbbase:ExternalResources>
+	<pbbase:SupplementalResources>
+		<pbbase:ExternalResource CreatedAt="2024-11-13T23:10:17.275Z" Description="Points to the barcodes.fasta file." MetaType="PacBio.BarcodeFile.BarcodeFastaFile" Name="Barcodes FASTA" ResourceId="barcodes_D01.fasta" TimeStampedName="pacbio_barcodefile_barcodefastafile-241113_231017275" UniqueId="7cafd1e0-92f0-4bee-a0a9-0f52da1298a4" Version="3.0.1" />
+		<pbbase:ExternalResource CreatedAt="2024-11-13T23:10:17.275Z" MetaType="PacBio.FileTypes.txt" ResourceId="null.lima.counts" TimeStampedName="pacbio_filetypes_txt-241113_231017275" UniqueId="d5901006-8aea-4a1f-813a-c078e9171c6d" Version="3.0.1" />
+		<pbbase:ExternalResource CreatedAt="2024-11-13T23:10:17.275Z" MetaType="PacBio.FileTypes.txt" ResourceId="null.lima.report" TimeStampedName="pacbio_filetypes_txt-241113_231017275" UniqueId="d9bcb5c1-805e-495c-902b-6b4e603f3c01" Version="3.0.1" />
+		<pbbase:ExternalResource CreatedAt="2024-11-13T23:10:17.275Z" MetaType="PacBio.FileTypes.txt" ResourceId="null.lima.summary" TimeStampedName="pacbio_filetypes_txt-241113_231017275" UniqueId="eb28a44b-b16e-472c-8cf8-5ea60e75996a" Version="3.0.1" />
+	</pbbase:SupplementalResources>
+	<pbds:DataSetMetadata>
+		<pbds:TotalLength>73970466</pbds:TotalLength>
+		<pbds:NumRecords>12831</pbds:NumRecords>
+	</pbds:DataSetMetadata>
+</pbds:ConsensusReadSet>
