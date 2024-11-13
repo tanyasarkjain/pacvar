@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pbds:ConsensusReadSet CreatedAt="2024-11-13T23:48:21.911Z" MetaType="PacBio.DataSet.ConsensusReadSet" Name="sample1.bc2026--bc2026 (bc2026--bc2026)" Tags="barcoded" TimeStampedName="sample1.bc2026--bc2026 (bc2026--bc2026)-241113_234821911" UniqueId="0506566c-b06f-4c04-8930-8eaa28225c2c" Version="3.0.1" xmlns:pbbase="http://pacificbiosciences.com/PacBioBaseDataModel.xsd" xmlns:pbdm="http://pacificbiosciences.com/PacBioDataModel.xsd" xmlns:pbmeta="http://pacificbiosciences.com/PacBioCollectionMetadata.xsd" xmlns:pbpn="http://pacificbiosciences.com/PacBioPartNumbers.xsd" xmlns:pbrk="http://pacificbiosciences.com/PacBioReagentKit.xsd" xmlns:pbsample="http://pacificbiosciences.com/PacBioSampleInfo.xsd" xmlns="http://pacificbiosciences.com/PacBioDatasets.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pacificbiosciences.com/PacBioDatasets.xsd" xmlns:pbds="http://pacificbiosciences.com/PacBioDatasets.xsd">
+	<pbds:DataSetMetadata>
+		<pbds:TotalLength>31966671</pbds:TotalLength>
+		<pbds:NumRecords>5725</pbds:NumRecords>
+	</pbds:DataSetMetadata>
+	<pbbase:ExternalResources>
+		<pbbase:ExternalResource CreatedAt="2024-11-13T23:48:21.911Z" MetaType="PacBio.ConsensusReadFile.ConsensusReadBamFile" ResourceId="sample1.bc2026--bc2026.bam" TimeStampedName="pacbio_consensusreadfile_consensusreadbamfile-241113_234821911" UniqueId="1dd31a7e-2696-492d-b55c-0c72e44548fd" Version="3.0.1">
+			<pbbase:FileIndices>
+				<pbbase:FileIndex CreatedAt="2024-11-13T23:48:21.911Z" MetaType="PacBio.Index.PacBioIndex" ResourceId="sample1.bc2026--bc2026.bam.pbi" TimeStampedName="pacbio_index_pacbioindex-241113_234821911" UniqueId="d794c664-52ef-4038-ab69-c7b49855d598" Version="3.0.1" />
+			</pbbase:FileIndices>
+		</pbbase:ExternalResource>
+	</pbbase:ExternalResources>
+</pbds:ConsensusReadSet>
