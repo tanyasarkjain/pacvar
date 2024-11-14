@@ -1,7 +1,7 @@
-[2024-11-14 20:11:48,581] multiqc.config                                     [INFO   ]  Loading config settings from: multiqc_config.yml
-[2024-11-14 20:11:50,323] multiqc.core.file_search                           [INFO   ]  Search path: /Users/tanyajain/Desktop/nextflow_fun/new_pacvar/pacvar/work/9a/48fbce851d8f1441b9e48856efb034
-[2024-11-14 20:11:50,385] multiqc.modules.custom_content.custom_content      [WARNING]  HTML plot type found with more than one dataset in nf-core-pacvar-summary
-[2024-11-14 20:11:50,385] multiqc.modules.custom_content.custom_content      [INFO   ]  nf-core-pacvar-summary: Found 1 sample (html)
-[2024-11-14 20:11:50,385] multiqc.modules.custom_content.custom_content      [WARNING]  HTML plot type found with more than one dataset in nf-core-pacvar-methods-description
-[2024-11-14 20:11:50,386] multiqc.modules.custom_content.custom_content      [INFO   ]  nf-core-pacvar-methods-description: Found 1 sample (html)
-[2024-11-14 20:11:50,387] multiqc.core.write_results                         [INFO   ]  Rendering plots. Export plots to formats png, svg, pdf is requested, so it might take a while. To disable plot export, set `export_plots: false` in config, or remove the `--export-plots` command line flag
+[2024-11-14 20:32:14,952] multiqc.config                                     [INFO   ]  Loading config settings from: multiqc_config.yml
+[2024-11-14 20:32:16,746] multiqc.core.file_search                           [INFO   ]  Search path: /Users/tanyajain/Desktop/nextflow_fun/new_pacvar/pacvar/work/d9/7666c137b9a9c38ac13a7bd54c527d
+[2024-11-14 20:32:16,812] multiqc.modules.custom_content.custom_content      [WARNING]  HTML plot type found with more than one dataset in nf-core-pacvar-methods-description
+[2024-11-14 20:32:16,812] multiqc.modules.custom_content.custom_content      [INFO   ]  nf-core-pacvar-methods-description: Found 1 sample (html)
+[2024-11-14 20:32:16,813] multiqc.modules.custom_content.custom_content      [WARNING]  HTML plot type found with more than one dataset in nf-core-pacvar-summary
+[2024-11-14 20:32:16,813] multiqc.modules.custom_content.custom_content      [INFO   ]  nf-core-pacvar-summary: Found 1 sample (html)
+[2024-11-14 20:32:16,815] multiqc.core.write_results                         [INFO   ]  Rendering plots. Export plots to formats png, svg, pdf is requested, so it might take a while. To disable plot export, set `export_plots: false` in config, or remove the `--export-plots` command line flag
