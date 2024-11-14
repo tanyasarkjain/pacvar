@@ -1,0 +1,190 @@
+<!--
+  ~ Copyright 2013-2024, Seqera Labs
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<html>
+<head>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+</head>
+<body>
+<pre class="mermaid" style="text-align: center;">
+flowchart TB
+    subgraph " "
+    v0["Channel.fromPath"]
+    v3["Channel.fromPath"]
+    v7["Channel.fromPath"]
+    v11["Channel.fromPath"]
+    v15["Channel.fromPath"]
+    v19["Channel.fromPath"]
+    v27["Channel.fromList"]
+    v30["data"]
+    v79["Channel.of"]
+    v82["Channel.fromPath"]
+    v85["ch_workflow_summary"]
+    v89["ch_methods_description"]
+    v96["replace_names"]
+    v97["sample_names"]
+    end
+    subgraph " "
+    v6["fasta_fai"]
+    v10["dict"]
+    v14["dbsnp"]
+    v18["dbsnp_tbi"]
+    v22["intervals"]
+    v32[" "]
+    v33[" "]
+    v34[" "]
+    v35[" "]
+    v36[" "]
+    v37[" "]
+    v38[" "]
+    v39[" "]
+    v40[" "]
+    v41[" "]
+    v42[" "]
+    v43[" "]
+    v44[" "]
+    v48[" "]
+    v50[" "]
+    v51[" "]
+    v52[" "]
+    v53[" "]
+    v55[" "]
+    v56[" "]
+    v57[" "]
+    v61["sorted_bai"]
+    v63[" "]
+    v65[" "]
+    v67[" "]
+    v68[" "]
+    v70[" "]
+    v71[" "]
+    v73["vcf_ch"]
+    v99[" "]
+    v100[" "]
+    v101[" "]
+    v103["multiqc_report"]
+    end
+    subgraph NFCORE_PACVAR
+    subgraph PACVAR
+    v31([LIMA])
+    v47([PBMM2_ALIGN])
+    v49([SAMTOOLS_SORT])
+    v54([SAMTOOLS_INDEX])
+    subgraph BAM_SV_VARIANT_CALLING
+    v62([PBSV_DISCOVER])
+    v64([PBSV_CALL])
+    v66([TABIX_BGZIP])
+    v69([BCFTOOLS_INDEX])
+    v58(( ))
+    v72(( ))
+    end
+    v98([MULTIQC])
+    v1(( ))
+    v28(( ))
+    v45(( ))
+    v76(( ))
+    v93(( ))
+    v94(( ))
+    v95(( ))
+    v102(( ))
+    end
+    end
+    v4(( ))
+    v8(( ))
+    v12(( ))
+    v16(( ))
+    v20(( ))
+    v0 --> v1
+    v3 --> v4
+    v4 --> v6
+    v7 --> v8
+    v8 --> v10
+    v11 --> v12
+    v12 --> v14
+    v15 --> v16
+    v16 --> v18
+    v19 --> v20
+    v20 --> v22
+    v27 --> v28
+    v30 --> v31
+    v28 --> v31
+    v31 --> v44
+    v31 --> v43
+    v31 --> v42
+    v31 --> v41
+    v31 --> v40
+    v31 --> v39
+    v31 --> v38
+    v31 --> v37
+    v31 --> v36
+    v31 --> v35
+    v31 --> v34
+    v31 --> v33
+    v31 --> v32
+    v31 --> v45
+    v1 --> v47
+    v45 --> v47
+    v47 --> v49
+    v47 --> v48
+    v1 --> v49
+    v49 --> v54
+    v49 --> v53
+    v49 --> v52
+    v49 --> v51
+    v49 --> v50
+    v49 --> v58
+    v54 --> v57
+    v54 --> v56
+    v54 --> v55
+    v54 --> v58
+    v58 --> v61
+    v1 --> v62
+    v58 --> v62
+    v62 --> v64
+    v62 --> v63
+    v1 --> v64
+    v64 --> v66
+    v64 --> v65
+    v66 --> v69
+    v66 --> v68
+    v66 --> v67
+    v66 --> v72
+    v69 --> v71
+    v69 --> v70
+    v69 --> v72
+    v72 --> v73
+    v79 --> v76
+    v82 --> v93
+    v85 --> v76
+    v89 --> v76
+    v96 --> v98
+    v97 --> v98
+    v76 --> v98
+    v93 --> v98
+    v94 --> v98
+    v95 --> v98
+    v98 --> v101
+    v98 --> v100
+    v98 --> v99
+    v98 --> v102
+    v102 --> v103
+
+</pre>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true });
+</script>
+</body>
+</html>
