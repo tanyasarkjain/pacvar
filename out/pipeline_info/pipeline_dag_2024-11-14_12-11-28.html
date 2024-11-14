@@ -1,0 +1,203 @@
+<!--
+  ~ Copyright 2013-2024, Seqera Labs
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<html>
+<head>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+</head>
+<body>
+<pre class="mermaid" style="text-align: center;">
+flowchart TB
+    subgraph " "
+    v0["Channel.fromPath"]
+    v3["Channel.fromPath"]
+    v12["Channel.fromPath"]
+    v15["Channel.fromPath"]
+    v20["Channel.fromList"]
+    v23["data"]
+    v54["Channel.fromPath"]
+    v87["Channel.of"]
+    v90["Channel.fromPath"]
+    v93["ch_workflow_summary"]
+    v97["ch_methods_description"]
+    v104["replace_names"]
+    v105["sample_names"]
+    end
+    subgraph NFCORE_PACVAR
+    subgraph PACVAR
+    v24([LIMA])
+    v40([PBMM2_ALIGN])
+    v42([SAMTOOLS_SORT])
+    v47([SAMTOOLS_INDEX])
+    subgraph REPEAT_CHARACTERIZATION
+    v58([TRGT_GENOTYPE])
+    v60([SAMTOOLS_SORT])
+    v65([SAMTOOLS_INDEX])
+    v69([BCFTOOLS_SORT])
+    v79([TRGT_PLOT])
+    v4(( ))
+    v13(( ))
+    v16(( ))
+    v51(( ))
+    v73(( ))
+    v76(( ))
+    end
+    v106([MULTIQC])
+    v1(( ))
+    v21(( ))
+    v38(( ))
+    v84(( ))
+    v101(( ))
+    v102(( ))
+    v103(( ))
+    v110(( ))
+    end
+    end
+    subgraph " "
+    v25[" "]
+    v26[" "]
+    v27[" "]
+    v28[" "]
+    v29[" "]
+    v30[" "]
+    v31[" "]
+    v32[" "]
+    v33[" "]
+    v34[" "]
+    v35[" "]
+    v36[" "]
+    v37[" "]
+    v41[" "]
+    v43[" "]
+    v44[" "]
+    v45[" "]
+    v46[" "]
+    v48[" "]
+    v49[" "]
+    v50[" "]
+    v56["id_ch"]
+    v59[" "]
+    v61[" "]
+    v62[" "]
+    v63[" "]
+    v64[" "]
+    v66[" "]
+    v67[" "]
+    v68[" "]
+    v70[" "]
+    v71[" "]
+    v72[" "]
+    v75["bam_bai_ch"]
+    v80[" "]
+    v81[" "]
+    v107[" "]
+    v108[" "]
+    v109[" "]
+    v111["multiqc_report"]
+    end
+    v55(( ))
+    v0 --> v1
+    v3 --> v4
+    v12 --> v13
+    v15 --> v16
+    v20 --> v21
+    v23 --> v24
+    v21 --> v24
+    v24 --> v37
+    v24 --> v36
+    v24 --> v35
+    v24 --> v34
+    v24 --> v33
+    v24 --> v32
+    v24 --> v31
+    v24 --> v30
+    v24 --> v29
+    v24 --> v28
+    v24 --> v27
+    v24 --> v26
+    v24 --> v25
+    v24 --> v38
+    v1 --> v40
+    v38 --> v40
+    v40 --> v42
+    v40 --> v41
+    v1 --> v42
+    v42 --> v47
+    v42 --> v46
+    v42 --> v45
+    v42 --> v44
+    v42 --> v43
+    v42 --> v51
+    v47 --> v50
+    v47 --> v49
+    v47 --> v48
+    v47 --> v51
+    v54 --> v55
+    v55 --> v56
+    v1 --> v58
+    v4 --> v58
+    v13 --> v58
+    v51 --> v58
+    v58 --> v69
+    v58 --> v60
+    v58 --> v59
+    v1 --> v60
+    v60 --> v65
+    v60 --> v64
+    v60 --> v63
+    v60 --> v62
+    v60 --> v61
+    v60 --> v73
+    v60 --> v76
+    v65 --> v68
+    v65 --> v67
+    v65 --> v66
+    v65 --> v73
+    v65 --> v76
+    v69 --> v72
+    v69 --> v71
+    v69 --> v70
+    v69 --> v76
+    v73 --> v75
+    v1 --> v79
+    v4 --> v79
+    v13 --> v79
+    v16 --> v79
+    v76 --> v79
+    v79 --> v81
+    v79 --> v80
+    v87 --> v84
+    v90 --> v101
+    v93 --> v84
+    v97 --> v84
+    v104 --> v106
+    v105 --> v106
+    v84 --> v106
+    v101 --> v106
+    v102 --> v106
+    v103 --> v106
+    v106 --> v109
+    v106 --> v108
+    v106 --> v107
+    v106 --> v110
+    v110 --> v111
+
+</pre>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true });
+</script>
+</body>
+</html>
