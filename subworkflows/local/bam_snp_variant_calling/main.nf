@@ -45,8 +45,8 @@ workflow BAM_SNP_VARIANT_CALLING {
                             fasta,
                             fasta_fai,
                             dict,
-                            dbsnp,
-                            dbsnp_tbi
+                            dbsnp.map{it -> [[:], it]},
+                            dbsnp_tbi.map{it -> [[:], it]}
                             )
 
         vcf_ch = GATK4_HAPLOTYPECALLER.out.vcf.join(GATK4_HAPLOTYPECALLER.out.tbi)
