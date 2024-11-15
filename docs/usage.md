@@ -27,9 +27,9 @@ You will need to create a samplesheet with information about the samples you wou
 Each sample cooresponds to a different run on PacBio revio machines. Each sample will (if not skipping demultiplexing) will proceed to be demultiplexed according to the inputted --barcodes barcodes.fasta, therefore each sample in the samplesheet should have the same adapaters.
 
 ```csv title="samplesheet.csv"
-sample,bam,bai
-CONTROL_REP1, NA03697B2_01.bam,NA03697B2_01.bai
-CONTROL_REP1, NA03697B2_02.bam,NA03697B2_03.bai
+sample,bam,pbi
+CONTROL_REP1, NA03697B2_01.bam,NA03697B2_01.pbi
+CONTROL_REP1, NA03697B2_02.bam,NA03697B2_03.pbi
 ```
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
