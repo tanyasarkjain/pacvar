@@ -63,11 +63,10 @@ nextflow run nf-core/pacvar \
    --outdir <OUTDIR> \
    --workflow <wgs/repeat> \
    --barcodes barcode.fasta \
-   --intervals intervals.bed
+   --intervals intervals.bed \
+   --barcodes barcode.fasta \
    --outdir <OUTDIR> \
    --workflow <wgs/repeat> \
-   --barcodes barcode.fasta \
-   --intervals intervals.bed
 ```
 
 optional paramaters include: --skip_demultiplexing, --skip_snp --skip_sv --skip_phase
