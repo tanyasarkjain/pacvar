@@ -171,6 +171,18 @@
                 }
             }
         },
+        "repeat": {
+            "title": "options specific to the repeat workflow",
+            "type": "object",
+            "description": "Options for repeat specification",
+            "help_text": "These options are important for the repeat-characterization step of the workflow",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "id for repeat"
+                }
+            }
+        },
         "pre_processing": {
             "title": "Pre-processing options that are not workflow specific",
             "type": "object",
@@ -317,6 +329,9 @@
         },
         {
             "$ref": "#/$defs/pre_processing"
+        },
+        {
+            "$ref": "#/$defs/repeat"
         }
     ]
 }

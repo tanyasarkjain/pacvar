@@ -76,8 +76,6 @@ workflow PIPELINE_INITIALISATION {
 
     //return a bed as well
 
-    println "The value of params.input: ${params.input}"
-
     Channel
         .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
         .map {
