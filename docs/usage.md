@@ -28,8 +28,8 @@ Each sample cooresponds to a different run on PacBio revio machines. Each sample
 
 ```csv title="samplesheet.csv"
 sample,bam,pbi
-CONTROL_REP1, NA03697B2_01.bam,NA03697B2_01.pbi
-CONTROL_REP1, NA03697B2_02.bam,NA03697B2_03.pbi
+CONTROL_REP1,NA03697B2_01.bam,NA03697B2_01.pbi
+CONTROL_REP1,NA03697B2_02.bam,NA03697B2_02.pbi
 ```
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
