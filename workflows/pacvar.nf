@@ -66,9 +66,7 @@ workflow PACVAR {
         LIMA(ch_samplesheet, SET_BARCODES_CHANNEL.out.data)
 
         lima_ch = LIMA.out.bam
-            .flatMap{ tuple ->
-            def metadata = tuple[0]
-            def sampleBams = tuple[1]
+            .flatMap{ metadata, sampleBams ->
             //seperate samples
                 sampleBams.collect { bam ->
                     [metadata, bam]
