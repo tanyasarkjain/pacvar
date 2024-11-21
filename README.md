@@ -32,7 +32,7 @@ wgs workflow
    b. ([`HaplotypeCaller`](https://gatk.broadinstitute.org/hc/en-us/articles/360037225632-HaplotypeCaller))
 2. Call SVs ([`pbsv`](https://github.com/PacificBiosciences/pbsv))
 3. Index VCF files ([`bcftools`](https://samtools.github.io/bcftools/bcftools.html))
-4. Phase SNPS, SVs and BAM files ([`hiphase`](https://github.com/PacificBiosciences/HiPhase))
+4. Phase SNPs, SVs and BAM files ([`hiphase`](https://github.com/PacificBiosciences/HiPhase))
 
 repeat workflow
 
