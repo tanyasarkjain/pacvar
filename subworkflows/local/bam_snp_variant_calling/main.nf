@@ -16,10 +16,7 @@ workflow BAM_SNP_VARIANT_CALLING {
     //deepvariant
     if (params.tools.split(',').contains('deepvariant')) {
         deepvar_input_ch = sorted_bam.join(sorted_bai)
-            .map{tuple ->
-            def metadata = tuple[0]
-            def bam = tuple[1]
-            def bai = tuple[2]
+            .map{meta, bam, bai ->
             [metadata, bam, bai, intervals]
         }
 
