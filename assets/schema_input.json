@@ -36,7 +36,7 @@
                 "exists": true
             },
             "pbi": {
-                "errorMessage": "Tumor BAI or CRAI index file cannot contain spaces and must have extension '.bai' or '.crai'",
+                "errorMessage": "Tumor BAI or CRAI index file cannot contain spaces and must have extension '.bai', '.crai' or '.pbi'",
                 "anyOf": [
                     {
                         "type": "string",
