@@ -22,8 +22,6 @@ include { BAM_SNP_VARIANT_CALLING as BAM_SNP_VARIANT_CALLING } from '../subworkf
 include { BAM_SV_VARIANT_CALLING as BAM_SV_VARIANT_CALLING } from '../subworkflows/local/bam_sv_variant_calling'
 include { REPEAT_CHARACTERIZATION as REPEAT_CHARACTERIZATION } from '../subworkflows/local/repeat_characterization'
 include { SET_VALUE_CHANNEL } from '../subworkflows/local/set_value_channel'
-include { TRGT_GENOTYPE } from '../modules/local/trgt/genotype'
-include { TRGT_PLOT } from '../modules/local/trgt/plot'
 
 
 /*
@@ -206,8 +204,6 @@ workflow PACVAR {
     emit:
     multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
     versions = ch_versions
-    LIMA.out.bam
-
 }
 
 /*

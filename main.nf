@@ -16,43 +16,40 @@
 */
 include { getGenomeAttribute	  } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
 
-params.fasta = getGenomeAttribute('fasta')
-params.fasta_fai = getGenomeAttribute('fasta_fai')
-params.dbsnp = getGenomeAttribute('dbsnp')
-params.dbsnp_tbi = getGenomeAttribute('dbsnp_tbi')
-params.dict = getGenomeAttribute('dict')
+params.fasta        = getGenomeAttribute('fasta')
+params.fasta_fai    = getGenomeAttribute('fasta_fai')
+params.dbsnp        = getGenomeAttribute('dbsnp')
+params.dbsnp_tbi    = getGenomeAttribute('dbsnp_tbi')
+params.dict         = getGenomeAttribute('dict')
 
 include { PACVAR  } from './workflows/pacvar'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
 
-// Initialize genomic attibutes with associated meta data maps
-fasta = params.fasta ? Channel.fromPath(params.fasta).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
-fasta_fai = params.fasta_fai ? Channel.fromPath(params.fasta_fai).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
-dict = params.dict ? Channel.fromPath(params.dict).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
-dbsnp = params.dbsnp ? Channel.fromPath(params.dbsnp).collect() : Channel.value([])
-dbsnp_tbi = params.dbsnp_tbi ? Channel.fromPath(params.dbsnp_tbi).collect() : Channel.value([])
+// Initialize genomic attibutes with associated meta data maps as channels
+fasta               = params.fasta ? Channel.fromPath(params.fasta).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+fasta_fai           = params.fasta_fai ? Channel.fromPath(params.fasta_fai).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+dict                = params.dict ? Channel.fromPath(params.dict).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+dbsnp               = params.dbsnp ? Channel.fromPath(params.dbsnp).collect() : Channel.value([])
+dbsnp_tbi           = params.dbsnp_tbi ? Channel.fromPath(params.dbsnp_tbi).collect() : Channel.value([])
 
-//change
-
-intervals = params.intervals ? Channel.fromPath(params.intervals).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
-id = params.id ? Channel.fromPath(params.id).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+intervals          = params.intervals ? Channel.fromPath(params.intervals).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+id                 = params.id ? Channel.fromPath(params.id).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
 
 //
 // WORKFLOW: Run main analysis pipeline depending on type of input
 //
 workflow NFCORE_PACVAR {
 
-
     take:
     samplesheet // channel: samplesheet read in from --input
-    fasta
-    fasta_fai
-    dict
-    dbsnp
-    dbsnp_tbi
-    intervals
-    id
+    fasta       // channel: [mandatory] fasta
+    fasta_fai   // channel: [mandatory] fasta_fai
+    dict        // channel: [mandatory] dict
+    dbsnp       // channel: [mandatory] dbsnp
+    dbsnp_tbi   // channel: [mandatory] dbsnp_tbi
+    intervals   // channel: [mandatory] intervals
+    id          // channel: [mandatory] id
 
 
     main:
