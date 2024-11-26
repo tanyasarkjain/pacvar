@@ -79,7 +79,7 @@ workflow PIPELINE_INITIALISATION {
     Channel
         .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
         .map {
-            meta, bam ->
+            meta, bam, pbi ->
                 return [meta, bam]
         }
         .groupTuple()
