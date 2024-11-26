@@ -15,6 +15,8 @@ workflow  REPEAT_CHARACTERIZATION{
     repeat_id
 
     main:
+    ch_versions = Channel.empty()
+
     bam_bai_ch = sorted_bam.join(sorted_bai)
     //genotype the repeat region
     TRGT_GENOTYPE(bam_bai_ch,
@@ -41,4 +43,14 @@ workflow  REPEAT_CHARACTERIZATION{
                 fasta_fai,
                 bed,
                 repeat_id)
+
+
+    ch_versions = ch_versions.mix(TRGT_GENOTYPE.out.versions)
+    ch_versions = ch_versions.mix(SAMTOOLS_SORT.out.versions)
+    ch_versions = ch_versions.mix(SAMTOOLS_INDEX.out.versions)
+    ch_versions = ch_versions.mix(BCFTOOLS_SORT.out.versions)
+    ch_versions = ch_versions.mix(TRGT_PLOT.out.versions)
+
+    emit:
+    versions       = ch_versions
 }

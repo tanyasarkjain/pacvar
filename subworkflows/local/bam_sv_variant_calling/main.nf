@@ -11,6 +11,8 @@ workflow BAM_SV_VARIANT_CALLING {
     fasta_fai
 
     main:
+    ch_versions = Channel.empty()
+
     //call the structural variants
     PBSV_DISCOVER(sorted_bam, fasta)
     PBSV_CALL(PBSV_DISCOVER.out.svsig, fasta)
@@ -21,6 +23,13 @@ workflow BAM_SV_VARIANT_CALLING {
 
     vcf_ch = TABIX_BGZIP.out.output.join(BCFTOOLS_INDEX.out.csi)
 
+    ch_versions = ch_versions.mix(PBSV_DISCOVER.out.versions)
+    ch_versions = ch_versions.mix(PBSV_CALL.out.versions)
+    ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions)
+    ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions)
+
     emit:
     vcf_ch
+    versions       = ch_versions
+
 }

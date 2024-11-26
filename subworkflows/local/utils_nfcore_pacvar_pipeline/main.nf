@@ -35,7 +35,6 @@ workflow PIPELINE_INITIALISATION {
 
 
     main:
-
     ch_versions = Channel.empty()
 
     //

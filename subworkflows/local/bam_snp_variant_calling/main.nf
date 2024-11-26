@@ -13,6 +13,8 @@ workflow BAM_SNP_VARIANT_CALLING {
     intervals
 
     main:
+    ch_versions = Channel.empty()
+
     //deepvariant
     if (params.snv_caller === 'deepvariant') {
         deepvar_input_ch = sorted_bam.join(sorted_bai)
@@ -26,6 +28,7 @@ workflow BAM_SNP_VARIANT_CALLING {
                                     [[], []]
                                     )
         vcf_ch = DEEPVARIANT_RUNDEEPVARIANT.out.vcf.join(DEEPVARIANT_RUNDEEPVARIANT.out.vcf_tbi)
+        ch_versions = ch_versions.mix(DEEPVARIANT_RUNDEEPVARIANT.out.versions)
     }
 
     //gatk4_haplotypecaller
@@ -44,8 +47,11 @@ workflow BAM_SNP_VARIANT_CALLING {
                             )
 
         vcf_ch = GATK4_HAPLOTYPECALLER.out.vcf.join(GATK4_HAPLOTYPECALLER.out.tbi)
+        ch_versions = ch_versions.mix(GATK4_HAPLOTYPECALLER.out.versions)
+
     }
 
     emit:
     vcf_ch
+    versions       = ch_versions
 }
