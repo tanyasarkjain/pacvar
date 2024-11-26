@@ -41,7 +41,7 @@ The typical command for running the pipeline is as follows for the wgs and the r
 ```bash
 nextflow run nf-core/pacvar --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker --barcodes barcodes.fasta --intervals intervals.bed --workflow wgs
 
-nextflow run nf-core/pacvar --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker --barcodes barcodes.fasta --intervals intervals.bed --workflow repeat --id repeat-id --snv_caller 'deepvariant'
+nextflow run nf-core/pacvar --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker --barcodes barcodes.fasta --intervals intervals.bed --workflow repeat --repeat_id repeat-id --snv_caller 'deepvariant'
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
