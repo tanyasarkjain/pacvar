@@ -154,6 +154,7 @@
             "properties": {
                 "snv_caller": {
                     "type": "string",
+                    "enum": ["deepvariant", "gatk4"],
                     "default": "deepvariant",
                     "description": "variant calling tool - can either be deepvariant or gatk4"
                 },
