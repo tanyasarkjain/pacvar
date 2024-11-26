@@ -86,11 +86,11 @@
                 },
                 "dbsnp": {
                     "type": "string",
-                    "description": "Path to dbsnp"
+                    "description": "Path to dbsnp VCF file"
                 },
                 "dbsnp_tbi": {
                     "type": "string",
-                    "description": "Path to dbsnp_tbi"
+                    "description": "Path to index file of the dbsnp VCF file"
                 },
                 "dict": {
                     "type": "string",
