@@ -201,7 +201,7 @@
                 "intervals": {
                     "type": "string",
                     "format": "file-path",
-                    "description": "Path to BED file containing intervals for either varinat calling or for repeat expansion characterization"
+                    "description": "Path to BED file containing intervals for either variant calling or for repeat expansion characterization"
                 }
             }
         },
