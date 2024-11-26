@@ -22,6 +22,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [HIPHASE](#Hiphase) - Phase VCF, and BAM files
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
+When --skip_demultiplexing false (default behavior) 
 ### LIMA
 
 <details markdown="1">
@@ -29,7 +30,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 - `lima/`
   - `<sample><barcode-pair>.bam`: The demultiplexed bamfiles
-  - `<sample>.<barcode-pair>.bam.pbi`: The Pacbio index of bam files
+  - `<basename>.bam.pbi`: The Pacbio index of bam files
   - `<sample>.lima.counts`: Counts of the number of reads found for each demultiplexed sample
   - `<sample>.lima.report`: Tab-separated file about each ZMW, unfiltered
   - `<sample>.lima.summary`: File that shows how many ZMWs have been filtered, how ZMWs many are same/different
@@ -38,12 +39,18 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 [LIMA](https://lima.how) demultiplex samples
 
+
+Note:
+- If --skip_demultiplexing true
+- <basename> = <sample>
+- If --skip_demultiplexing false
+- <basename> = <sample>.<barcode-pair>
 ### PBMM2
 
 <details markdown="1">
 <summary>Output files</summary>
 - `pbmm2/`
-  - `<sample>.<barcode-pair>.aligned.bam`: Aligned BAM
+  - `<basename>.aligned.bam`: Aligned BAM
 </details>
 
 [PBMM2](https://github.com/PacificBiosciences/pbmm2) Aligned BAM files
@@ -54,8 +61,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <summary>Output files</summary>
 
 - `samtools/`
-  - `<sample>.<barcode-pair>.sorted.bam`: The sorted BAM file.
-  - `<sample>.<barcode-pair>.sorted.bam.bai`: The indexed BAM file.
+  - `<basename>.sorted.bam`: The sorted BAM file.
+  - `<basename>.sorted.bam.bai`: The indexed BAM file.
 
 </details>
 
@@ -67,8 +74,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <summary>Output files</summary>
 
 - `gatk4/`
-  - `<sample>.<barcode-pair>.vcf.gz`: VCF of the SNV
-  - `<sample>.<barcode-pair>.vcf.gz.tbi`: Associated indexes for the VCF files
+  - `<basename>.vcf.gz`: VCF of the SNV
+  - `<basename>.vcf.gz.tbi`: Associated indexes for the VCF files
 
 </details>
 
@@ -80,8 +87,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <summary>Output files</summary>
 
 - `pbsv/`
-  - `<sample>.<barcode-pair>.pbsv.vcf`: VCF of SV
-  - `<sample>.<barcode-pair>.svsig.gz`: File containing signatures of structural variants
+  - `<basename>.pbsv.vcf`: VCF of SV
+  - `<basename>.svsig.gz`: File containing signatures of structural variants
 
 </details>
 
@@ -93,9 +100,9 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <summary>Output files</summary>
 
 - `hiphase/`
-  - '<sample>.<barcode-pair>.phased.bam': Haplotagged BAM
-  - '<sample>.<barcode-pair>.phased.vcf': The phased Variant File
-  - '<sample>.<barcode-pair>.phased.vcf': This CSV/TSV file contains information about the the phase blocks that were output by HiPhase.
+  - '<basename>.phased.bam': Haplotagged BAM
+  - '<basename>.phased.vcf': The phased Variant File
+  - '<basename>.phased.vcf': This CSV/TSV file contains information about the the phase blocks that were output by HiPhase.
 
 </details>
 
@@ -107,7 +114,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <summary>Output files</summary>
 
 - `tabix/`
-  - `<sample>.<barcode-pair>.vcf.gz`: Zipped PBSV VCF files
+  - `<basename>.vcf.gz`: Zipped PBSV VCF files
 
 </details>
 
@@ -119,7 +126,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <summary>Output files</summary>
 
 - `BCFTOOLS/`
-  - `<sample>.<barcode-pair>.vcf.gz.csi`: Index of PBSV VCF files
+  - `<basename>.vcf.gz.csi`: Index of PBSV VCF files
 
 </details>
 
@@ -131,7 +138,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <summary>Output files</summary>
 
 - `deepvariant/`
-  - `<sample>.<barcode-pair>.vcf.gz`: Zipped VCF file -`<sample>.<barcode-pair>.vcf.gz.tbi`: Associated index to zipped VCF file
+  - `<basename>.vcf.gz`: Zipped VCF file -`<basename>.vcf.gz.tbi`: Associated index to zipped VCF file
   </details>
 
 [DEEPVARIANT](https://github.com/google/deepvariant) SNV caller
@@ -142,9 +149,9 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <summary>Output files</summary>
 
 - `trgt/`
-  - `<sample>.<barcode-pair>.bam.vcf.gz`: VCF file for the repeat region
-  - `<sample>.<barcode-pair>.bam.spanning.bam`: BAM for the repeat region
-  - `<sample>.<barcode-pair>.svg`: Waterfall plot of the repeat region
+  - `<basename>.bam.vcf.gz`: VCF file for the repeat region
+  - `<basename>.bam.spanning.bam`: BAM for the repeat region
+  - `<basename>.svg`: Waterfall plot of the repeat region
 
 </details>
 
