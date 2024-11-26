@@ -1,6 +1,7 @@
-include { TRGT_GENOTYPE } from '../../../modules/local/trgt/genotype'
-include { TRGT_PLOT } from '../../../modules/local/trgt/plot'
+include { TRGT_GENOTYPE } from '../../../modules/nf-core/trgt/genotype'
+include { TRGT_PLOT } from '../../../modules/nf-core/trgt/plot'
 include { BCFTOOLS_SORT } from '../../../modules/nf-core/bcftools/sort/main'
+include { BCFTOOLS_INDEX } from '../../../modules/nf-core/bcftools/index/main'
 include { SAMTOOLS_SORT } from '../../../modules/nf-core/samtools/sort/main'
 include { SAMTOOLS_INDEX } from '../../../modules/nf-core/samtools/index/main'
 
@@ -19,13 +20,18 @@ workflow  REPEAT_CHARACTERIZATION{
 
     bam_bai_ch = sorted_bam.join(sorted_bai)
     //genotype the repeat region
+    // TRGT_GENOTYPE(bam_bai_ch,
+    //                 fasta,
+    //                 fasta_fai,
+    //                 bed)
+
     TRGT_GENOTYPE(bam_bai_ch,
                     fasta,
                     fasta_fai,
                     bed)
 
     //sort the resulting spanning bam
-    SAMTOOLS_SORT(TRGT_GENOTYPE.out.spanning_bam,
+    SAMTOOLS_SORT(TRGT_GENOTYPE.out.bam,
                     fasta)
 
     //index the resulting bam
@@ -34,16 +40,25 @@ workflow  REPEAT_CHARACTERIZATION{
     //sort the resulting vcf
     BCFTOOLS_SORT(TRGT_GENOTYPE.out.vcf)
 
+    //Index the VCF file
+    BCFTOOLS_INDEX(BCFTOOLS_SORT.out.vcf)
+
+
     bam_bai_ch = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).view()
-    bam_bai_vcf_ch =  SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).join(BCFTOOLS_SORT.out.vcf).view()
+    bam_bai_vcf_tbi_ch =  SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).join(BCFTOOLS_SORT.out.vcf).join(BCFTOOLS_INDEX.out.csi)
 
     //plot the vcf file -- for a specified id
-    TRGT_PLOT(bam_bai_vcf_ch,
+    TRGT_PLOT(bam_bai_vcf_tbi_ch,
                 fasta,
                 fasta_fai,
                 bed,
                 repeat_id)
 
+    // TRGT_PLOT(bam_bai_vcf_ch,
+    //             fasta,
+    //             fasta_fai,
+    //             bed,
+    //             repeat_id)
 
     ch_versions = ch_versions.mix(TRGT_GENOTYPE.out.versions)
     ch_versions = ch_versions.mix(SAMTOOLS_SORT.out.versions)
