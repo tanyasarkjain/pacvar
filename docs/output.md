@@ -143,7 +143,9 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <summary>Output files</summary>
 
 - `trgt/`
-  - `<sample>.tsv`: A tsv listing bed files to merge with TAMA merge
+  - `<sample>.<barcode-pair>.bam.vcf.gz`: VCF file for the repeat region
+  - `<sample>.<barcode-pair>.bam.spanning.bam`: BAM for the repeat region
+  - `<sample>.<barcode-pair>.svg`: Waterfall plot of the repeat region
 
 </details>
 
