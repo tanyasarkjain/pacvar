@@ -42,9 +42,9 @@ When --skip_demultiplexing false (default behavior)
 
 Note:
 - If --skip_demultiplexing true
-  basename> = <sample>
+`<basename> = <sample>`
 - If --skip_demultiplexing false
-  <basename> = <sample>.<barcode-pair>
+`<basename> = <sample>.<barcode-pair>`
 ### PBMM2
 
 <details markdown="1">
