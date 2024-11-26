@@ -14,7 +14,7 @@ workflow BAM_SNP_VARIANT_CALLING {
 
     main:
     //deepvariant
-    if (params.snv_caller.split(',').contains('deepvariant')) {
+    if (params.snv_caller === 'deepvariant') {
         deepvar_input_ch = sorted_bam.join(sorted_bai)
             .map{metadata, bam, bai ->
             [metadata, bam, bai, intervals]
@@ -29,7 +29,7 @@ workflow BAM_SNP_VARIANT_CALLING {
     }
 
     //gatk4_haplotypecaller
-    if (params.snv_caller.split(',').contains('gatk4')) {
+    if (params.snv_caller === 'gatk4') {
         gatk4_input_ch = sorted_bam.join(sorted_bai)
             .map{metadata, bam, bai ->
                 [metadata, bam, bai, intervals, []]
