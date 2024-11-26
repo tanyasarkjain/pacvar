@@ -1,0 +1,8 @@
+[2024-11-26 23:31:07,088] multiqc.config                                     [INFO   ]  Loading config settings from: multiqc_config.yml
+[2024-11-26 23:31:08,770] multiqc.core.version_check                         [WARNING]  MultiQC Version v1.25.2 now available!
+[2024-11-26 23:31:08,772] multiqc.core.file_search                           [INFO   ]  Search path: /Users/tanyajain/Desktop/nextflow_fun/new_pacvar/pacvar/work/fb/96bdaf874490345359868133899600
+[2024-11-26 23:31:08,846] multiqc.modules.custom_content.custom_content      [WARNING]  HTML plot type found with more than one dataset in nf-core-pacvar-methods-description
+[2024-11-26 23:31:08,846] multiqc.modules.custom_content.custom_content      [INFO   ]  nf-core-pacvar-methods-description: Found 1 sample (html)
+[2024-11-26 23:31:08,846] multiqc.modules.custom_content.custom_content      [WARNING]  HTML plot type found with more than one dataset in nf-core-pacvar-summary
+[2024-11-26 23:31:08,846] multiqc.modules.custom_content.custom_content      [INFO   ]  nf-core-pacvar-summary: Found 1 sample (html)
+[2024-11-26 23:31:08,849] multiqc.core.write_results                         [INFO   ]  Rendering plots. Export plots to formats png, svg, pdf is requested, so it might take a while. To disable plot export, set `export_plots: false` in config, or remove the `--export-plots` command line flag
