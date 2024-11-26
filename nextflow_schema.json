@@ -200,7 +200,8 @@
                 },
                 "intervals": {
                     "type": "string",
-                    "description": "Intervals for either varinat calling or for repeat expansion characterization"
+                    "format": "file-path",
+                    "description": "Path to BED file containing intervals for either varinat calling or for repeat expansion characterization"
                 }
             }
         },
