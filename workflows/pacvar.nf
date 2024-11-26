@@ -78,14 +78,15 @@ workflow PACVAR {
                 [[id: bam.baseName], bam]
             }
 
-            PBMM2_ALIGN(lima_ch, fasta)
+            pbmm2_input_ch = lima_ch
     }
 
     // align input directly (skipping demultiplexing phase)
     else {
-        pbmm2_ch = ch_samplesheet.map { meta, bam, pbi -> [meta, bam] }
-        PBMM2_ALIGN(pbmm2_ch, fasta)
+        pbmm2_input_ch = ch_samplesheet.map { meta, bam, pbi -> [meta, bam] }
     }
+
+    PBMM2_ALIGN(pbmm2_input_ch, fasta)
 
     SAMTOOLS_SORT(PBMM2_ALIGN.out.bam, fasta)
     SAMTOOLS_INDEX(SAMTOOLS_SORT.out.bam)
