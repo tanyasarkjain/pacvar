@@ -34,7 +34,7 @@ dbsnp               = params.dbsnp ? Channel.fromPath(params.dbsnp).collect() : 
 dbsnp_tbi           = params.dbsnp_tbi ? Channel.fromPath(params.dbsnp_tbi).collect() : Channel.value([])
 
 intervals          = params.intervals ? Channel.fromPath(params.intervals).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
-id                 = params.id ? Channel.fromPath(params.id).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+repeat_id          = params.repeat_id ? Channel.fromPath(params.repeat_id).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
 
 //
 // WORKFLOW: Run main analysis pipeline depending on type of input
@@ -49,7 +49,7 @@ workflow NFCORE_PACVAR {
     dbsnp       // channel: [mandatory] dbsnp
     dbsnp_tbi   // channel: [mandatory] dbsnp_tbi
     intervals   // channel: [mandatory] intervals
-    id          // channel: [mandatory] id
+    repeat_id   // channel: [mandatory] id
 
 
     main:
@@ -64,7 +64,7 @@ workflow NFCORE_PACVAR {
         dbsnp,
         dbsnp_tbi,
         intervals,
-        id
+        repeat_id
     )
 
 
@@ -104,7 +104,7 @@ workflow {
         dbsnp,
         dbsnp_tbi,
         intervals,
-        id
+        repeat_id
     )
     //
     // SUBWORKFLOW: Run completion tasks

@@ -12,7 +12,7 @@ workflow  REPEAT_CHARACTERIZATION{
     fasta
     fasta_fai
     bed
-    id
+    repeat_id
 
     main:
     bam_bai_ch = sorted_bam.join(sorted_bai)
@@ -40,5 +40,5 @@ workflow  REPEAT_CHARACTERIZATION{
                 fasta,
                 fasta_fai,
                 bed,
-                id)
+                repeat_id)
 }

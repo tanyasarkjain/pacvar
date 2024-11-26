@@ -56,7 +56,7 @@ workflow PACVAR {
     dbsnp
     dbsnp_tbi
     intervals
-    id
+    repeat_id
 
     main:
 
@@ -135,7 +135,7 @@ workflow PACVAR {
     }
 
     if (params.workflow == 'repeat') {
-        id_ch = Channel.fromPath(params.id).map { file ->[file.baseName, file] }
+        id_ch = Channel.fromPath(params.repeat_id).map { file ->[file.baseName, file] }
 
         // characterize repeats
         REPEAT_CHARACTERIZATION(ordered_bam_ch,
@@ -143,7 +143,7 @@ workflow PACVAR {
                                     fasta,
                                     fasta_fai,
                                     intervals,
-                                    id)
+                                    repeat_id)
     }
 
     // MODULE: MultiQC

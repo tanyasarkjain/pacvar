@@ -177,7 +177,7 @@
             "description": "Options for repeat specification",
             "help_text": "These options are important for the repeat-characterization step of the workflow",
             "properties": {
-                "id": {
+                "repeat_id": {
                     "type": "string",
                     "description": "id for repeat"
                 }
