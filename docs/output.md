@@ -131,7 +131,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 <summary>Output files</summary>
 
 - `deepvariant/`
-  - `<sample>.<barcode-pair>.vcf.gz`: Zipped VCF file -`<sample>.<barcode-pair>.vcf.gz.tbi`: Associated index to zipped VCF file
+  - `<sample>.<barcode-pair>.vcf.gz`: Zipped VCF file
+  -`<sample>.<barcode-pair>.vcf.gz.tbi`: Associated index to zipped VCF file
   </details>
 
 [DEEPVARIANT](https://github.com/google/deepvariant) SNV caller

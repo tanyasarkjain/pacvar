@@ -152,7 +152,7 @@
             "description": "Options for alignment specification",
             "help_text": "These options are specific to pacvar and allow customization of alignment and phasing of the variants",
             "properties": {
-                "tools": {
+                "snv_caller": {
                     "type": "string",
                     "default": "deepvariant",
                     "description": "variant calling tool - can either be deepvariant or gatk4"
