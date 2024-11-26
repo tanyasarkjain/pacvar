@@ -31,11 +31,8 @@ workflow BAM_SNP_VARIANT_CALLING {
     //gatk4_haplotypecaller
     if (params.snv_caller.split(',').contains('gatk4')) {
         gatk4_input_ch = sorted_bam.join(sorted_bai)
-            .map{tuple ->
-            def metadata = tuple[0]
-            def bam = tuple[1]
-            def bai = tuple[2]
-            [metadata, bam, bai, intervals, []]
+            .map{metadata, bam, bai ->
+                [metadata, bam, bai, intervals, []]
         }
 
         GATK4_HAPLOTYPECALLER(gatk4_input_ch,
