@@ -46,13 +46,12 @@ workflow  REPEAT_CHARACTERIZATION{
 
     bam_bai_ch = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).view()
     bam_bai_vcf_tbi_ch =  SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).join(BCFTOOLS_SORT.out.vcf).join(BCFTOOLS_INDEX.out.csi)
-
+    bam_bai_vcf_tbi_repeat_ch = bam_bai_vcf_tbi_ch.join(repeat_id)
     //plot the vcf file -- for a specified id
-    TRGT_PLOT(bam_bai_vcf_tbi_ch,
+    TRGT_PLOT(bam_bai_vcf_tbi_repeat_ch,
                 fasta,
                 fasta_fai,
-                bed,
-                repeat_id)
+                bed)
 
     // TRGT_PLOT(bam_bai_vcf_ch,
     //             fasta,
