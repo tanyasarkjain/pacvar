@@ -104,6 +104,16 @@
                         "branch": "master",
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
                         "installed_by": ["modules"]
+                    },
+                    "trgt/genotype": {
+                        "branch": "master",
+                        "git_sha": "484afd16770cf3c466a6c385e33746c877656663",
+                        "installed_by": ["modules"]
+                    },
+                    "trgt/plot": {
+                        "branch": "master",
+                        "git_sha": "c3fe6e90faa4c02f6ce451e7418a87b883ff4ea1",
+                        "installed_by": ["modules"]
                     }
                 }
             },
