@@ -19,7 +19,7 @@
 
 ## Introduction
 
-![nf-core/pacvar metro map](docs/images/metro_update_w_tabix_orange.svg)
+![nf-core/pacvar metro map](docs/images/pacvar_white_background.png)
 
 1. Demultiplex reads ([`lima`](https://lima.how))
 2. Align reads ([`pbmm2`](https://github.com/PacificBiosciences/pbmm2))
