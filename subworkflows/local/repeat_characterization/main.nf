@@ -43,7 +43,6 @@ workflow  REPEAT_CHARACTERIZATION{
     //Index the VCF file
     BCFTOOLS_INDEX(BCFTOOLS_SORT.out.vcf)
 
-
     bam_bai_ch = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).view()
     bam_bai_vcf_tbi_ch =  SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).join(BCFTOOLS_SORT.out.vcf).join(BCFTOOLS_INDEX.out.csi)
     bam_bai_vcf_tbi_repeat_ch = bam_bai_vcf_tbi_ch.join(repeat_id)
