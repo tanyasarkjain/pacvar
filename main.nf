@@ -22,7 +22,7 @@ params.dbsnp        = getGenomeAttribute('dbsnp')
 params.dbsnp_tbi    = getGenomeAttribute('dbsnp_tbi')
 params.dict         = getGenomeAttribute('dict')
 
-include { PACVAR  } from './workflows/pacvar'
+include { PACVAR                  } from './workflows/pacvar'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
 
