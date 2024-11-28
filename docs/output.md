@@ -68,7 +68,7 @@ Note:
 
 </details>
 
-[SAMTOOLS](https://github.com/samtools/samtools) Sort and Index aligned bams.
+[SAMTOOLS](https://github.com/samtools/samtools) Sort and index aligned bams.
 
 ### GATK4
 
