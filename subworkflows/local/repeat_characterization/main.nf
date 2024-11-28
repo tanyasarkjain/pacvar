@@ -19,11 +19,6 @@ workflow  REPEAT_CHARACTERIZATION{
     ch_versions = Channel.empty()
 
     bam_bai_ch = sorted_bam.join(sorted_bai)
-    //genotype the repeat region
-    // TRGT_GENOTYPE(bam_bai_ch,
-    //                 fasta,
-    //                 fasta_fai,
-    //                 bed)
 
     TRGT_GENOTYPE(bam_bai_ch,
                     fasta,
