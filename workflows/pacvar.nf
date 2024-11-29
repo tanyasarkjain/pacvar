@@ -142,9 +142,9 @@ workflow PACVAR {
                 HIPHASE_SV(BAM_SV_VARIANT_CALLING.out.vcf_ch,
                     bam_bai_ch,
                     fasta)
-            }
 
-            ch_versions = ch_versions.mix(HIPHASE_SV.out.versions)
+                ch_versions = ch_versions.mix(HIPHASE_SV.out.versions)
+            }
         }
     }
 
