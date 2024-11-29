@@ -23,10 +23,10 @@ workflow BAM_SNP_VARIANT_CALLING {
         }
 
         DEEPVARIANT_RUNDEEPVARIANT(deepvar_input_ch,
-                                    fasta,
-                                    fasta_fai,
-                                    [[], []]
-                                    )
+            fasta,
+            fasta_fai,
+            [[], []]
+            )
         vcf_ch = DEEPVARIANT_RUNDEEPVARIANT.out.vcf.join(DEEPVARIANT_RUNDEEPVARIANT.out.vcf_tbi)
         ch_versions = ch_versions.mix(DEEPVARIANT_RUNDEEPVARIANT.out.versions)
     }
@@ -39,12 +39,12 @@ workflow BAM_SNP_VARIANT_CALLING {
         }
 
         GATK4_HAPLOTYPECALLER(gatk4_input_ch,
-                            fasta,
-                            fasta_fai,
-                            dict,
-                            dbsnp.map{it -> [[:], it]},
-                            dbsnp_tbi.map{it -> [[:], it]}
-                            )
+            fasta,
+            fasta_fai,
+            dict,
+            dbsnp.map{it -> [[:], it]},
+            dbsnp_tbi.map{it -> [[:], it]}
+            )
 
         vcf_ch = GATK4_HAPLOTYPECALLER.out.vcf.join(GATK4_HAPLOTYPECALLER.out.tbi)
         ch_versions = ch_versions.mix(GATK4_HAPLOTYPECALLER.out.versions)

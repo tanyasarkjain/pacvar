@@ -59,11 +59,13 @@ workflow PACVAR {
     repeat_id
 
     main:
+    ch_versions = Channel.empty()
 
     // demultiplex
     if (!params.skip_demultiplexing) {
         SET_BARCODES_CHANNEL(params.barcodes)
         LIMA(ch_samplesheet, SET_BARCODES_CHANNEL.out.data)
+        ch_versions = ch_versions.mix(LIMA.out.versions)
 
         lima_ch = LIMA.out.bam
             .flatMap{ metadata, sampleBams ->
@@ -87,9 +89,14 @@ workflow PACVAR {
     }
 
     PBMM2_ALIGN(pbmm2_input_ch, fasta)
+    ch_versions = ch_versions.mix(PBMM2_ALIGN.out.versions)
+
 
     SAMTOOLS_SORT(PBMM2_ALIGN.out.bam, fasta)
     SAMTOOLS_INDEX(SAMTOOLS_SORT.out.bam)
+    ch_versions = ch_versions.mix(SAMTOOLS_SORT.out.versions)
+    ch_versions = ch_versions.mix(SAMTOOLS_INDEX.out.versions)
+
 
     //join the bam and index based off the meta id (ensure correct order)
     bam_bai_ch = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai)
@@ -102,36 +109,43 @@ workflow PACVAR {
         if (!params.skip_snp) {
             //gatk or deepvariant snp calling
             BAM_SNP_VARIANT_CALLING(ordered_bam_ch,
-                                    ordered_bai_ch,
-                                    fasta,
-                                    fasta_fai,
-                                    dict,
-                                    dbsnp,
-                                    dbsnp_tbi,
-                                    params.intervals)
+                ordered_bai_ch,
+                fasta,
+                fasta_fai,
+                dict,
+                dbsnp,
+                dbsnp_tbi,
+                params.intervals)
+
+            ch_versions = ch_versions.mix(BAM_SNP_VARIANT_CALLING.out.versions)
 
             if (!params.skip_phase) {
                 //phase snp files
                 HIPHASE_SNP(BAM_SNP_VARIANT_CALLING.out.vcf_ch,
-                        bam_bai_ch,
-                        fasta)
+                    bam_bai_ch,
+                    fasta)
             }
+
+            ch_versions = ch_versions.mix(HIPHASE_SNP.out.versions)
         }
 
         if (!params.skip_sv) {
             //pbsv structural variant calling
             BAM_SV_VARIANT_CALLING(ordered_bam_ch,
-                                    ordered_bai_ch,
-                                    fasta,
-                                    fasta_fai)
+                ordered_bai_ch,
+                fasta,
+                fasta_fai)
 
+            ch_versions = ch_versions.mix(BAM_SV_VARIANT_CALLING.out.versions)
 
             //phase sv files
             if (!params.skip_phase) {
                 HIPHASE_SV(BAM_SV_VARIANT_CALLING.out.vcf_ch,
-                        bam_bai_ch,
-                        fasta)
+                    bam_bai_ch,
+                    fasta)
             }
+
+            ch_versions = ch_versions.mix(HIPHASE_SV.out.versions)
         }
     }
 
@@ -140,15 +154,16 @@ workflow PACVAR {
 
         // characterize repeats
         REPEAT_CHARACTERIZATION(ordered_bam_ch,
-                                    ordered_bai_ch,
-                                    fasta,
-                                    fasta_fai,
-                                    intervals,
-                                    repeat_id)
+            ordered_bai_ch,
+            fasta,
+            fasta_fai,
+            intervals,
+            repeat_id)
+
+        ch_versions = ch_versions.mix(REPEAT_CHARACTERIZATION.out.versions)
     }
 
     // MODULE: MultiQC
-    ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
     //

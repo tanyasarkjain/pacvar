@@ -1,9 +1,9 @@
-include { TRGT_GENOTYPE } from '../../../modules/nf-core/trgt/genotype'
-include { TRGT_PLOT } from '../../../modules/nf-core/trgt/plot'
-include { BCFTOOLS_SORT } from '../../../modules/nf-core/bcftools/sort/main'
-include { BCFTOOLS_INDEX } from '../../../modules/nf-core/bcftools/index/main'
-include { SAMTOOLS_SORT } from '../../../modules/nf-core/samtools/sort/main'
-include { SAMTOOLS_INDEX } from '../../../modules/nf-core/samtools/index/main'
+include { TRGT_GENOTYPE     } from '../../../modules/nf-core/trgt/genotype'
+include { TRGT_PLOT         } from '../../../modules/nf-core/trgt/plot'
+include { BCFTOOLS_SORT     } from '../../../modules/nf-core/bcftools/sort/main'
+include { BCFTOOLS_INDEX    } from '../../../modules/nf-core/bcftools/index/main'
+include { SAMTOOLS_SORT     } from '../../../modules/nf-core/samtools/sort/main'
+include { SAMTOOLS_INDEX    } from '../../../modules/nf-core/samtools/index/main'
 
 workflow  REPEAT_CHARACTERIZATION{
 
@@ -38,7 +38,7 @@ workflow  REPEAT_CHARACTERIZATION{
     //Index the VCF file
     BCFTOOLS_INDEX(BCFTOOLS_SORT.out.vcf)
 
-    bam_bai_ch = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).view()
+    bam_bai_ch = SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai)
     bam_bai_vcf_tbi_ch =  SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).join(BCFTOOLS_SORT.out.vcf).join(BCFTOOLS_INDEX.out.csi)
     bam_bai_vcf_tbi_repeat_ch = bam_bai_vcf_tbi_ch.join(repeat_id)
     //plot the vcf file -- for a specified id
@@ -46,12 +46,6 @@ workflow  REPEAT_CHARACTERIZATION{
                 fasta,
                 fasta_fai,
                 bed)
-
-    // TRGT_PLOT(bam_bai_vcf_ch,
-    //             fasta,
-    //             fasta_fai,
-    //             bed,
-    //             repeat_id)
 
     ch_versions = ch_versions.mix(TRGT_GENOTYPE.out.versions)
     ch_versions = ch_versions.mix(SAMTOOLS_SORT.out.versions)

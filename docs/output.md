@@ -140,8 +140,10 @@ Note:
 <summary>Output files</summary>
 
 - `deepvariant/`
-  - `<basename>.vcf.gz`: Zipped VCF file -`<basename>.vcf.gz.tbi`: Associated index to zipped VCF file
-  </details>
+  - `<basename>.vcf.gz`: Zipped VCF file
+  - `<basename>.vcf.gz.tbi`: Associated index to zipped VCF file
+
+</details>
 
 [DEEPVARIANT](https://github.com/google/deepvariant) SNV caller
 
