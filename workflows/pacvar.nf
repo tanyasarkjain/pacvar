@@ -124,9 +124,8 @@ workflow PACVAR {
                 HIPHASE_SNP(BAM_SNP_VARIANT_CALLING.out.vcf_ch,
                     bam_bai_ch,
                     fasta)
+                ch_versions = ch_versions.mix(HIPHASE_SNP.out.versions)
             }
-
-            ch_versions = ch_versions.mix(HIPHASE_SNP.out.versions)
         }
 
         if (!params.skip_sv) {
