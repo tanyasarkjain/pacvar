@@ -14,11 +14,13 @@ workflow  REPEAT_CHARACTERIZATION{
     fasta_fai
     bed
     repeat_id
+    karyotype
 
     main:
     ch_versions = Channel.empty()
 
-    bam_bai_ch = sorted_bam.join(sorted_bai)
+    karyotype_value = karyotype.map { tuple -> tuple[1] }
+    bam_bai_ch = sorted_bam.join(sorted_bai).combine(karyotype_value)
 
     TRGT_GENOTYPE(bam_bai_ch,
         fasta,

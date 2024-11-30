@@ -181,6 +181,10 @@
                 "repeat_id": {
                     "type": "string",
                     "description": "id for repeat"
+                },
+                "karyotype": {
+                    "type": "string",
+                    "description": "karyotype for repeat"
                 }
             }
         },

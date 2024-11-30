@@ -80,6 +80,7 @@ workflow {
 
     intervals           = params.intervals ? Channel.fromPath(params.intervals).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
     repeat_id           = params.repeat_id ? Channel.fromPath(params.repeat_id).map{ it -> [ [id:it.baseName], it.baseName ] }.collect() : Channel.empty()
+    karyotype           = params.repeat_id ? Channel.fromPath(params.repeat_id).map{ it -> [ [id:it.baseName], it.baseName ] }.collect() : Channel.empty()
 
     //
     // SUBWORKFLOW: Run initialisation tasks
@@ -104,7 +105,8 @@ workflow {
         dbsnp,
         dbsnp_tbi,
         intervals,
-        repeat_id
+        repeat_id,
+        karyotype
     )
     //
     // SUBWORKFLOW: Run completion tasks
