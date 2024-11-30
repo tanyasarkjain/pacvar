@@ -42,7 +42,9 @@ workflow  REPEAT_CHARACTERIZATION{
     bam_bai_vcf_tbi_ch =  SAMTOOLS_SORT.out.bam.join(SAMTOOLS_INDEX.out.bai).join(BCFTOOLS_SORT.out.vcf).join(BCFTOOLS_INDEX.out.csi)
 
     //add the repeat id to the channel
+    repeat_values.view()
     repeat_values = repeat_id.map { tuple -> tuple[1] }
+
     bam_bai_vcf_tbi_repeat_ch = bam_bai_vcf_tbi_ch.combine(repeat_values)
 
     //plot the vcf file -- for a specified id
