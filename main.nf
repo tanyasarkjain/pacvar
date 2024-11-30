@@ -40,6 +40,7 @@ workflow NFCORE_PACVAR {
     dbsnp_tbi   // channel: [mandatory] dbsnp_tbi
     intervals   // channel: [mandatory] intervals
     repeat_id   // channel: [mandatory] id
+    karyotype   // channel: [mandatory] karyotype
 
     main:
     //
@@ -53,7 +54,8 @@ workflow NFCORE_PACVAR {
         dbsnp,
         dbsnp_tbi,
         intervals,
-        repeat_id
+        repeat_id,
+        karyotype
     )
 
 
