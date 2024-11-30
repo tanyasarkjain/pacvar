@@ -22,6 +22,7 @@ workflow  REPEAT_CHARACTERIZATION{
     karyotype_value = karyotype.map { tuple -> tuple[1] }
     karyotype_value.view()
     karyotype.view()
+
     bam_bai_ch = sorted_bam.join(sorted_bai).combine(karyotype_value)
 
     TRGT_GENOTYPE(bam_bai_ch,
