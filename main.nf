@@ -33,8 +33,8 @@ dict                = params.dict ? Channel.fromPath(params.dict).map{ it -> [ [
 dbsnp               = params.dbsnp ? Channel.fromPath(params.dbsnp).collect() : Channel.value([])
 dbsnp_tbi           = params.dbsnp_tbi ? Channel.fromPath(params.dbsnp_tbi).collect() : Channel.value([])
 
-intervals          = params.intervals ? Channel.fromPath(params.intervals).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
-repeat_id          = params.repeat_id ? Channel.fromPath(params.repeat_id).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+intervals           = params.intervals ? Channel.fromPath(params.intervals).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+repeat_id           = params.repeat_id ? Channel.fromPath(params.repeat_id).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
 
 //
 // WORKFLOW: Run main analysis pipeline depending on type of input
