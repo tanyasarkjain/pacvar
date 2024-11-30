@@ -20,6 +20,8 @@ workflow  REPEAT_CHARACTERIZATION{
     ch_versions = Channel.empty()
 
     karyotype_value = karyotype.map { tuple -> tuple[1] }
+    karyotype_value.view()
+    karyotype.view()
     bam_bai_ch = sorted_bam.join(sorted_bai).combine(karyotype_value)
 
     TRGT_GENOTYPE(bam_bai_ch,
@@ -45,8 +47,6 @@ workflow  REPEAT_CHARACTERIZATION{
 
     //add the repeat id to the channel
     repeat_values = repeat_id.map { tuple -> tuple[1] }
-    repeat_id.view()
-    repeat_values.view()
 
     bam_bai_vcf_tbi_repeat_ch = bam_bai_vcf_tbi_ch.combine(repeat_values)
 
