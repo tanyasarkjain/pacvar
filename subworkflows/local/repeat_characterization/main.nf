@@ -20,8 +20,6 @@ workflow  REPEAT_CHARACTERIZATION{
     ch_versions = Channel.empty()
 
     karyotype_value = karyotype.map { tuple -> tuple[1] }
-    karyotype_value.view()
-    karyotype.view()
 
     bam_bai_ch = sorted_bam.join(sorted_bai).combine(karyotype_value)
 
