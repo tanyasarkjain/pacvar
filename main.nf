@@ -26,16 +26,6 @@ include { PACVAR                  } from './workflows/pacvar'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
 
-// Initialize genomic attibutes with associated meta data maps as channels
-fasta               = params.fasta ? Channel.fromPath(params.fasta).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
-fasta_fai           = params.fasta_fai ? Channel.fromPath(params.fasta_fai).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
-dict                = params.dict ? Channel.fromPath(params.dict).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
-dbsnp               = params.dbsnp ? Channel.fromPath(params.dbsnp).collect() : Channel.value([])
-dbsnp_tbi           = params.dbsnp_tbi ? Channel.fromPath(params.dbsnp_tbi).collect() : Channel.value([])
-
-intervals           = params.intervals ? Channel.fromPath(params.intervals).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
-repeat_id           = params.repeat_id ? Channel.fromPath(params.repeat_id).map{ it -> [ [id:it.baseName], it.baseName ] }.collect() : Channel.empty()
-
 //
 // WORKFLOW: Run main analysis pipeline depending on type of input
 //
@@ -50,7 +40,6 @@ workflow NFCORE_PACVAR {
     dbsnp_tbi   // channel: [mandatory] dbsnp_tbi
     intervals   // channel: [mandatory] intervals
     repeat_id   // channel: [mandatory] id
-
 
     main:
     //
@@ -81,6 +70,17 @@ workflow NFCORE_PACVAR {
 workflow {
 
     main:
+
+    // Initialize genomic attibutes with associated meta data maps as channels
+    fasta               = params.fasta ? Channel.fromPath(params.fasta).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+    fasta_fai           = params.fasta_fai ? Channel.fromPath(params.fasta_fai).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+    dict                = params.dict ? Channel.fromPath(params.dict).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+    dbsnp               = params.dbsnp ? Channel.fromPath(params.dbsnp).collect() : Channel.value([])
+    dbsnp_tbi           = params.dbsnp_tbi ? Channel.fromPath(params.dbsnp_tbi).collect() : Channel.value([])
+
+    intervals           = params.intervals ? Channel.fromPath(params.intervals).map{ it -> [ [id:it.baseName], it ] }.collect() : Channel.empty()
+    repeat_id           = params.repeat_id ? Channel.fromPath(params.repeat_id).map{ it -> [ [id:it.baseName], it.baseName ] }.collect() : Channel.empty()
+
     //
     // SUBWORKFLOW: Run initialisation tasks
     //
