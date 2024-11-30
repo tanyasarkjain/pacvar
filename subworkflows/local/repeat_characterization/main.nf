@@ -43,6 +43,7 @@ workflow  REPEAT_CHARACTERIZATION{
 
     //add the repeat id to the channel
     repeat_values = repeat_id.map { tuple -> tuple[1] }
+    repeat_id.view()
     repeat_values.view()
 
     bam_bai_vcf_tbi_repeat_ch = bam_bai_vcf_tbi_ch.combine(repeat_values)
