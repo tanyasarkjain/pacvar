@@ -25,6 +25,7 @@ workflow BAM_SNP_VARIANT_CALLING {
         DEEPVARIANT_RUNDEEPVARIANT(deepvar_input_ch,
             fasta,
             fasta_fai,
+            [[], []],
             [[], []]
             )
         vcf_ch = DEEPVARIANT_RUNDEEPVARIANT.out.vcf.join(DEEPVARIANT_RUNDEEPVARIANT.out.vcf_tbi)
