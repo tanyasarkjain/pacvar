@@ -10,7 +10,8 @@ process DEEPVARIANT_RUNDEEPVARIANT {
     input:
     tuple val(meta), path(input), path(index), path(intervals)
     tuple val(meta2), path(fasta)
-    tuple val(meta3), path(fai) //TODO: the gzi isn't used anywhere so deleted it (need to patch)
+    tuple val(meta3), path(fai)
+    tuple val(meta4), path(gzi)
     tuple val(meta5), path(par_bed)
 
     output:
@@ -46,7 +47,7 @@ process DEEPVARIANT_RUNDEEPVARIANT {
         ${regions} \\
         ${par_regions} \\
         --intermediate_results_dir=tmp \\
-        --num_shards=${task.cpus} 
+        --num_shards=${task.cpus}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
