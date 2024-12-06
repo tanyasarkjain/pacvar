@@ -86,7 +86,7 @@ workflow PACVAR {
 
     // align input directly (skipping demultiplexing phase)
     else {
-        pbmm2_input_ch = ch_samplesheet.map { meta, bam, pbi -> [meta, bam] }
+        pbmm2_input_ch = ch_samplesheet
     }
 
     PBMM2_ALIGN(pbmm2_input_ch, fasta)
