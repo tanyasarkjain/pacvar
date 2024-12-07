@@ -3,41 +3,31 @@
     IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-
-include { MULTIQC                                               } from '../modules/nf-core/multiqc/main'
-include { paramsSummaryMap                                      } from 'plugin/nf-schema'
-include { paramsSummaryMultiqc                                  } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { softwareVersionsToYAML                                } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText                                } from '../subworkflows/local/utils_nfcore_pacvar_pipeline'
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    IMPORT LOCAL MODULES/SUBWORKFLOWS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-include { SET_VALUE_CHANNEL as SET_BARCODES_CHANNEL             } from '../subworkflows/local/set_value_channel'
-include { SET_VALUE_CHANNEL as SET_INTERVALS_CHANNEL            } from '../subworkflows/local/set_value_channel'
-include { BAM_SNP_VARIANT_CALLING as BAM_SNP_VARIANT_CALLING    } from '../subworkflows/local/bam_snp_variant_calling'
-include { BAM_SV_VARIANT_CALLING as BAM_SV_VARIANT_CALLING      } from '../subworkflows/local/bam_sv_variant_calling'
-include { REPEAT_CHARACTERIZATION as REPEAT_CHARACTERIZATION    } from '../subworkflows/local/repeat_characterization'
-include { SET_VALUE_CHANNEL                                     } from '../subworkflows/local/set_value_channel'
-
+include { paramsSummaryMap                                   } from 'plugin/nf-schema'
+include { methodsDescriptionText                             } from '../../subworkflows/local/utils_nfcore_pacvar_pipeline'
+include { SET_VALUE_CHANNEL as SET_BARCODES_CHANNEL          } from '../../subworkflows/local/set_value_channel/'
+include { SET_VALUE_CHANNEL as SET_INTERVALS_CHANNEL         } from '../../subworkflows/local/set_value_channel/'
+include { BAM_SNP_VARIANT_CALLING as BAM_SNP_VARIANT_CALLING } from '../../subworkflows/local/bam_snp_variant_calling'
+include { BAM_SV_VARIANT_CALLING as BAM_SV_VARIANT_CALLING   } from '../../subworkflows/local/bam_sv_variant_calling'
+include { REPEAT_CHARACTERIZATION as REPEAT_CHARACTERIZATION } from '../../subworkflows/local/repeat_characterization'
+include { SET_VALUE_CHANNEL                                  } from '../../subworkflows/local/set_value_channel/'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-
-include { LIMA                                                  } from '../modules/nf-core/lima/main'
-include { DEEPVARIANT_RUNDEEPVARIANT                            } from '../modules/nf-core/deepvariant/rundeepvariant/main'
-include { SAMTOOLS_INDEX                                        } from '../modules/nf-core/samtools/index/main'
-include { SAMTOOLS_SORT                                         } from '../modules/nf-core/samtools/sort/main'
-include { GATK4_HAPLOTYPECALLER                                 } from '../modules/nf-core/gatk4/haplotypecaller/main'
-include { PBMM2_ALIGN                                           } from '../modules/nf-core/pbmm2/align/main'
-include { HIPHASE as HIPHASE_SNP                                } from '../modules/nf-core/hiphase/main'
-include { HIPHASE as HIPHASE_SV                                 } from '../modules/nf-core/hiphase/main'
+include { LIMA                       } from '../../modules/nf-core/lima/main'
+include { DEEPVARIANT_RUNDEEPVARIANT } from '../../modules/nf-core/deepvariant/rundeepvariant/main'
+include { SAMTOOLS_INDEX             } from '../../modules/nf-core/samtools/index/main'
+include { SAMTOOLS_SORT              } from '../../modules/nf-core/samtools/sort/main'
+include { GATK4_HAPLOTYPECALLER      } from '../../modules/nf-core/gatk4/haplotypecaller/main'
+include { PBMM2_ALIGN                } from '../../modules/nf-core/pbmm2/align/main'
+include { HIPHASE as HIPHASE_SNP     } from '../../modules/nf-core/hiphase/main'
+include { HIPHASE as HIPHASE_SV      } from '../../modules/nf-core/hiphase/main'
+include { MULTIQC                    } from '../../modules/nf-core/multiqc/main'
+include { paramsSummaryMultiqc       } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
+include { softwareVersionsToYAML     } from '../../subworkflows/nf-core/utils_nfcore_pipeline'
 
 
 /*

@@ -14,6 +14,9 @@
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+include { PACVAR                  } from './workflows/pacvar/'
+include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
+include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
 include { getGenomeAttribute	  } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
 
 params.fasta        = getGenomeAttribute('fasta')
@@ -21,10 +24,6 @@ params.fasta_fai    = getGenomeAttribute('fasta_fai')
 params.dbsnp        = getGenomeAttribute('dbsnp')
 params.dbsnp_tbi    = getGenomeAttribute('dbsnp_tbi')
 params.dict         = getGenomeAttribute('dict')
-
-include { PACVAR                  } from './workflows/pacvar'
-include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
-include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_pacvar_pipeline'
 
 //
 // WORKFLOW: Run main analysis pipeline depending on type of input
