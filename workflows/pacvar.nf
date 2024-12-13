@@ -20,6 +20,7 @@ include { BAM_SNP_VARIANT_CALLING as BAM_SNP_VARIANT_CALLING    } from '../subwo
 include { BAM_SV_VARIANT_CALLING as BAM_SV_VARIANT_CALLING      } from '../subworkflows/local/bam_sv_variant_calling'
 include { REPEAT_CHARACTERIZATION as REPEAT_CHARACTERIZATION    } from '../subworkflows/local/repeat_characterization'
 
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
@@ -60,8 +61,8 @@ workflow PACVAR {
 
     // demultiplex
     if (!params.skip_demultiplexing) {
-        barcodes_ch =  Channel.value(file(params.barcodes)).set { data }
-        LIMA(ch_samplesheet, barcodes_ch)
+        barcode_ch = Channel.value(file(params.barcodes))
+        LIMA(ch_samplesheet, barcode_ch)
         ch_versions = ch_versions.mix(LIMA.out.versions)
 
         lima_ch = LIMA.out.bam
