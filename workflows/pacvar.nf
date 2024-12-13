@@ -16,13 +16,9 @@ include { methodsDescriptionText                                } from '../subwo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { SET_VALUE_CHANNEL as SET_BARCODES_CHANNEL             } from '../subworkflows/local/set_value_channel'
-include { SET_VALUE_CHANNEL as SET_INTERVALS_CHANNEL            } from '../subworkflows/local/set_value_channel'
 include { BAM_SNP_VARIANT_CALLING as BAM_SNP_VARIANT_CALLING    } from '../subworkflows/local/bam_snp_variant_calling'
 include { BAM_SV_VARIANT_CALLING as BAM_SV_VARIANT_CALLING      } from '../subworkflows/local/bam_sv_variant_calling'
 include { REPEAT_CHARACTERIZATION as REPEAT_CHARACTERIZATION    } from '../subworkflows/local/repeat_characterization'
-include { SET_VALUE_CHANNEL                                     } from '../subworkflows/local/set_value_channel'
-
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -64,8 +60,8 @@ workflow PACVAR {
 
     // demultiplex
     if (!params.skip_demultiplexing) {
-        SET_BARCODES_CHANNEL(params.barcodes)
-        LIMA(ch_samplesheet, SET_BARCODES_CHANNEL.out.data)
+        barcodes_ch =  Channel.value(file(params.barcodes)).set { data }
+        LIMA(ch_samplesheet, barcodes_ch)
         ch_versions = ch_versions.mix(LIMA.out.versions)
 
         lima_ch = LIMA.out.bam
