@@ -1,3 +1,3 @@
 sample,bam,pbi
-SAMPLE_PAIRED_END,/path/to/bam/files/AEG588A1_S1_001.bam,/path/to/bi/files/AEG588A1_S1_L002_R1_001.pbi
-SAMPLE_SINGLE_END,/path/to/bam/files/AEG588A4_S4_001.bam
+sample1,/path/to/bam/file/AEG588A1_1.bam,/path/to/bai/file/AEG588A1_1.pbi
+sample2,/path/to/bam/file/AEG588A4_2.bam
