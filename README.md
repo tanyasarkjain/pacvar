@@ -54,17 +54,23 @@ sample,bam,pbi
 CONTROL,AEG588A1_S1_L002_R1_001.bam,AEG588A1_S1_L002_R1_001.pbi
 ```
 
-Each row represents an unaligned bam file and their associated index.
+Note the pbi is not required in which case the input would look like this:
 
-Now, you can run the pipeline using:
+```csv
+sample,bam,pbi
+CONTROL,AEG588A1_S1_L002_R1_001.bam,
+```
+
+Each row represents an unaligned bam file and their associated index (optional).
+
+Now, you can run the pipeline. Below is an example with some minumum required paramaters.
 
 ```bash
 nextflow run nf-core/pacvar \
    -profile <docker/singularity/.../institute> \
    --input samplesheet.csv \
    --workflow <wgs/repeat> \
-   --barcodes barcode.fasta \
-   --intervals intervals.bed \
+   --barcodes barcodes.bed \
    --outdir <OUTDIR>
 ```
 
