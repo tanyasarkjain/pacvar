@@ -72,6 +72,7 @@ nextflow run nf-core/pacvar \
    --workflow <wgs/repeat> \
    --barcodes barcodes.bed \
    --intervals intervals.bed \
+   --genome <GENOME NAME (e.g. GATK.GRCh38)> \
    --outdir <OUTDIR>
 ```
 
