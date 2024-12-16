@@ -6,11 +6,11 @@
 
 ## Introduction
 
-You will need to create a file with information about the samples in your experiment/run before executing the pipeline. Use the `--input` parameter to specify its location. It has to be a comma-separated file with 3 columns and a header row
+This pipeline has been designed to analyze multiple runs, gathering its input from a provided samplesheet.
 
 ## Samplesheet input
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this `--input` parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
 
 ```bash
 --input '[path to samplesheet file]'
@@ -20,7 +20,7 @@ You will need to create a samplesheet with information about the samples you wou
 | -------- | -------------------------------------------- |
 | `sample` | Name of the sample.                          |
 | `bam`    | Path to the unaligned bam file`.             |
-| `pbi`    | Path to the associated pbi - bam index file. |
+| `pbi`    | Path to the associated pbi - bam index file. (optional) |
 
 ### Example samplesheet
 
@@ -39,9 +39,9 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 The typical command for running the pipeline is as follows for the wgs and the repeat workflow:
 
 ```bash
-nextflow run nf-core/pacvar --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker --barcodes barcodes.fasta --intervals intervals.bed --workflow wgs
+nextflow run nf-core/pacvar --input ./samplesheet.csv --outdir ./results --genome 'GATK.GRCh38' -profile docker --barcodes barcodes.fasta --intervals intervals.bed --workflow wgs --snv_caller deepvariant 
 
-nextflow run nf-core/pacvar --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker --barcodes barcodes.fasta --intervals intervals.bed --workflow repeat --repeat_id repeat-id --snv_caller 'deepvariant'
+nextflow run nf-core/pacvar --input ./samplesheet.csv --outdir ./results --genome  'GATK.GRCh38' -profile docker --barcodes barcodes.fasta --intervals intervals.bed --workflow repeat --repeat_id repeat-id --snv_caller 'deepvariant'
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -74,9 +74,9 @@ with:
 ```yaml
 input: "./samplesheet.csv"
 outdir: "./results/"
-genome: "GRCh37"
+genome: 'GATK.GRCh38'
 barcodes: "./barcodes.fasta"
-intervals: "./barcodes.bed"
+intervals: "./intervals.bed"
 workflow: "wgs"
 snv_caller: "deepvariant"
 ```
