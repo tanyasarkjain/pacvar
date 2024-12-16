@@ -58,7 +58,7 @@ Note the pbi is not required in which case the input would look like this:
 
 ```csv
 sample,bam,pbi
-CONTROL,AEG588A1_S1_L002_R1_001.bam,
+CONTROL,AEG588A1_S1_L002_R1_001.bam
 ```
 
 Each row represents an unaligned bam file and their associated index (optional).
@@ -75,6 +75,7 @@ nextflow run nf-core/pacvar \
 ```
 
 optional paramaters include: --skip_demultiplexing, --skip_snp, --skip_sv, --skip_phase
+
 
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/usage/getting_started/configuration#custom-configuration-files).
