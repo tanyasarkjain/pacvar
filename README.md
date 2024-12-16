@@ -63,7 +63,7 @@ CONTROL,AEG588A1_S1_L002_R1_001.bam
 
 Each row represents an unaligned bam file and their associated index (optional).
 
-Now, you can run the pipeline. Below is an example with some minumum required paramaters.
+Now, you can run the pipeline. Below is an example
 
 ```bash
 nextflow run nf-core/pacvar \
@@ -71,6 +71,7 @@ nextflow run nf-core/pacvar \
    --input samplesheet.csv \
    --workflow <wgs/repeat> \
    --barcodes barcodes.bed \
+   --intervals intervals.bed \
    --outdir <OUTDIR>
 ```
 
