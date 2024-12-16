@@ -113,7 +113,7 @@ workflow PACVAR {
                 dict,
                 dbsnp,
                 dbsnp_tbi,
-                params.intervals)
+                intervals)
 
             ch_versions = ch_versions.mix(BAM_SNP_VARIANT_CALLING.out.versions)
 
