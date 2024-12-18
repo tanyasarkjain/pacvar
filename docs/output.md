@@ -51,7 +51,7 @@ Note:
 
 <details markdown="1">
 <summary>Output files</summary>
-  
+
 - `pbmm2/`
   - `<basename>.aligned.bam`: Aligned BAM
 
