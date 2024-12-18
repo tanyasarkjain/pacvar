@@ -51,8 +51,10 @@ Note:
 
 <details markdown="1">
 <summary>Output files</summary>
+  
 - `pbmm2/`
   - `<basename>.aligned.bam`: Aligned BAM
+
 </details>
 
 [PBMM2](https://github.com/PacificBiosciences/pbmm2) Aligned BAM files
@@ -102,9 +104,9 @@ Note:
 <summary>Output files</summary>
 
 - `hiphase/`
-  - '<basename>.phased.bam': Haplotagged BAM
-  - '<basename>.phased.vcf': The phased Variant File
-  - '<basename>.phased.vcf': This CSV/TSV file contains information about the the phase blocks that were output by HiPhase.
+  - `<basename>.phased.bam`: Haplotagged BAM
+  - `<basename>.phased.vcf`: The phased Variant File
+  - `<basename>.phased.vcf`: This CSV/TSV file contains information about the the phase blocks that were output by HiPhase.
 
 </details>
 
