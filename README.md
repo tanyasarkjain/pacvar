@@ -29,7 +29,7 @@ Workflow Overview
 2. Align reads ([`pbmm2`](https://github.com/PacificBiosciences/pbmm2))
 3. Sort and index alignments ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
 
-wgs workflow
+WGS Workflow Overview
 
 1. Choice of SNP calling routes:
    a. ([`deepvariant`](https://github.com/google/deepvariant))
