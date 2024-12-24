@@ -38,7 +38,7 @@ WGS Workflow Overview
 3. Index VCF files ([`bcftools`](https://samtools.github.io/bcftools/bcftools.html))
 4. Phase SNPs, SVs and BAM files ([`hiphase`](https://github.com/PacificBiosciences/HiPhase))
 
-repeat workflow
+Tandem Repeat Workflow Overview
 
 1. Genotype tandem repeats - produce spanning bams and vcf ([`TRGT`](https://github.com/PacificBiosciences/trgt))
 2. Index and Sort tandem tepeat spanning bam ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
