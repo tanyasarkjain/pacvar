@@ -33,8 +33,8 @@ When `--skip_demultiplexing` is false (default behavior)
   - `<sample><barcode-pair>.bam`: The demultiplexed bamfiles
   - `<basename>.bam.pbi`: The Pacbio index of bam files
   - `<sample>.lima.counts`: Counts of the number of reads found for each demultiplexed sample
-  - `<sample>.lima.report`: Tab-separated file about each ZMW, unfiltered
-  - `<sample>.lima.summary`: File that shows how many ZMWs have been filtered, how ZMWs many are same/different
+  - `<sample>.lima.report`: Tab-separated file about each ZMW (Zero-Mode Waveguide), unfiltered
+  - `<sample>.lima.summary`: File that shows how many ZMWs (Zero-Mode Waveguide) have been filtered, how ZMWs many are same/different
 
 </details>
 
