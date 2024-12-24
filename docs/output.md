@@ -157,7 +157,8 @@ Note:
 - `trgt/`
   - `<basename>.bam.vcf.gz`: VCF file for the repeat region
   - `<basename>.bam.spanning.bam`: BAM for the repeat region
-  - `<basename>.svg`: Waterfall plot of the repeat region
+  - `<basename>.png`: Waterfall plot of the repeat region
+![example: sample1_C9ORF72.png](docs/images/sample1_C9ORF72.png)
 
 </details>
 
