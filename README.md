@@ -23,6 +23,8 @@ nf-core/pacvar is a bioinformatics pipeline that processes long-read PacBio data
 
 ![nf-core/pacvar metro map](docs/images/pacvar_white_background.png)
 
+Workflow Overview
+
 1. Demultiplex reads ([`lima`](https://lima.how))
 2. Align reads ([`pbmm2`](https://github.com/PacificBiosciences/pbmm2))
 3. Sort and index alignments ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
