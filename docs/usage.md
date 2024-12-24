@@ -34,7 +34,7 @@ CONTROL_REP1,NA03697B2_02.bam,NA03697B2_02.bam, NA03697B2_02.bam,NA03697B2_02.pb
 
 ## Running the pipeline
 
-The typical command for running the pipeline is as follows for the wgs and the repeat workflow:
+The typical command for running the pipeline is as follows for the wgs workflow:
 
 ```bash
 nextflow run nf-core/pacvar --input ./samplesheet.csv --outdir ./results --genome 'GATK.GRCh38' -profile <docker/singularity/conda> --barcodes barcodes.fasta --intervals intervals.bed --workflow wgs --snv_caller deepvariant
