@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This pipeline has been designed to analyze multiple runs, gathering its input from a provided samplesheet.
+The nf-core/pacvar pipeline has been designed to analyze data from multiple runs, gathering its input from a provided samplesheet.
 
 ## Samplesheet input
 
