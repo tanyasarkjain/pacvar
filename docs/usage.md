@@ -42,7 +42,7 @@ nextflow run nf-core/pacvar --input ./samplesheet.csv --outdir ./results --genom
 nextflow run nf-core/pacvar --input ./samplesheet.csv --outdir ./results --genome  'GATK.GRCh38' -profile <docker/singularity/conda> --barcodes barcodes.fasta --intervals intervals.bed --workflow repeat --repeat_id repeat-id --snv_caller 'deepvariant'
 ```
 
-This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
+> See below for more information about profiles.
 
 Note that the pipeline will create the following files in your working directory:
 
