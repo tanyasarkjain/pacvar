@@ -42,7 +42,7 @@ When `--skip_demultiplexing` is false (default behavior)
 
 Note:
 
-- If --skip_demultiplexing true
+- If `--skip_demultiplexing` is true:
   `<basename> = <sample>`
 - If --skip_demultiplexing false
   `<basename> = <sample>.<barcode-pair>`
