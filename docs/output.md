@@ -22,7 +22,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [HIPHASE](#Hiphase) - Phase VCF, and BAM files
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
-When --skip_demultiplexing false (default behavior)
+When `--skip_demultiplexing` is false (default behavior)
 
 ### LIMA
 
