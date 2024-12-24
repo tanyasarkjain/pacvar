@@ -56,7 +56,7 @@ sample,bam,pbi
 CONTROL,AEG588A1_S1_L002_R1_001.bam,AEG588A1_S1_L002_R1_001.pbi
 ```
 
-Note the pbi is not required in which case the input would look like this:
+Note that the `.pbi` file is not required. If you choose not to include it, your input file might look like this:
 
 ```csv
 sample,bam,pbi
