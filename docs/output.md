@@ -158,6 +158,7 @@ Note:
   - `<basename>.bam.vcf.gz`: VCF file for the repeat region
   - `<basename>.bam.spanning.bam`: BAM for the repeat region
   - `<basename>.png`: Waterfall plot of the repeat region
+
 Example png output: sample1_C9ORF72.png
 ![example: sample1_C9ORF72.png](images/sample1_C9ORF72.png)
 
