@@ -44,7 +44,7 @@ Note:
 
 - If `--skip_demultiplexing` is true:
   `<basename> = <sample>`
-- If --skip_demultiplexing false
+- If `--skip_demultiplexing` is false:
   `<basename> = <sample>.<barcode-pair>`
 
 ### PBMM2
