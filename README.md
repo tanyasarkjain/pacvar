@@ -19,15 +19,17 @@
 
 ## Introduction
 
-nf-core/pacvar is a bioinformatics pipeline that processes long read pacbio data. Specifically the pipeline contains two workflows, one to process whole genome sequence data and other to process reads from the PureTarget expansion panel Pacbio offers - this repeat workflow characterizes tandem repeats. The workflow, is designed for pacbio reads and thus uses Pacbio's released tools.
+nf-core/pacvar is a bioinformatics pipeline that processes long-read PacBio data. Specifically, the pipeline provides two workflows: one for processing whole-genome sequencing data, and another for processing reads from the PureTarget expansion panel offered by PacBio. This second workflow characterizes tandem repeats. Because the pipeline is designed for PacBio reads, it uses PacBio’s officially released tools.
 
 ![nf-core/pacvar metro map](docs/images/pacvar_white_background.png)
+
+Workflow Overview
 
 1. Demultiplex reads ([`lima`](https://lima.how))
 2. Align reads ([`pbmm2`](https://github.com/PacificBiosciences/pbmm2))
 3. Sort and index alignments ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
 
-wgs workflow
+WGS Workflow Overview
 
 1. Choice of SNP calling routes:
    a. ([`deepvariant`](https://github.com/google/deepvariant))
@@ -36,7 +38,7 @@ wgs workflow
 3. Index VCF files ([`bcftools`](https://samtools.github.io/bcftools/bcftools.html))
 4. Phase SNPs, SVs and BAM files ([`hiphase`](https://github.com/PacificBiosciences/HiPhase))
 
-repeat workflow
+Tandem Repeat Workflow Overview
 
 1. Genotype tandem repeats - produce spanning bams and vcf ([`TRGT`](https://github.com/PacificBiosciences/trgt))
 2. Index and Sort tandem tepeat spanning bam ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
@@ -54,21 +56,29 @@ sample,bam,pbi
 CONTROL,AEG588A1_S1_L002_R1_001.bam,AEG588A1_S1_L002_R1_001.pbi
 ```
 
-Each row represents an unaligned bam file and their associated index.
+Note that the `.pbi` file is not required. If you choose not to include it, your input file might look like this:
 
-Now, you can run the pipeline using:
+```csv
+sample,bam,pbi
+CONTROL,AEG588A1_S1_L002_R1_001.bam
+```
+
+Each row represents an unaligned bam file and their associated index (optional).
+
+Now, you can run the pipeline. Below is an example
 
 ```bash
 nextflow run nf-core/pacvar \
    -profile <docker/singularity/.../institute> \
    --input samplesheet.csv \
    --workflow <wgs/repeat> \
-   --barcodes barcode.fasta \
+   --barcodes barcodes.bed \
    --intervals intervals.bed \
+   --genome <GENOME NAME (e.g. GATK.GRCh38)> \
    --outdir <OUTDIR>
 ```
 
-optional paramaters include: --skip_demultiplexing, --skip_snp, --skip_sv, --skip_phase
+optional paramaters include: `--skip_demultiplexing`, `--skip_snp`, `--skip_sv`, `--skip_phase`.
 
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/usage/getting_started/configuration#custom-configuration-files).

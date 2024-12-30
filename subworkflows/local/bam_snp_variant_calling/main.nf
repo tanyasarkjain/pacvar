@@ -15,11 +15,12 @@ workflow BAM_SNP_VARIANT_CALLING {
     main:
     ch_versions = Channel.empty()
 
+    intervals_path = intervals.map{metadata, interval -> [interval]}
     //deepvariant
     if (params.snv_caller == 'deepvariant') {
-        deepvar_input_ch = sorted_bam.join(sorted_bai)
-            .map{metadata, bam, bai ->
-            [metadata, bam, bai, intervals]
+        deepvar_input_ch = sorted_bam.join(sorted_bai).combine(intervals_path)
+            .map{metadata, bam, bai, interval ->
+            [metadata, bam, bai, interval]
         }
 
         DEEPVARIANT_RUNDEEPVARIANT(deepvar_input_ch,
@@ -34,9 +35,9 @@ workflow BAM_SNP_VARIANT_CALLING {
 
     //gatk4_haplotypecaller
     if (params.snv_caller == 'gatk4') {
-        gatk4_input_ch = sorted_bam.join(sorted_bai)
-            .map{metadata, bam, bai ->
-                [metadata, bam, bai, intervals, []]
+        gatk4_input_ch = sorted_bam.join(sorted_bai).combine(intervals_path)
+            .map{metadata, bam, bai, interval ->
+                [metadata, bam, bai, interval, []]
         }
 
         GATK4_HAPLOTYPECALLER(gatk4_input_ch,

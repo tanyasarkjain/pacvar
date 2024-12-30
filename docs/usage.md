@@ -6,45 +6,42 @@
 
 ## Introduction
 
-You will need to create a file with information about the samples in your experiment/run before executing the pipeline. Use the `--input` parameter to specify its location. It has to be a comma-separated file with 3 columns and a header row
+The nf-core/pacvar pipeline has been designed to analyze data from multiple runs, gathering its input from a provided samplesheet.
 
 ## Samplesheet input
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this `--input` parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
 
 ```bash
 --input '[path to samplesheet file]'
 ```
 
-| Column   | Description                                  |
-| -------- | -------------------------------------------- |
-| `sample` | Name of the sample.                          |
-| `bam`    | Path to the unaligned bam file`.             |
-| `pbi`    | Path to the associated pbi - bam index file. |
+| Column   | Description                                             |
+| -------- | ------------------------------------------------------- |
+| `sample` | Name of the sample.                                     |
+| `bam`    | Path to the unaligned bam file`.                        |
+| `pbi`    | Path to the associated pbi - bam index file. (optional) |
 
 ### Example samplesheet
 
-Each sample cooresponds to a different run on PacBio revio machines. Each sample will (if not skipping demultiplexing) will proceed to be demultiplexed according to the inputted --barcodes barcodes.fasta, therefore each sample in the samplesheet should have the same adapaters.
+Each sample corresponds to a different run on PacBio revio machines. Each sample will (if not skipping demultiplexing) will be demultiplexed according to the input `barcodes.fasta`, therefore each sample in the samplesheet should have the same adapters.
 
 ```csv title="samplesheet.csv"
 sample,bam,pbi
-CONTROL_REP1,NA03697B2_01.bam,NA03697B2_01.pbi
-CONTROL_REP1,NA03697B2_02.bam,NA03697B2_02.pbi
+CONTROL_REP1,NA03697B2_01.bam,NA03697B2_01.bam, NA03697B2_01.bam,NA03697B2_01.pbi
+CONTROL_REP1,NA03697B2_02.bam,NA03697B2_02.bam, NA03697B2_02.bam,NA03697B2_02.pbi
 ```
-
-An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
 ## Running the pipeline
 
-The typical command for running the pipeline is as follows for the wgs and the repeat workflow:
+The typical command for running the pipeline is as follows for the wgs workflow:
 
 ```bash
-nextflow run nf-core/pacvar --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker --barcodes barcodes.fasta --intervals intervals.bed --workflow wgs
-
-nextflow run nf-core/pacvar --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker --barcodes barcodes.fasta --intervals intervals.bed --workflow repeat --repeat_id repeat-id --snv_caller 'deepvariant'
+nextflow run nf-core/pacvar --input ./samplesheet.csv --outdir ./results --genome 'GATK.GRCh38' -profile <docker/singularity/conda> --barcodes barcodes.fasta --intervals intervals.bed --workflow wgs --snv_caller deepvariant
+nextflow run nf-core/pacvar --input ./samplesheet.csv --outdir ./results --genome  'GATK.GRCh38' -profile <docker/singularity/conda> --barcodes barcodes.fasta --intervals intervals.bed --workflow repeat --repeat_id repeat-id --snv_caller 'deepvariant'
 ```
 
-This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
+> See below for more information about profiles.
 
 Note that the pipeline will create the following files in your working directory:
 
@@ -74,9 +71,9 @@ with:
 ```yaml
 input: "./samplesheet.csv"
 outdir: "./results/"
-genome: "GRCh37"
+genome: "GATK.GRCh38"
 barcodes: "./barcodes.fasta"
-intervals: "./barcodes.bed"
+intervals: "./intervals.bed"
 workflow: "wgs"
 snv_caller: "deepvariant"
 ```

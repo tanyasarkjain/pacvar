@@ -22,7 +22,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [HIPHASE](#Hiphase) - Phase VCF, and BAM files
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
-When --skip_demultiplexing false (default behavior)
+When `--skip_demultiplexing` is false (default behavior)
 
 ### LIMA
 
@@ -33,8 +33,8 @@ When --skip_demultiplexing false (default behavior)
   - `<sample><barcode-pair>.bam`: The demultiplexed bamfiles
   - `<basename>.bam.pbi`: The Pacbio index of bam files
   - `<sample>.lima.counts`: Counts of the number of reads found for each demultiplexed sample
-  - `<sample>.lima.report`: Tab-separated file about each ZMW, unfiltered
-  - `<sample>.lima.summary`: File that shows how many ZMWs have been filtered, how ZMWs many are same/different
+  - `<sample>.lima.report`: Tab-separated file about each ZMW (Zero-Mode Waveguide), unfiltered
+  - `<sample>.lima.summary`: File that shows how many ZMWs (Zero-Mode Waveguide) have been filtered, how ZMWs many are same/different
 
 </details>
 
@@ -42,17 +42,19 @@ When --skip_demultiplexing false (default behavior)
 
 Note:
 
-- If --skip_demultiplexing true
+- If `--skip_demultiplexing` is true:
   `<basename> = <sample>`
-- If --skip_demultiplexing false
+- If `--skip_demultiplexing` is false:
   `<basename> = <sample>.<barcode-pair>`
 
 ### PBMM2
 
 <details markdown="1">
 <summary>Output files</summary>
+
 - `pbmm2/`
   - `<basename>.aligned.bam`: Aligned BAM
+
 </details>
 
 [PBMM2](https://github.com/PacificBiosciences/pbmm2) Aligned BAM files
@@ -102,9 +104,9 @@ Note:
 <summary>Output files</summary>
 
 - `hiphase/`
-  - '<basename>.phased.bam': Haplotagged BAM
-  - '<basename>.phased.vcf': The phased Variant File
-  - '<basename>.phased.vcf': This CSV/TSV file contains information about the the phase blocks that were output by HiPhase.
+  - `<basename>.phased.bam`: Haplotagged BAM
+  - `<basename>.phased.vcf`: The phased Variant File
+  - `<basename>.phased.vcf`: This CSV/TSV file contains information about the the phase blocks that were output by HiPhase.
 
 </details>
 
@@ -155,7 +157,10 @@ Note:
 - `trgt/`
   - `<basename>.bam.vcf.gz`: VCF file for the repeat region
   - `<basename>.bam.spanning.bam`: BAM for the repeat region
-  - `<basename>.svg`: Waterfall plot of the repeat region
+  - `<basename>.png`: Waterfall plot of the repeat region
+
+Example png output: sample1_C9ORF72.png
+![example: sample1_C9ORF72.png](images/sample1_C9ORF72.png)
 
 </details>
 
