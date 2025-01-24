@@ -69,7 +69,6 @@ workflow NFCORE_PACVAR {
 
 
 workflow {
-
     main:
 
     // Initialize genomic attibutes with associated meta data maps as channels
