@@ -1,9 +1,0 @@
-PBMM2_ALIGN:
-  pbmm2: 1.14.99
-SAMTOOLS_INDEX:
-  samtools: 1.21
-SAMTOOLS_SORT:
-  samtools: 1.21
-Workflow:
-    nf-core/pacvar: v0.1.0
-    Nextflow: 24.04.4
