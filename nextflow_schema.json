@@ -180,11 +180,11 @@
             "properties": {
                 "repeat_id": {
                     "type": "string",
-                    "description": "id for repeat"
+                    "description": "Id for repeat"
                 },
                 "karyotype": {
                     "type": "string",
-                    "description": "karyotype for repeat"
+                    "description": "Karyotype for repeat"
                 }
             }
         },
@@ -218,7 +218,8 @@
                 "workflow": {
                     "type": "string",
                     "default": "wgs",
-                    "description": "workflow type - can either be PureTarget or wgs"
+                    "description": "Workflow type - can either be PureTarget or wgs",
+                    "enum": ["wgs", "repeat"]
                 }
             }
         },
