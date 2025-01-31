@@ -19,7 +19,7 @@ You will need to create a samplesheet with information about the samples you wou
 | Column   | Description                                             |
 | -------- | ------------------------------------------------------- |
 | `sample` | Name of the sample.                                     |
-| `bam`    | Path to the unaligned bam file.                        |
+| `bam`    | Path to the unaligned bam file.                         |
 | `pbi`    | Path to the associated pbi - bam index file. (optional) |
 
 ### Example samplesheet
