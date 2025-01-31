@@ -82,19 +82,23 @@
                 },
                 "fasta_fai": {
                     "type": "string",
-                    "description": "Path to FASTA index"
+                    "description": "Path to FASTA index",
+                    "fa_icon": "far fa-file-code"
                 },
                 "dbsnp": {
                     "type": "string",
-                    "description": "Path to dbsnp VCF file"
+                    "description": "Path to dbsnp VCF file",
+                    "fa_icon": "far fa-file-code"
                 },
                 "dbsnp_tbi": {
                     "type": "string",
-                    "description": "Path to index file of the dbsnp VCF file"
+                    "description": "Path to index file of the dbsnp VCF file",
+                    "fa_icon": "far fa-file-code"
                 },
                 "dict": {
                     "type": "string",
-                    "description": "Path to dict for variant calling"
+                    "description": "Path to dict for variant calling",
+                    "fa_icon": "far fa-file-code"
                 }
             }
         },
@@ -156,19 +160,23 @@
                     "type": "string",
                     "enum": ["deepvariant", "gatk4"],
                     "default": "deepvariant",
-                    "description": "variant calling tool - can either be deepvariant or gatk4"
+                    "description": "variant calling tool - can either be deepvariant or gatk4",
+                    "fa_icon": "fas fa-forward"
                 },
                 "skip_snp": {
                     "type": "boolean",
-                    "description": "Option to skip SNP variant calling"
+                    "description": "Option to skip SNP variant calling",
+                    "fa_icon": "fas fa-forward"
                 },
                 "skip_sv": {
                     "type": "boolean",
-                    "description": "Option to skip SV variant calling"
+                    "description": "Option to skip SV variant calling",
+                    "fa_icon": "fas fa-forward"
                 },
                 "skip_phase": {
                     "type": "boolean",
-                    "description": "Option to skip phasing"
+                    "description": "Option to skip phasing",
+                    "fa_icon": "fas fa-forward"
                 }
             }
         },
@@ -180,13 +188,17 @@
             "properties": {
                 "repeat_id": {
                     "type": "string",
-                    "description": "Id for repeat"
+                    "description": "Id for repeat",
+                    "fa_icon": "fas fa-bars"
                 },
                 "karyotype": {
                     "type": "string",
-                    "description": "Karyotype for repeat"
+                    "description": "Karyotype for repeat",
+                    "default": "XX",
+                    "fa_icon": "fas fa-align-justify"
                 }
-            }
+            },
+            "fa_icon": "fas fa-align-justify"
         },
         "pre_processing": {
             "title": "Pre-processing options that are not workflow specific",
@@ -196,18 +208,22 @@
             "properties": {
                 "barcodes": {
                     "type": "string",
-                    "description": "Fasta file of barcodes"
+                    "description": "Fasta file of barcodes",
+                    "fa_icon": "far fa-file-code"
                 },
                 "skip_demultiplexing": {
                     "type": "boolean",
-                    "description": "Option to skip demultiplexing"
+                    "description": "Option to skip demultiplexing",
+                    "fa_icon": "fas fa-forward"
                 },
                 "intervals": {
                     "type": "string",
                     "format": "file-path",
-                    "description": "Path to BED file containing intervals for either variant calling or for repeat expansion characterization"
+                    "description": "Path to BED file containing intervals for either variant calling or for repeat expansion characterization",
+                    "fa_icon": "far fa-file-code"
                 }
-            }
+            },
+            "fa_icon": "fas fa-ellipsis-v"
         },
         "general_workflow_options": {
             "title": "General workflow options",
@@ -219,9 +235,11 @@
                     "type": "string",
                     "default": "wgs",
                     "description": "Workflow type - can either be PureTarget or wgs",
-                    "enum": ["wgs", "repeat"]
+                    "enum": ["wgs", "repeat"],
+                    "fa_icon": "fas fa-map-signs"
                 }
-            }
+            },
+            "fa_icon": "fas fa-map-signs"
         },
         "generic_options": {
             "title": "Generic options",
@@ -276,7 +294,7 @@
                 "hook_url": {
                     "type": "string",
                     "description": "Incoming hook URL for messaging service",
-                    "fa_icon": "fas fa-people-group",
+                    "fa_icon": "fas fa-align-left",
                     "help_text": "Incoming hook URL for messaging service. Currently, MS Teams and Slack are supported.",
                     "hidden": true
                 },
