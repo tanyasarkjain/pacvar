@@ -1,10 +1,10 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/pacvar/master/nextflow_schema.json",
     "title": "nf-core/pacvar pipeline parameters",
     "description": "A variant caller for PacBio long read sequencing - also can be used for PureTarget panel analysis, and quantification of repeat expansions",
     "type": "object",
-    "definitions": {
+    "$defs": {
         "input_output_options": {
             "title": "Input/output options",
             "type": "object",
@@ -71,6 +71,34 @@
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
                     "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
+                },
+                "igenomes_base": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "The base path to the igenomes reference files",
+                    "fa_icon": "fas fa-ban",
+                    "hidden": true,
+                    "default": "s3://ngi-igenomes/igenomes/"
+                },
+                "fasta_fai": {
+                    "type": "string",
+                    "description": "Path to FASTA index",
+                    "fa_icon": "far fa-file-code"
+                },
+                "dbsnp": {
+                    "type": "string",
+                    "description": "Path to dbsnp VCF file",
+                    "fa_icon": "far fa-file-code"
+                },
+                "dbsnp_tbi": {
+                    "type": "string",
+                    "description": "Path to index file of the dbsnp VCF file",
+                    "fa_icon": "far fa-file-code"
+                },
+                "dict": {
+                    "type": "string",
+                    "description": "Path to dict for variant calling",
+                    "fa_icon": "far fa-file-code"
                 }
             }
         },
@@ -122,40 +150,96 @@
                 }
             }
         },
-        "max_job_request_options": {
-            "title": "Max job request options",
+        "variant": {
+            "title": "Variant Calling options",
             "type": "object",
-            "fa_icon": "fab fa-acquisitions-incorporated",
-            "description": "Set the top limit for requested resources for any single job.",
-            "help_text": "If you are running on a smaller system, a pipeline step requesting more resources than are available may cause the Nextflow to stop the run with an error. These options allow you to cap the maximum resources requested by any single job so that the pipeline will run on your system.\n\nNote that you can not _increase_ the resources requested by any job using these options. For that you will need your own configuration file. See [the nf-core website](https://nf-co.re/usage/configuration) for details.",
+            "description": "Options for alignment specification",
+            "help_text": "These options are specific to pacvar and allow customization of alignment and phasing of the variants",
             "properties": {
-                "max_cpus": {
-                    "type": "integer",
-                    "description": "Maximum number of CPUs that can be requested for any single job.",
-                    "default": 16,
-                    "fa_icon": "fas fa-microchip",
-                    "hidden": true,
-                    "help_text": "Use to set an upper-limit for the CPU requirement for each process. Should be an integer e.g. `--max_cpus 1`"
-                },
-                "max_memory": {
+                "snv_caller": {
                     "type": "string",
-                    "description": "Maximum amount of memory that can be requested for any single job.",
-                    "default": "128.GB",
-                    "fa_icon": "fas fa-memory",
-                    "pattern": "^\\d+(\\.\\d+)?\\.?\\s*(K|M|G|T)?B$",
-                    "hidden": true,
-                    "help_text": "Use to set an upper-limit for the memory requirement for each process. Should be a string in the format integer-unit e.g. `--max_memory '8.GB'`"
+                    "enum": ["deepvariant", "gatk4"],
+                    "default": "deepvariant",
+                    "description": "variant calling tool - can either be deepvariant or gatk4",
+                    "fa_icon": "fas fa-forward"
                 },
-                "max_time": {
-                    "type": "string",
-                    "description": "Maximum amount of time that can be requested for any single job.",
-                    "default": "240.h",
-                    "fa_icon": "far fa-clock",
-                    "pattern": "^(\\d+\\.?\\s*(s|m|h|d|day)\\s*)+$",
-                    "hidden": true,
-                    "help_text": "Use to set an upper-limit for the time requirement for each process. Should be a string in the format integer-unit e.g. `--max_time '2.h'`"
+                "skip_snp": {
+                    "type": "boolean",
+                    "description": "Option to skip SNP variant calling",
+                    "fa_icon": "fas fa-forward"
+                },
+                "skip_sv": {
+                    "type": "boolean",
+                    "description": "Option to skip SV variant calling",
+                    "fa_icon": "fas fa-forward"
+                },
+                "skip_phase": {
+                    "type": "boolean",
+                    "description": "Option to skip phasing",
+                    "fa_icon": "fas fa-forward"
                 }
             }
+        },
+        "repeat": {
+            "title": "options specific to the repeat workflow",
+            "type": "object",
+            "description": "Options for repeat specification",
+            "help_text": "These options are important for the repeat-characterization step of the workflow",
+            "properties": {
+                "repeat_id": {
+                    "type": "string",
+                    "description": "Id for repeat",
+                    "fa_icon": "fas fa-bars"
+                },
+                "karyotype": {
+                    "type": "string",
+                    "description": "Karyotype for repeat",
+                    "default": "XX",
+                    "fa_icon": "fas fa-align-justify"
+                }
+            },
+            "fa_icon": "fas fa-align-justify"
+        },
+        "pre_processing": {
+            "title": "Pre-processing options that are not workflow specific",
+            "type": "object",
+            "description": "Options for pre-processing specification",
+            "help_text": "These options are important for the pre-processign step of the workflow which includes skip_demultiplexing",
+            "properties": {
+                "barcodes": {
+                    "type": "string",
+                    "description": "Fasta file of barcodes",
+                    "fa_icon": "far fa-file-code"
+                },
+                "skip_demultiplexing": {
+                    "type": "boolean",
+                    "description": "Option to skip demultiplexing",
+                    "fa_icon": "fas fa-forward"
+                },
+                "intervals": {
+                    "type": "string",
+                    "format": "file-path",
+                    "description": "Path to BED file containing intervals for either variant calling or for repeat expansion characterization",
+                    "fa_icon": "far fa-file-code"
+                }
+            },
+            "fa_icon": "fas fa-ellipsis-v"
+        },
+        "general_workflow_options": {
+            "title": "General workflow options",
+            "type": "object",
+            "description": "Options for specifying workflow type",
+            "help_text": "These options are important for the specifying which workflow runs",
+            "properties": {
+                "workflow": {
+                    "type": "string",
+                    "default": "wgs",
+                    "description": "Workflow type - can either be PureTarget or wgs",
+                    "enum": ["wgs", "repeat"],
+                    "fa_icon": "fas fa-map-signs"
+                }
+            },
+            "fa_icon": "fas fa-map-signs"
         },
         "generic_options": {
             "title": "Generic options",
@@ -164,12 +248,6 @@
             "description": "Less common options for the pipeline, typically set in a config file.",
             "help_text": "These options are common to all nf-core pipelines and allow you to customise some of the core preferences for how the pipeline runs.\n\nTypically these options would be set in a Nextflow config file loaded for all pipeline runs, such as `~/.nextflow/config`.",
             "properties": {
-                "help": {
-                    "type": "boolean",
-                    "description": "Display help text.",
-                    "fa_icon": "fas fa-question-circle",
-                    "hidden": true
-                },
                 "version": {
                     "type": "boolean",
                     "description": "Display version and exit.",
@@ -216,7 +294,7 @@
                 "hook_url": {
                     "type": "string",
                     "description": "Incoming hook URL for messaging service",
-                    "fa_icon": "fas fa-people-group",
+                    "fa_icon": "fas fa-align-left",
                     "help_text": "Incoming hook URL for messaging service. Currently, MS Teams and Slack are supported.",
                     "hidden": true
                 },
@@ -245,32 +323,17 @@
                     "fa_icon": "fas fa-check-square",
                     "hidden": true
                 },
-                "validationShowHiddenParams": {
-                    "type": "boolean",
-                    "fa_icon": "far fa-eye-slash",
-                    "description": "Show all params when using `--help`",
-                    "hidden": true,
-                    "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters."
-                },
-                "validationFailUnrecognisedParams": {
-                    "type": "boolean",
-                    "fa_icon": "far fa-check-circle",
-                    "description": "Validation of parameters fails when an unrecognised parameter is found.",
-                    "hidden": true,
-                    "help_text": "By default, when an unrecognised parameter is found, it returns a warinig."
-                },
-                "validationLenientMode": {
-                    "type": "boolean",
-                    "fa_icon": "far fa-check-circle",
-                    "description": "Validation of parameters in lenient more.",
-                    "hidden": true,
-                    "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
-                },
                 "pipelines_testdata_base_path": {
                     "type": "string",
                     "fa_icon": "far fa-check-circle",
                     "description": "Base URL or local path to location of pipeline test dataset files",
-                    "default": "https://raw.githubusercontent.com/nf-core/test-datasets/",
+                    "default": "https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/pacvar/",
+                    "hidden": true
+                },
+                "trace_report_suffix": {
+                    "type": "string",
+                    "fa_icon": "far calendar",
+                    "description": "Suffix to add to the trace report filename. Default is the date and time in the format yyyy-MM-dd_HH-mm-ss.",
                     "hidden": true
                 }
             }
@@ -278,19 +341,28 @@
     },
     "allOf": [
         {
-            "$ref": "#/definitions/input_output_options"
+            "$ref": "#/$defs/input_output_options"
         },
         {
-            "$ref": "#/definitions/reference_genome_options"
+            "$ref": "#/$defs/reference_genome_options"
         },
         {
-            "$ref": "#/definitions/institutional_config_options"
+            "$ref": "#/$defs/institutional_config_options"
         },
         {
-            "$ref": "#/definitions/max_job_request_options"
+            "$ref": "#/$defs/generic_options"
         },
         {
-            "$ref": "#/definitions/generic_options"
+            "$ref": "#/$defs/general_workflow_options"
+        },
+        {
+            "$ref": "#/$defs/variant"
+        },
+        {
+            "$ref": "#/$defs/pre_processing"
+        },
+        {
+            "$ref": "#/$defs/repeat"
         }
     ]
 }
